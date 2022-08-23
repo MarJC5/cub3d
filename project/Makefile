@@ -10,13 +10,15 @@ RESET	= \033[0m
 ##################################################
 SRCS_DIR	= ./src/
 SRCS_FILES	=  main.c
-SRCS_FILES	+=
+SRCS_FILES	+= 	pars_utils.c \
+				read_map.c \
+				error_utils.c
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 
 O_DIR		= ./objs/
 D_DIR		= ./debugs/
-HEADS		= -I./includes/ -I./libft -I./minilibx
+HEADS		= -I./includes/ -I./libft -I./mlx
 
 OBJS_FILES	:= ${SRCS_FILES:.c=.o}
 OBJS		:= ${patsubst %, ${O_DIR}%, ${OBJS_FILES}}
@@ -37,7 +39,7 @@ DEBUGS		+= ${LIBX}/libmlx.a
 
 LIBS		= -framework OpenGL -framework AppKit
 
-NAME		= cube3D
+NAME		= cub3D
 ifeq (${OS},Windows_NT)
 	NAME	:= ${NAME:=.exe}
 endif
@@ -50,7 +52,7 @@ RM			= rm -f
 
 CFLAGS		= -Wall -Wextra -Werror
 # Add this for debug
-# CFLAGS		+= -g3
+CFLAGS		+= -g3
 
 all:	${NAME}
 
@@ -77,10 +79,8 @@ ${LIBX}/libmlx.a:
 	${MAKELIBX} all
 
 #Compile and use valgrind
-valgrind: ${D_DIR} ${DEBUGS}
-	${RM} ${NAME}
-	${CC} ${CFLAGS} -o ${NAME} ${DEBUGS} ${LIBS} -ggdb
-	${VALGRIND} ./${NAME}
+valgrind:
+	valgrind --leak-check=full ./$(NAME) ./maps/demo.cub
 
 #Compile a debug executable with -g and fsanitize
 debug: ${D_DIR} ${DEBUGS}
@@ -108,10 +108,14 @@ fclean:	clean
 	@${RM} ${NAME}
 	@${RM} -r ${NAME}.dSYM
 	@${MAKELIB} fclean
+	@${RM} -r ${NAME}.dSYM
 	@echo "[$(ORANGE)libft$(RESET)] fclean : $(GREEN)OK$(RESET)"
 	@echo "[$(ORANGE)$(NAME)$(RESET)] fclean: $(GREEN)OK$(RESET)"
 	@echo "[\033[1;32msuccess$(RESET)]: $(NAME) has been clean up"
 
+leaks:
+	leaks -atExit -- ./$(NAME)
+
 re:			fclean all
 
-.PHONY:		all clean fclean re debug valgrind
+.PHONY:		all clean fclean re debug valgrind leaks

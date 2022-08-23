@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,14 +12,8 @@
 
 #include "../inc/cub3d.h"
 
-int	main(int argc, char **argv)
+int printerr(char *err)
 {
-	t_game *game;
-
-	game = malloc(sizeof(t_game));
-	if (argc == 2)
-		init_map(game, argv[argc - 1]);
-	else if (argc == 1 || argc > 2)
-		printerr("Error\nWrong argument, please give a *.cub file");
-	return (0);
+	ft_putendl_fd(err, 2);
+	return (EXIT_FAILURE);
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   program_name.h                                     :+:      :+:    :+:   */
+/*   cub3d.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,11 +10,46 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBE3D_H
-# define CUBE3D_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include "libft.h"
 # include "ft_printf.h"
 # include "get_next_line.h"
+
+/**
+ * Struct
+ */
+
+typedef struct map
+{
+	int     fd;
+	int     x;
+	int     y;
+	char    *scene;
+	char    **colors;
+	char    **assets;
+} t_map;
+
+typedef struct game
+{
+	t_map		*map;
+} t_game;
+
+/**
+ * Utils
+ */
+int     printerr(char *err);
+
+/**
+ * Parsing
+ */
+
+int	    ft_strcmp(char *s1, char *s2);
+int     check_map_name(t_game *game, char *file);
+void    init_map(t_game *game, char *file);
+void    save_map_textures(t_game *game);
+void    print_map_details(t_game *game);
+char    *replace_char(char *str, char find, char replace);
 
 #endif
