@@ -17,6 +17,8 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 
+# include <stdlib.h>
+
 /**
  * Struct
  */
@@ -26,9 +28,10 @@ typedef struct map
 	int     fd;
 	int     x;
 	int     y;
-	char    *scene;
+	char    *map;
 	char    **colors;
 	char    **assets;
+    char    **scene;
 } t_map;
 
 typedef struct game
@@ -40,15 +43,16 @@ typedef struct game
  * Utils
  */
 int     printerr(char *err);
+int     ft_isspace(char c);
+int	    ft_strcmp(char *s1, char *s2);
 
 /**
  * Parsing
  */
 
-int	    ft_strcmp(char *s1, char *s2);
 int     check_map_name(t_game *game, char *file);
 void    init_map(t_game *game, char *file);
-void    save_map_textures(t_game *game);
+void    setup_scene_arr(t_game *game);
 void    print_map_details(t_game *game);
 char    *replace_char(char *str, char find, char replace);
 

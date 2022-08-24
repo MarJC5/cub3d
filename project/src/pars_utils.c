@@ -12,20 +12,6 @@
 
 #include "../inc/cub3d.h"
 
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	if (*s1 && *s2)
-	{
-		while (s1[i] && (s1[i] == s2[i]))
-			i++;
-		return (s1[i] - s2[i]);
-	}
-	return (-1);
-}
-
 int check_map_name(t_game *game, char *file)
 {
 	if (ft_strcmp(ft_strrchr(file, '.'), ".cub") != 0)
@@ -54,18 +40,37 @@ char    *replace_char(char *str, char find, char replace)
 	return (str);
 }
 
+void setup_scene_arr(t_game *game)
+{
+    int i;
+
+    i = 0;
+    game->map->scene = malloc((game->map->y * sizeof(char *)));
+    game->map->scene[game->map->y] = NULL;
+    while (i < game->map->y)
+    {
+        game->map->scene[i] = malloc((game->map->x * sizeof(char)));
+        game->map->scene[i][game->map->x] = '\0';
+        ft_memset(game->map->scene[i] , '1', game->map->x);
+        i++;
+    }
+}
+
 void    print_map_details(t_game *game)
 {
 	int i;
 
 	i = 0;
-	ft_printf("\033[0;33mASSETS\033[0m:\n");
+	ft_printf("\n\033[1;33mASSETS\033[0m:\n");
 	while (i < 4)
 		ft_printf("%s", game->map->assets[i++]);
 	i = 0;
-	ft_printf("\033[0;31mCOLORS\033[0m:\n");
+	ft_printf("\n\033[1;31mCOLORS\033[0m:\n");
 	while (i < 2)
 		ft_printf("%s", game->map->colors[i++]);
-	ft_printf("\033[0;36mMAP\033[0m:\n%s\n\nSIZE:\nx -> %d \ny -> %d\n",
-			  game->map->scene, game->map->x, game->map->y);
+    ft_printf("\n\033[1mSIZE\033[0m:\nx -> %d \ny -> %d\n", game->map->x, game->map->y);
+    i = 0;
+    ft_printf("\n\033[1;34mMAPS\033[0m:\n");
+    while (i < game->map->y)
+        ft_printf("%s\n", game->map->scene[i++]);
 }

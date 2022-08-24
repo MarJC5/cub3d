@@ -12,23 +12,23 @@
 
 #include "../inc/cub3d.h"
 
-void    save_map_scene(t_game *game)
+void    save_map(t_game *game)
 {
 	char    *save;
 	char    *line;
 	int     y;
 
 	line = get_next_line(game->map->fd);
-	save = ft_strjoin("", line);
+	save = ft_strdup("");
 	game->map->x = ft_strlen(line);
 	y = 0;
 	while (line != NULL)
 	{
 		if (game->map->x < (int)ft_strlen(line))
 			game->map->x = (int)ft_strlen(line);
-		game->map->scene = ft_strjoin(save, line);
+		game->map->map = ft_strjoin(save, line);
 		free(save);
-		save = ft_strdup(game->map->scene);
+		save = ft_strdup(game->map->map);
 		free(line);
 		line = get_next_line(game->map->fd);
 		y++;
@@ -62,12 +62,36 @@ void    save_map_textures(t_game *game)
 	}
 }
 
+void save_map_scene(t_game *game, int i, int j, int k)
+{
+    setup_scene_arr(game);
+    while (j < game->map->y)
+    {
+        k = 0;
+        while (k < game->map->x)
+        {
+            if (game->map->map[i + 1] == '\n' || game->map->map[i + 1] == '\0')
+            {
+                i++;
+                k++;
+                break;
+            }
+            if (!ft_isspace(game->map->map[i]) && game->map->map[i] != '\n')
+                game->map->scene[j][k] = game->map->map[i];
+            k++;
+            i++;
+        }
+        j++;
+    }
+}
+
 void    init_map(t_game *game, char *file)
 {
 	if (check_map_name(game, file) == 0)
 	{
-		save_map_textures(game);
-		save_map_scene(game);
+        save_map_textures(game);
+        save_map(game);
+        save_map_scene(game, 0, 0, 0);
 		print_map_details(game);
 	}
 }

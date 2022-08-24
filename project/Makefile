@@ -12,7 +12,8 @@ SRCS_DIR	= ./src/
 SRCS_FILES	=  main.c
 SRCS_FILES	+= 	pars_utils.c \
 				read_map.c \
-				error_utils.c
+				error_utils.c \
+				minilibft.c
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 
@@ -119,7 +120,7 @@ fclean:	clean
 	@echo "[\033[1;32msuccess$(RESET)]: $(NAME) has been clean up"
 
 leaks:
-	leaks -atExit -- ./$(NAME)
+	leaks -atExit -- ./$(NAME) ./maps/demo.cub
 
 re:			fclean all
 
