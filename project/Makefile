@@ -14,6 +14,7 @@ SRCS_FILES	+= 	pars_utils.c \
 				pars_check.c \
 				read_map.c \
 				error_utils.c \
+				free_stuff.c \
 				minilibft.c
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}

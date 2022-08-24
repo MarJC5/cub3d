@@ -70,9 +70,10 @@ int	    ft_strcmp(char *s1, char *s2);
 int     check_map_textures(char **identifier);
 int     check_map_char(char *map);
 int     check_map_name(t_game *game, char *file);
+char    *replace_char(char *str, char find, char replace);
 void    init_map(t_game *game, char *file);
 void    setup_scene_arr(t_game *game);
 void    print_map_details(t_game *game);
-char    *replace_char(char *str, char find, char replace);
+void    free_map(t_game *game);
 
 #endif

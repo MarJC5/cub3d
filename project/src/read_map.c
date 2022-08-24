@@ -94,8 +94,12 @@ void    init_map(t_game *game, char *file)
             if (save_map(game, NULL, NULL, 0) == SUCCESS)
             {
                 save_map_scene(game, 0, 0, 0);
+				/*
+				 * CALL MLX WINDOW WITH A FUNC HERE
+				 */
                 print_map_details(game);
             }
         }
 	}
+	free_map(game);
 }
