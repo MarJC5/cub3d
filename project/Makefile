@@ -11,6 +11,7 @@ RESET	= \033[0m
 SRCS_DIR	= ./src/
 SRCS_FILES	=  main.c
 SRCS_FILES	+= 	pars_utils.c \
+				pars_check.c \
 				read_map.c \
 				error_utils.c \
 				minilibft.c

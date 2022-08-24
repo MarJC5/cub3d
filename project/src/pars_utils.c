@@ -12,20 +12,6 @@
 
 #include "../inc/cub3d.h"
 
-int check_map_name(t_game *game, char *file)
-{
-	if (ft_strcmp(ft_strrchr(file, '.'), ".cub") != 0)
-	{
-		printerr("Wrong map name, please give a *.cub file");
-		return (EXIT_FAILURE);
-	}
-	game->map = malloc(sizeof(t_map));
-	game->map->fd = open(file, O_RDONLY);
-	game->map->colors = malloc( (2 * sizeof(char *)) + 1);
-	game->map->assets = malloc( (4 * sizeof(char *)) + 1);
-	return (EXIT_SUCCESS);
-}
-
 char    *replace_char(char *str, char find, char replace)
 {
 	int i;

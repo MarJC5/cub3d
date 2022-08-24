@@ -12,16 +12,11 @@
 
 #include "../inc/cub3d.h"
 
-void    save_map(t_game *game)
+int    save_map(t_game *game, char *save, char *line, int y)
 {
-	char    *save;
-	char    *line;
-	int     y;
-
 	line = get_next_line(game->map->fd);
 	save = ft_strdup("");
 	game->map->x = ft_strlen(line);
-	y = 0;
 	while (line != NULL)
 	{
 		if (game->map->x < (int)ft_strlen(line))
@@ -35,31 +30,36 @@ void    save_map(t_game *game)
 	}
 	game->map->y = y;
 	free(save);
+    return (printinvalid(check_map_char(game->map->map)));
 }
 
-void    save_map_textures(t_game *game)
+int    save_map_textures(t_game *game, int i, int j, char *line)
 {
-	char    *line;
-	int     i;
-	int     j;
+    size_t len;
+    int k;
 
-	i = 0;
-	j = 0;
+    k = 0;
 	line = get_next_line(game->map->fd);
-	while (i < 7)
+	while (++i < 7)
 	{
 		if (ft_strcmp(line, "\n") != 0 && i < 4)
 		{
+            len = ft_strlen(line) - ft_strlen(ft_strchr(line, ' '));
+            game->map->identifier[k++] = ft_substr(line, 0, len);
 			game->map->assets[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
 			if (i == 3)
 				j = 0;
 		}
 		if (ft_strcmp(line, "\n") != 0 && i > 4)
-			game->map->colors[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
+        {
+            len = ft_strlen(line) - ft_strlen(ft_strchr(line, ' '));
+            game->map->identifier[k++] = ft_substr(line, 0, len);
+            game->map->colors[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
+        }
 		free(line);
 		line = get_next_line(game->map->fd);
-		i++;
 	}
+    return (printinvalid(check_map_textures(game->map->identifier)));
 }
 
 void save_map_scene(t_game *game, int i, int j, int k)
@@ -87,11 +87,15 @@ void save_map_scene(t_game *game, int i, int j, int k)
 
 void    init_map(t_game *game, char *file)
 {
-	if (check_map_name(game, file) == 0)
+	if (check_map_name(game, file) == SUCCESS)
 	{
-        save_map_textures(game);
-        save_map(game);
-        save_map_scene(game, 0, 0, 0);
-		print_map_details(game);
+        if (save_map_textures(game, -1, 0, NULL) == SUCCESS)
+        {
+            if (save_map(game, NULL, NULL, 0) == SUCCESS)
+            {
+                save_map_scene(game, 0, 0, 0);
+                print_map_details(game);
+            }
+        }
 	}
 }
