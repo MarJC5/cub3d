@@ -50,12 +50,12 @@ void    save_map_textures(t_game *game)
 	{
 		if (ft_strcmp(line, "\n") != 0 && i < 4)
 		{
-			game->map->assets[j++] = ft_strdup(ft_strchr(line, ' '));
+			game->map->assets[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
 			if (i == 3)
 				j = 0;
 		}
 		if (ft_strcmp(line, "\n") != 0 && i > 4)
-			game->map->colors[j++] = ft_strdup(ft_strchr(line, ' '));
+			game->map->colors[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
 		free(line);
 		line = get_next_line(game->map->fd);
 		i++;

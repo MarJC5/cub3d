@@ -32,7 +32,12 @@ MAKELIB		= ${MAKE} -C ${LIBFT}
 OBJS		+= ${LIBFT}/libft.a
 DEBUGS		+= ${LIBFT}/libft.a
 
+UNAME_S 	:= $(shell uname -s)
+ifeq (${UNAME_S},Linux)
+LIBX		= ./mlx-linux
+else
 LIBX		= ./mlx
+endif
 MAKELIBX	= ${MAKE} -C ${LIBX}
 OBJS		+= ${LIBX}/libmlx.a
 DEBUGS		+= ${LIBX}/libmlx.a
