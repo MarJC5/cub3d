@@ -41,13 +41,13 @@ typedef struct map
 	int     fd;
 	int     x;
 	int     y;
-    int     is_valid;
-    char    spawn;
+	int     is_valid;
+	char    spawn;
 	char    *map;
-    char    **identifier;
+	char    **identifier;
 	char    **colors;
 	char    **assets;
-    char    **scene;
+	char    **scene;
 } t_map;
 
 typedef struct game
@@ -74,6 +74,7 @@ char    *replace_char(char *str, char find, char replace);
 void    init_map(t_game *game, char *file);
 void    setup_scene_arr(t_game *game);
 void    print_map_details(t_game *game);
+void    free_preset(t_game *game);
 void    free_map(t_game *game);
 
 #endif
