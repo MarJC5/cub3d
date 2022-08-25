@@ -18,13 +18,15 @@ void	free_stuff(char *tofree)
 		free(tofree);
 }
 
-void	free_map(t_game *game)
+void	ft_free_multitab(char **tab)
 {
-	while (game->map->y)
-		free_stuff(game->map->scene[game->map->y--]);
-	if (game->map->scene)
-		free(game->map->scene);
-	free_stuff(game->map->map);
-	close(game->map->fd);
-	free(game->map);
+	int	i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	while (i >= 0)
+		free_stuff(tab[i--]);
+	free(tab);
+	tab = NULL;
 }

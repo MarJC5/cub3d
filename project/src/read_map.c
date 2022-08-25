@@ -19,6 +19,7 @@ int	save_map(t_game *game, char *save, char *line, int y)
 	game->map->x = ft_strlen(line);
 	while (line != NULL)
 	{
+		free_stuff(game->map->map);
 		if (game->map->x < (int)ft_strlen(line))
 			game->map->x = (int)ft_strlen(line);
 		game->map->map = ft_strjoin(save, line);
@@ -28,6 +29,8 @@ int	save_map(t_game *game, char *save, char *line, int y)
 		line = get_next_line(game->map->fd);
 		y++;
 	}
+	free(save);
+	free(line);
 	game->map->y = y;
 	return (printinvalid(check_map_char(game->map->map)));
 }

@@ -74,7 +74,8 @@ char    *replace_char(char *str, char find, char replace);
 void    init_map(t_game *game, char *file);
 void    setup_scene_arr(t_game *game);
 void    print_map_details(t_game *game);
-void    free_preset(t_game *game);
-void    free_map(t_game *game);
+
+void	ft_free_multitab(char **tab);
+void	free_stuff(char *tofree);
 
 #endif

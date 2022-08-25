@@ -20,7 +20,6 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		init_map(game, argv[argc - 1]);
-		free_map(game);
 	}
 	else if (argc == 1 || argc > 2)
 		printerr("Error\nWrong argument, please give a *.cub file");
