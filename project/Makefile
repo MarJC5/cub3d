@@ -14,36 +14,38 @@ SRCS_FILES	+= 	pars_utils.c \
 				pars_check.c \
 				read_map.c \
 				error_utils.c \
-				free_stuff.c \
+				free.c \
+				init.c \
+				key_actions.c \
 				minilibft.c
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 
+UNAME_S 	:= $(shell uname)
+
+LIBFT		= ./libft
+MAKELIB		= ${MAKE} -C ${LIBFT}
+
+ifeq (${UNAME_S},Darwin)
+LIBX		= ./mlx/
+else
+LIBX		= ./mlx-linux/
+endif
+MAKELIBX	= ${MAKE} -C ${LIBX}
+
 O_DIR		= ./objs/
 D_DIR		= ./debugs/
-HEADS		= -I./includes/ -I./libft -I./mlx
 
 OBJS_FILES	:= ${SRCS_FILES:.c=.o}
 OBJS		:= ${patsubst %, ${O_DIR}%, ${OBJS_FILES}}
 DEBUGS		:= ${patsubst %, ${D_DIR}%, ${OBJS_FILES}}
 
-VALGRIND	= valgrind  --main-stacksize=167104768 --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=memcheckignore --gen-suppressions=yes
-VALGRIND	= valgrind  --suppressions=memcheckignore --gen-suppressions=yes
-
-LIBFT		= ./libft
-MAKELIB		= ${MAKE} -C ${LIBFT}
 OBJS		+= ${LIBFT}/libft.a
 DEBUGS		+= ${LIBFT}/libft.a
-
-UNAME_S 	:= $(shell uname -s)
-ifeq (${UNAME_S},Linux)
-LIBX		= ./mlx-linux
-else
-LIBX		= ./mlx
-endif
-MAKELIBX	= ${MAKE} -C ${LIBX}
 OBJS		+= ${LIBX}/libmlx.a
 DEBUGS		+= ${LIBX}/libmlx.a
+
+HEADS		= -I./inc/ -I${LIBFT} -I${LIBX}
 
 LIBS		= -framework OpenGL -framework AppKit
 
@@ -60,13 +62,13 @@ RM			= rm -f
 
 CFLAGS		= -Wall -Wextra -Werror
 # Add this for debug
-CFLAGS		+= -g3
+# CFLAGS		+= -g3
 
 all:	${NAME}
 
 #Compile normal executable
 ${NAME}: ${O_DIR} ${OBJS}
-	@${CC} ${CFLAGS} -o ${NAME} ${OBJS}
+	@${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${LIBS}
 	@echo "[$(ORANGE)$(NAME)$(RESET)] Creation *.o files & compilation : $(GREEN)OK$(RESET)"
 	@echo "[\033[1;32msuccess$(RESET)]: $(NAME) is ready"
 

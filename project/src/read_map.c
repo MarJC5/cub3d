@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 13:47:36 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/25 14:28:57 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	init_map(t_game *game, char *file)
 			{
 				save_map_scene(game, 0, 0, 0);
 				print_map_details(game);
-				free_map(game);
+				init_screen(game);
 			}
 		}
 	}
