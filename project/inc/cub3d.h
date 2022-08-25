@@ -19,8 +19,6 @@
 # define WRONG_MAP "Map is not enclosed by 1."
 # define WRONG_NAME "Wrong map name, please give a *.cub file"
 
-# define EMPTY_ZONE '.'
-
 # define SUCCESS 0
 # define FAILURE 1
 
@@ -32,6 +30,13 @@
 # define WIN_NAME "cub3D"
 # define WIN_WIDTH 1080
 # define WIN_HEIGHT 720
+
+# define WALL '1'
+# define FLOOR '0'
+# define EMPTY_ZONE '.'
+
+# define TILE_SIZE 8
+# define MAPOS 20
 
 # include "key_macos.h"
 # include "libft.h"
@@ -46,7 +51,16 @@
  * Struct
  */
 
-typedef struct player
+typedef struct s_rect
+{
+	int	x;
+	int	y;
+	int width;
+	int height;
+	int color;
+}	t_rect;
+
+typedef struct s_player
 {
 	int		is_ready;
 	double	pos_x;
@@ -57,18 +71,19 @@ typedef struct player
 }	t_player;
 
 
-typedef struct screen
+typedef struct s_screen
 {
 	void	*mlx;
 	void	*win;
 }	t_screen;
 
 
-typedef struct map
+typedef struct s_map
 {
 	int		fd;
 	int		x;
 	int		y;
+	int     **map2D;
 	char	*map;
 	char	**identifier;
 	char	**colors;
@@ -76,7 +91,7 @@ typedef struct map
 	char	**scene;
 }	t_map;
 
-typedef struct game
+typedef struct s_game
 {
 	double		time;
 	double		old_time;
@@ -121,6 +136,7 @@ void	free_stuff(char *tofree);
 /**
  * Screen
  */
+void    init_minimap(t_game *game);
 void	init_screen(t_game *game);
 void	check_player_pos(t_game *game);
 

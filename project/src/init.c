@@ -23,6 +23,7 @@ void	init_screen(t_game *game)
 			WIN_WIDTH,
 			WIN_HEIGHT,
 			WIN_NAME);
+	init_minimap(game);
 	mlx_hook(game->screen->win, 2, 1L << 0, key_event, game);
 	mlx_hook(game->screen->win, 17, 0L << 0, esc_win, game);
 	mlx_loop(game->screen->mlx);

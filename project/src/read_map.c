@@ -15,7 +15,7 @@
 int	save_map(t_game *game, char *save, char *line, int y)
 {
 	save = ft_strdup("");
-	game->map->x = ft_strlen(line);
+	game->map->x = (int)ft_strlen(line);
 	while (line != NULL)
 	{
 		if (game->map->map != NULL)

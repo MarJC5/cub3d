@@ -16,6 +16,7 @@ SRCS_FILES	+= 	pars_utils.c \
 				error_utils.c \
 				free.c \
 				init.c \
+				minimap.c \
 				key_actions.c \
 				minilibft.c
 
@@ -47,7 +48,11 @@ DEBUGS		+= ${LIBX}/libmlx.a
 
 HEADS		= -I./inc/ -I${LIBFT} -I${LIBX}
 
-LIBS		= -framework OpenGL -framework AppKit
+ifeq ($(UNAME), Darwin)
+	LIBS		= -framework OpenGL -framework AppKit
+else
+	LIBS		= -lm -lbsd -lX11 -lXext
+endif
 
 NAME		= cub3D
 ifeq (${OS},Windows_NT)
