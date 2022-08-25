@@ -1,32 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 15:21:44 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/25 15:22:32 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	main(int argc, char **argv)
+void	free_stuff(char *tofree)
 {
-	t_game	*game;
-
-	game = malloc(sizeof(t_game));
-	if (!game)
-		return (EXIT_FAILURE);
-	if (argc == 2)
+	if (tofree)
 	{
-		init_map_var(game);
-		init_map(game, argv[argc - 1]);
+		free(tofree);
+		tofree = NULL;
 	}
-	else if (argc == 1 || argc > 2)
-		printinvalid(ERR_NAME);
-	free_map(game);
-	free(game);
-	return (EXIT_SUCCESS);
+}
+
+void	ft_free_multitab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	if (tab != NULL)
+	{
+		while (tab[i])
+			i++;
+		while (i >= 0)
+			free(tab[i--]);
+		free(tab);
+		tab = NULL;
+	}
+}
+
+void	free_map(t_game *game)
+{
+	ft_free_multitab(game->map->assets);
+	ft_free_multitab(game->map->colors);
+	ft_free_multitab(game->map->identifier);
+	ft_free_multitab(game->map->scene);
+	free(game->map->map);
+	free(game->map);
 }

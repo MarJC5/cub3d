@@ -10,34 +10,46 @@ RESET	= \033[0m
 ##################################################
 SRCS_DIR	= ./src/
 SRCS_FILES	=  main.c
-SRCS_FILES	+=
+SRCS_FILES	+= 	pars_utils.c \
+				pars_check.c \
+				read_map.c \
+				error_utils.c \
+				free.c \
+				init.c \
+				key_actions.c \
+				minilibft.c
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 
+UNAME_S 	:= $(shell uname)
+
+LIBFT		= ./libft
+MAKELIB		= ${MAKE} -C ${LIBFT}
+
+ifeq (${UNAME_S},Darwin)
+LIBX		= ./mlx/
+else
+LIBX		= ./mlx-linux/
+endif
+MAKELIBX	= ${MAKE} -C ${LIBX}
+
 O_DIR		= ./objs/
 D_DIR		= ./debugs/
-HEADS		= -I./includes/ -I./libft -I./minilibx
 
 OBJS_FILES	:= ${SRCS_FILES:.c=.o}
 OBJS		:= ${patsubst %, ${O_DIR}%, ${OBJS_FILES}}
 DEBUGS		:= ${patsubst %, ${D_DIR}%, ${OBJS_FILES}}
 
-VALGRIND	= valgrind  --main-stacksize=167104768 --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=memcheckignore --gen-suppressions=yes
-VALGRIND	= valgrind  --suppressions=memcheckignore --gen-suppressions=yes
-
-LIBFT		= ./libft
-MAKELIB		= ${MAKE} -C ${LIBFT}
 OBJS		+= ${LIBFT}/libft.a
 DEBUGS		+= ${LIBFT}/libft.a
-
-LIBX		= ./mlx
-MAKELIBX	= ${MAKE} -C ${LIBX}
 OBJS		+= ${LIBX}/libmlx.a
 DEBUGS		+= ${LIBX}/libmlx.a
 
+HEADS		= -I./inc/ -I${LIBFT} -I${LIBX}
+
 LIBS		= -framework OpenGL -framework AppKit
 
-NAME		= cube3D
+NAME		= cub3D
 ifeq (${OS},Windows_NT)
 	NAME	:= ${NAME:=.exe}
 endif
@@ -56,7 +68,7 @@ all:	${NAME}
 
 #Compile normal executable
 ${NAME}: ${O_DIR} ${OBJS}
-	@${CC} ${CFLAGS} -o ${NAME} ${OBJS}
+	@${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${LIBS}
 	@echo "[$(ORANGE)$(NAME)$(RESET)] Creation *.o files & compilation : $(GREEN)OK$(RESET)"
 	@echo "[\033[1;32msuccess$(RESET)]: $(NAME) is ready"
 
@@ -77,10 +89,8 @@ ${LIBX}/libmlx.a:
 	${MAKELIBX} all
 
 #Compile and use valgrind
-valgrind: ${D_DIR} ${DEBUGS}
-	${RM} ${NAME}
-	${CC} ${CFLAGS} -o ${NAME} ${DEBUGS} ${LIBS} -ggdb
-	${VALGRIND} ./${NAME}
+valgrind:
+	valgrind --leak-check=full --track-origins=yes ./$(NAME) ./maps/demo.cub
 
 #Compile a debug executable with -g and fsanitize
 debug: ${D_DIR} ${DEBUGS}
@@ -108,10 +118,14 @@ fclean:	clean
 	@${RM} ${NAME}
 	@${RM} -r ${NAME}.dSYM
 	@${MAKELIB} fclean
+	@${RM} -r ${NAME}.dSYM
 	@echo "[$(ORANGE)libft$(RESET)] fclean : $(GREEN)OK$(RESET)"
 	@echo "[$(ORANGE)$(NAME)$(RESET)] fclean: $(GREEN)OK$(RESET)"
 	@echo "[\033[1;32msuccess$(RESET)]: $(NAME) has been clean up"
 
+leaks:
+	leaks -atExit -- ./$(NAME) ./maps/demo.cub
+
 re:			fclean all
 
-.PHONY:		all clean fclean re debug valgrind
+.PHONY:		all clean fclean re debug valgrind leaks

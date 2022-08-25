@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 15:21:44 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/25 09:19:28 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	main(int argc, char **argv)
+int	printerr(char *err)
 {
-	t_game	*game;
+	ft_putendl_fd(err, 2);
+	return (EXIT_FAILURE);
+}
 
-	game = malloc(sizeof(t_game));
-	if (!game)
-		return (EXIT_FAILURE);
-	if (argc == 2)
-	{
-		init_map_var(game);
-		init_map(game, argv[argc - 1]);
-	}
-	else if (argc == 1 || argc > 2)
-		printinvalid(ERR_NAME);
-	free_map(game);
-	free(game);
-	return (EXIT_SUCCESS);
+int	printinvalid(int errno)
+{
+	if (errno > SUCCESS)
+		printerr(ERROR);
+	if (errno == ERR_PRESET)
+		printerr(WRONG_PRESET);
+	if (errno == ERR_CHAR)
+		printerr(WRONG_CHAR);
+	if (errno == ERR_MAP)
+		printerr(WRONG_MAP);
+	if (errno == ERR_NAME)
+		printerr(WRONG_NAME);
+	return (errno);
 }
