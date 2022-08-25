@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 17:48:42 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/25 18:47:41 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,7 @@ void	save_map_scene(t_game *game, int i, int j, int k)
 					break ;
 				}
 				if (!ft_isspace(game->map->map[i]) && game->map->map[i] != '\n')
-				{
 					game->map->scene[j][k] = game->map->map[i];
-					int_player_pos(game, game->map->scene[j][k], j, k);
-				}
 				k++;
 				i++;
 			}
@@ -102,6 +99,7 @@ void	init_map(t_game *game, char *file)
 					get_next_line(game->map->fd), 0) == SUCCESS)
 			{
 				save_map_scene(game, 0, 0, 0);
+				check_player_pos(game);
 				print_map_details(game);
 				init_screen(game);
 			}

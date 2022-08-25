@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 17:44:29 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/25 18:46:54 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,33 @@ int	check_map_name(t_game *game, char *file)
 	return (SUCCESS);
 }
 
-void	int_player_pos(t_game *game, char location, double x, double y)
+void	check_player_pos(t_game *game)
 {
-	if (location == 'N'
-		|| location == 'S'
-		|| location == 'E'
-		|| location == 'w')
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < game->map->y && game->player->is_ready == 0)
 	{
-		game->player->pos_x = x;
-		game->player->pos_y = y;
-		ft_printf("\n\033[1;37mPLAYER START POS\033[0m:\nx -> %d &p[%p]\ny -> %d &p[%p]\n",
-		game->player->pos_x, game->player->pos_y, game->player->pos_x, game->player->pos_y);
+		j = 0;
+		while (j < game->map->x)
+		{
+			if (game->map->scene[i][j] == 'N'
+				|| game->map->scene[i][j] == 'S'
+				|| game->map->scene[i][j] == 'E'
+				|| game->map->scene[i][j] == 'W')
+			{
+				game->player->pos_y = (double)i;
+				game->player->pos_x = (double)j;
+				game->player->is_ready = 1;
+				break ;
+			}
+			j++;
+		}
+		i++;
 	}
+	ft_printf("\n\033[1;37mPLAYER START POS\033[0m:\nx -> %d\ny -> %d\n",
+		(int)game->player->pos_x, (int)game->player->pos_y);
 }
 
 int	check_map_char(char *map)

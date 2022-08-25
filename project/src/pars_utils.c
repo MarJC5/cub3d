@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 17:55:05 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/25 18:53:33 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,17 @@ void	print_map_details(t_game *game)
 	int	i;
 
 	i = 0;
-	ft_printf("\n\033[1;33mASSETS\033[0m:\n");
+	ft_printf("\n\033[1;33mASSETS\033[0;37m:\n");
 	while (i < 4)
 		ft_printf("%s", game->map->assets[i++]);
 	i = 0;
-	ft_printf("\n\033[1;31mCOLORS\033[0m:\n");
+	ft_printf("\n\033[1;31mCOLORS\033[0;37m:\n");
 	while (i < 2)
 		ft_printf("%s", game->map->colors[i++]);
-	ft_printf("\n\033[1mSIZE\033[0m:\nx -> %d \ny -> %d\n",
+	ft_printf("\n\033[1;35mSIZE\033[0;37m:\nx -> %d \ny -> %d\n",
 		game->map->x, game->map->y);
 	i = -1;
-	ft_printf("\n\033[1;34mMAPS\033[0m:\n");
+	ft_printf("\n\033[1;34mMAPS\033[0;37m:\n");
 	while (++i < game->map->y)
 		ft_printf("%s\n", game->map->scene[i]);
-	ft_printf("\n\033[1;35mPLAYER START POS\033[0m:\nx -> %d &p[%p]\ny -> %d&p[%p]\n",
-		game->player->pos_x, game->player->pos_y, game->player->pos_x, game->player->pos_y);
 }

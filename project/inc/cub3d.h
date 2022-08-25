@@ -48,6 +48,7 @@
 
 typedef struct player
 {
+	int		is_ready;
 	double	pos_x;
 	double	pos_y;
 	double	planet_x;
@@ -121,7 +122,7 @@ void	free_stuff(char *tofree);
  * Screen
  */
 void	init_screen(t_game *game);
-void	int_player_pos(t_game *game, char location, double x, double y);
+void	check_player_pos(t_game *game);
 
 /**
  * Key events
