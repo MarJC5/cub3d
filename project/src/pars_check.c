@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/24 19:21:22 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/25 13:56:34 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	check_map_name(t_game *game, char *file)
 {
 	if (ft_strcmp(ft_strrchr(file, '.'), ".cub") != 0)
 		return (printinvalid(ERR_NAME));
-	game->map = malloc(sizeof(t_map));
 	game->map->fd = open(file, O_RDONLY);
 	return (SUCCESS);
 }
@@ -55,4 +54,3 @@ int	check_map_textures(char **identifier)
 		return (SUCCESS);
 	return (ERR_PRESET);
 }
-

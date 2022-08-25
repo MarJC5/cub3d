@@ -88,7 +88,7 @@ ${LIBX}/libmlx.a:
 
 #Compile and use valgrind
 valgrind:
-	valgrind --leak-check=full ./$(NAME) ./maps/demo.cub
+	valgrind --leak-check=full --track-origins=yes ./$(NAME) ./maps/demo.cub
 
 #Compile a debug executable with -g and fsanitize
 debug: ${D_DIR} ${DEBUGS}

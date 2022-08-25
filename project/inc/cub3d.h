@@ -18,6 +18,7 @@
 # define WRONG_PRESET "Wrong identifier."
 # define WRONG_MAP "Map is not enclosed by 1."
 # define WRONG_NAME "Wrong map name, please give a *.cub file"
+# define EMPTY_ZONE '.'
 
 # define SUCCESS 0
 # define FAILURE 1
@@ -38,43 +39,42 @@
 
 typedef struct map
 {
-	int     fd;
-	int     x;
-	int     y;
-	int     is_valid;
-	char    spawn;
-	char    *map;
-	char    **identifier;
-	char    **colors;
-	char    **assets;
-	char    **scene;
-} t_map;
+	int		fd;
+	int		x;
+	int		y;
+	char	*map;
+	char	**identifier;
+	char	**colors;
+	char	**assets;
+	char	**scene;
+}	t_map;
 
 typedef struct game
 {
 	t_map		*map;
-} t_game;
+}	t_game;
 
 /**
  * Utils
  */
-int     printinvalid(int errno);
-int     printerr(char *err);
-int     ft_isspace(char c);
-int	    ft_strcmp(char *s1, char *s2);
+int		printinvalid(int errno);
+int		printerr(char *err);
+int		ft_isspace(char c);
+int		ft_strcmp(char *s1, char *s2);
 
 /**
  * Parsing
  */
 
-int     check_map_textures(char **identifier);
-int     check_map_char(char *map);
-int     check_map_name(t_game *game, char *file);
-char    *replace_char(char *str, char find, char replace);
-void    init_map(t_game *game, char *file);
-void    setup_scene_arr(t_game *game);
-void    print_map_details(t_game *game);
+int		check_map_textures(char **identifier);
+int		check_map_char(char *map);
+int		check_map_name(t_game *game, char *file);
+int		setup_scene_arr(t_game *game);
+char	*replace_char(char *str, char find, char replace);
+void	init_map(t_game *game, char *file);
+void	print_map_details(t_game *game);
 
+void	free_map(t_game *game);
 void	ft_free_multitab(char **tab);
 void	free_stuff(char *tofree);
 
