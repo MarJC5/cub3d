@@ -46,6 +46,16 @@
  * Struct
  */
 
+typedef struct player
+{
+	double	pos_x;
+	double	pos_y;
+	double	planet_x;
+	double	planet_y;
+
+}	t_player;
+
+
 typedef struct screen
 {
 	void	*mlx;
@@ -67,6 +77,9 @@ typedef struct map
 
 typedef struct game
 {
+	double		time;
+	double		old_time;
+	t_player	*player;
 	t_screen	*screen;
 	t_map		*map;
 }	t_game;
@@ -108,6 +121,7 @@ void	free_stuff(char *tofree);
  * Screen
  */
 void	init_screen(t_game *game);
+void	int_player_pos(t_game *game, char location, double x, double y);
 
 /**
  * Key events

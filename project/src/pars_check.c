@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 13:56:34 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/25 17:44:29 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,20 @@ int	check_map_name(t_game *game, char *file)
 		return (printinvalid(ERR_NAME));
 	game->map->fd = open(file, O_RDONLY);
 	return (SUCCESS);
+}
+
+void	int_player_pos(t_game *game, char location, double x, double y)
+{
+	if (location == 'N'
+		|| location == 'S'
+		|| location == 'E'
+		|| location == 'w')
+	{
+		game->player->pos_x = x;
+		game->player->pos_y = y;
+		ft_printf("\n\033[1;37mPLAYER START POS\033[0m:\nx -> %d &p[%p]\ny -> %d &p[%p]\n",
+		game->player->pos_x, game->player->pos_y, game->player->pos_x, game->player->pos_y);
+	}
 }
 
 int	check_map_char(char *map)

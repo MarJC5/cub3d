@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:21:29 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 15:21:48 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/25 17:32:48 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,9 @@ void	init_map_var(t_game *game)
 	game->map->fd = -1;
 	game->map->x = -1;
 	game->map->y = -1;
+	game->player = malloc(sizeof(t_player));
+	if (!game->player)
+		exit(EXIT_FAILURE);
+	game->player->pos_x = -1;
+	game->player->pos_y = -1;
 }
