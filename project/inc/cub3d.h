@@ -35,8 +35,9 @@
 # define FLOOR '0'
 # define EMPTY_ZONE '.'
 
-# define TILE_SIZE 8
-# define MAPOS 20
+# define SCALE 4
+# define TILE_SIZE 6
+# define MAPOS 10
 
 # include "key_macos.h"
 # include "libft.h"
@@ -45,6 +46,7 @@
 # include <stdint.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <math.h>
 # include <string.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
@@ -71,6 +73,14 @@ typedef struct s_rect
 	int height;
 	int color;
 }	t_rect;
+
+typedef struct s_circle
+{
+	int	x;
+	int	y;
+	int radius;
+	int color;
+}	t_circle;
 
 typedef struct s_player
 {
@@ -133,6 +143,7 @@ int		ft_strcmp(char *s1, char *s2);
 int     encode_rgb(uint8_t alpha, uint8_t red, uint8_t green, uint8_t blue);
 int     chartohex(char *tab, int opacity);
 int     fpf_rect(t_img *img, t_rect rect);
+int     fpf_circle(t_img *img, t_circle circle);
 void	img_pix_put(t_img *img, int x, int y, int color);
 
 /**
@@ -158,6 +169,7 @@ void	free_stuff(char *tofree);
 int     fill_minimap(t_game *game, char tile, int color, float scale);
 void	check_player_pos(t_game *game);
 void	render_background(t_img *img, int floor, int ceilling);
+void	render_wrapper(t_img *img, int h, int w, int color);
 void    display_minimap(t_game *game);
 
 /**

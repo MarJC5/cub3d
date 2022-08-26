@@ -44,7 +44,8 @@ void	render_wrapper(t_img *img, int h, int w, int color)
 		j = 0;
 		while (j < w)
 		{
-			img_pix_put(img, j + (MAPOS / 2), i + (MAPOS / 2), color);
+			img_pix_put(img, (j / SCALE) + MAPOS + 5,
+						(i / SCALE) + MAPOS + 5, color);
 			j++;
 		}
 		++i;
@@ -63,9 +64,8 @@ int    fill_minimap(t_game *game, char tile, int color, float scale)
 		while (j < game->map->x)
 		{
 			if (game->map->scene[i][j] == tile)
-				fpf_rect(&game->screen.img, (t_rect){
-						(j / scale) * MAPOS + MAPOS,
-						(i / scale) * MAPOS + MAPOS,
+				fpf_rect(&game->screen.img, (t_rect) {
+						(j * scale) + MAPOS, (i * scale) + MAPOS,
 						TILE_SIZE, TILE_SIZE, color});
 			j++;
 		}
@@ -78,10 +78,13 @@ void display_minimap(t_game *game)
 {
 	if (game->screen.toggle_minimap == 1)
 	{
-		render_wrapper(&game->screen.img, game->map->y * TILE_SIZE + 20,
-		               game->map->x * TILE_SIZE + 12, 0x80FF0000);
-		fill_minimap(game, EMPTY_ZONE, 0xCCFF0000, 2.5);
-		fill_minimap(game, FLOOR, 0xCCdcdde1, 2.5);
-		fill_minimap(game, WALL, 0xCC000000, 2.5);
+		fill_minimap(game, FLOOR, 0xCCdcdde1, TILE_SIZE);
+		fill_minimap(game, WALL, 0xCC000000, TILE_SIZE);
+		fill_minimap(game, EMPTY_ZONE, 0xCCFF0000, TILE_SIZE);
+		fill_minimap(game, game->player->skin, 0xCCdcdde1, TILE_SIZE);
+		fpf_circle(&game->screen.img, (t_circle) {
+				(game->player->pos_x * TILE_SIZE + SCALE) + MAPOS,
+				(game->player->pos_y * TILE_SIZE + (SCALE - 2)) + MAPOS,
+				(TILE_SIZE / 2), chartohex("255, 63, 52", 255)});
 	}
 }

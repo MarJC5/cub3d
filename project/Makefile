@@ -96,7 +96,7 @@ ${LIBX}/libmlx.a:
 
 #Compile and use valgrind
 valgrind:
-	valgrind --leak-check=full --track-origins=yes ./$(NAME) ./maps/demo.cub
+	valgrind --leak-check=full --track-origins=yes ./$(NAME) ./maps/maze.cub
 
 #Compile a debug executable with -g and fsanitize
 debug: ${D_DIR} ${DEBUGS}
@@ -132,6 +132,11 @@ fclean:	clean
 leaks:
 	leaks -atExit -- ./$(NAME) ./maps/demo.cub
 
+maze: all
+	@${RM} -r ./maps/maze.cub
+	python ./maze/maze_map.py
+	./$(NAME) ./maps/maze.cub
+
 re:			fclean all
 
-.PHONY:		all clean fclean re debug valgrind leaks
+.PHONY:		all clean fclean re debug valgrind leaks maze

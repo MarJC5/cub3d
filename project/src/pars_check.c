@@ -65,7 +65,7 @@ int	check_map_char(char *map)
 			|| map[i] == 'N'
 			|| map[i] == 'S'
 			|| map[i] == 'E'
-			|| map[i] == 'w'
+			|| map[i] == 'W'
 			|| map[i] == '\n'
 			|| map[i] == '\0')
 			i++;
