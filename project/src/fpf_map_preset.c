@@ -15,18 +15,9 @@
 void	img_pix_put(t_img *img, int x, int y, int color)
 {
 	char    *pixel;
-	int		i;
 
-	i = img->bpp - 8;
 	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	while (i >= 0)
-	{
-		if (img->endian != 0)
-			*pixel++ = (color >> i) & 0xFF;
-		else
-			*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
-		i -= 8;
-	}
+	*(unsigned int*)pixel = color;
 }
 
 int fpf_rect(t_img *img, t_rect rect)
@@ -48,14 +39,15 @@ int fpf_rect(t_img *img, t_rect rect)
 int	fpf_render(t_game *game)
 {
 	render_background(&game->screen.img,
-					 splitoi(game->map->colors[0]),
-					 splitoi(game->map->colors[1]));
+		chartohex(game->map->colors[0], 255),
+		chartohex(game->map->colors[1], 255));
 	display_minimap(game);
 	fpf_rect(&game->screen.img, (t_rect){
 		(game->player->pos_x / 2.5) * MAPOS + MAPOS,
 		(game->player->pos_y / 2.5) * MAPOS + MAPOS,
-		TILE_SIZE, TILE_SIZE, splitoi(game->map->colors[1])});
-	mlx_put_image_to_window(game->screen.mlx, game->screen.win, game->screen.img.mlx_img, 0, 0);
+		TILE_SIZE, TILE_SIZE, chartohex(game->map->colors[1], 255)});
+	mlx_put_image_to_window(game->screen.mlx,
+		game->screen.win, game->screen.img.mlx_img, 0, 0);
 	return (0);
 }
 

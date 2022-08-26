@@ -33,7 +33,25 @@ void	render_background(t_img *img, int floor, int ceilling)
 	}
 }
 
-int    fill_minimap(t_game *game, char tile, int color)
+void	render_wrapper(t_img *img, int h, int w, int color)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < h)
+	{
+		j = 0;
+		while (j < w)
+		{
+			img_pix_put(img, j + (MAPOS / 2), i + (MAPOS / 2), color);
+			j++;
+		}
+		++i;
+	}
+}
+
+int    fill_minimap(t_game *game, char tile, int color, float scale)
 {
 	int i;
 	int j;
@@ -46,8 +64,8 @@ int    fill_minimap(t_game *game, char tile, int color)
 		{
 			if (game->map->scene[i][j] == tile)
 				fpf_rect(&game->screen.img, (t_rect){
-						(j / 2.5) * MAPOS + MAPOS,
-						(i / 2.5) * MAPOS + MAPOS,
+						(j / scale) * MAPOS + MAPOS,
+						(i / scale) * MAPOS + MAPOS,
 						TILE_SIZE, TILE_SIZE, color});
 			j++;
 		}
@@ -60,8 +78,10 @@ void display_minimap(t_game *game)
 {
 	if (game->screen.toggle_minimap == 1)
 	{
-		fill_minimap(game, EMPTY_ZONE, 0x80FFFFFF);
-		fill_minimap(game, FLOOR, 0xdcdde1);
-		fill_minimap(game, WALL, 0x000000);
+		render_wrapper(&game->screen.img, game->map->y * TILE_SIZE + 20,
+		               game->map->x * TILE_SIZE + 12, 0x80FF0000);
+		fill_minimap(game, EMPTY_ZONE, 0xCCFF0000, 2.5);
+		fill_minimap(game, FLOOR, 0xCCdcdde1, 2.5);
+		fill_minimap(game, WALL, 0xCC000000, 2.5);
 	}
 }

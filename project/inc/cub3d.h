@@ -130,8 +130,8 @@ int		printinvalid(int errno);
 int		printerr(char *err);
 int		ft_isspace(char c);
 int		ft_strcmp(char *s1, char *s2);
-int     encode_rgb(uint8_t red, uint8_t green, uint8_t blue);
-int     splitoi(char *tab);
+int     encode_rgb(uint8_t alpha, uint8_t red, uint8_t green, uint8_t blue);
+int     chartohex(char *tab, int opacity);
 int     fpf_rect(t_img *img, t_rect rect);
 void	img_pix_put(t_img *img, int x, int y, int color);
 
@@ -155,7 +155,7 @@ void	free_stuff(char *tofree);
 /**
  * Screen
  */
-int     fill_minimap(t_game *game, char tile, int color);
+int     fill_minimap(t_game *game, char tile, int color, float scale);
 void	check_player_pos(t_game *game);
 void	render_background(t_img *img, int floor, int ceilling);
 void    display_minimap(t_game *game);

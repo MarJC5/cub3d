@@ -38,21 +38,23 @@ int	ft_isspace(char c)
 	return (0);
 }
 
-int	encode_rgb(uint8_t red, uint8_t green, uint8_t blue)
+int	encode_rgb(uint8_t alpha, uint8_t red, uint8_t green, uint8_t blue)
 {
-	return (red << 16 | green << 8 | blue);
+	return (alpha << 24 | red << 16 | green << 8 | blue);
 }
 
-int splitoi(char *tab)
+int chartohex(char *tab, int opacity)
 {
 	char    **split;
 	int     hexret;
 	int     i;
 
 	split = ft_split(tab, ',');
-	hexret = encode_rgb(ft_atoi(split[0]),
-	                    ft_atoi(split[1]),
-	                    ft_atoi(split[2]));
+	hexret = encode_rgb(
+			opacity,
+			ft_atoi(split[0]),
+			ft_atoi(split[1]),
+			ft_atoi(split[2]));
 	i = 3;
 	while (split[i])
 		free(split[i--]);
