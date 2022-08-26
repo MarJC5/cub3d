@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap.c                                          :+:      :+:    :+:   */
+/*   images.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,27 +12,28 @@
 
 #include "../inc/cub3d.h"
 
-void    draw_rect(t_game *game, t_rect rect)
+void	render_background(t_img *img, int floor, int ceilling)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
-	i = rect.y;
-	while (i < rect.y + rect.height)
+	i = 0;
+	while (i < WIN_HEIGHT)
 	{
-		j = rect.x;
-		while (j < rect.x + rect.width)
+		j = 0;
+		while (j < WIN_WIDTH)
 		{
-			mlx_pixel_put(
-					game->screen->mlx,
-					game->screen->win,
-					j++, i, rect.color);
+			if (i < WIN_HEIGHT / 2)
+				img_pix_put(img, j, i, ceilling);
+			else
+				img_pix_put(img, j, i, floor);
+			j++;
 		}
-		i++;
+		++i;
 	}
 }
 
-void    fill_minimap(t_game *game, char tile, int color)
+int    fill_minimap(t_game *game, char tile, int color)
 {
 	int i;
 	int j;
@@ -44,20 +45,23 @@ void    fill_minimap(t_game *game, char tile, int color)
 		while (j < game->map->x)
 		{
 			if (game->map->scene[i][j] == tile)
-				draw_rect(game,
-						  (t_rect){
-							(j / 2.5) * MAPOS + MAPOS,
-							(i / 2.5) * MAPOS + MAPOS,
-							TILE_SIZE, TILE_SIZE, color});
+				fpf_rect(&game->screen.img, (t_rect){
+						(j / 2.5) * MAPOS + MAPOS,
+						(i / 2.5) * MAPOS + MAPOS,
+						TILE_SIZE, TILE_SIZE, color});
 			j++;
 		}
 		i++;
 	}
+	return (0);
 }
 
-void    init_minimap(t_game *game)
+void display_minimap(t_game *game)
 {
-	fill_minimap(game, EMPTY_ZONE, 0xffffff);
-	fill_minimap(game, WALL, 0x576574);
-	fill_minimap(game, FLOOR, 0xdfe4ea);
+	if (game->screen.toggle_minimap == 1)
+	{
+		fill_minimap(game, EMPTY_ZONE, 0x80FFFFFF);
+		fill_minimap(game, FLOOR, 0xdcdde1);
+		fill_minimap(game, WALL, 0x000000);
+	}
 }

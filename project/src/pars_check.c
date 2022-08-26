@@ -17,6 +17,8 @@ int	check_map_name(t_game *game, char *file)
 	if (ft_strcmp(ft_strrchr(file, '.'), ".cub") != 0)
 		return (printinvalid(ERR_NAME));
 	game->map->fd = open(file, O_RDONLY);
+	if (game->map->fd == -1)
+		return (FAILURE);
 	return (SUCCESS);
 }
 
@@ -38,6 +40,7 @@ void	check_player_pos(t_game *game)
 			{
 				game->player->pos_y = (double)i;
 				game->player->pos_x = (double)j;
+				game->player->skin = game->map->scene[i][j];
 				game->player->is_ready = 1;
 				break ;
 			}

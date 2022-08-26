@@ -42,14 +42,26 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include "get_next_line.h"
-# include "../mlx/mlx.h"
-# include "../mlx-linux/mlx.h"
-
+# include <stdint.h>
 # include <stdlib.h>
+# include <stdio.h>
+# include <string.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
+# include <mlx.h>
 
 /**
  * Struct
  */
+
+typedef struct s_img
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
 
 typedef struct s_rect
 {
@@ -63,11 +75,11 @@ typedef struct s_rect
 typedef struct s_player
 {
 	int		is_ready;
+	char    skin;
 	double	pos_x;
 	double	pos_y;
 	double	planet_x;
 	double	planet_y;
-
 }	t_player;
 
 
@@ -75,8 +87,9 @@ typedef struct s_screen
 {
 	void	*mlx;
 	void	*win;
+	int     toggle_minimap;
+	t_img   img;
 }	t_screen;
-
 
 typedef struct s_map
 {
@@ -96,7 +109,7 @@ typedef struct s_game
 	double		time;
 	double		old_time;
 	t_player	*player;
-	t_screen	*screen;
+	t_screen	screen;
 	t_map		*map;
 }	t_game;
 
@@ -106,6 +119,9 @@ typedef struct s_game
 
 void	init_screen(t_game *game);
 void	init_map_var(t_game *game);
+void	init_map(t_game *game, char *file);
+void    init_map_preset(t_game *game);
+void	init_screen(t_game *game);
 
 /**
  * Utils
@@ -114,6 +130,10 @@ int		printinvalid(int errno);
 int		printerr(char *err);
 int		ft_isspace(char c);
 int		ft_strcmp(char *s1, char *s2);
+int     encode_rgb(uint8_t red, uint8_t green, uint8_t blue);
+int     splitoi(char *tab);
+int     fpf_rect(t_img *img, t_rect rect);
+void	img_pix_put(t_img *img, int x, int y, int color);
 
 /**
  * Parsing
@@ -123,7 +143,6 @@ int		check_map_char(char *map);
 int		check_map_name(t_game *game, char *file);
 int		setup_scene_arr(t_game *game);
 char	*replace_char(char *str, char find, char replace);
-void	init_map(t_game *game, char *file);
 void	print_map_details(t_game *game);
 
 /**
@@ -136,9 +155,10 @@ void	free_stuff(char *tofree);
 /**
  * Screen
  */
-void    init_minimap(t_game *game);
-void	init_screen(t_game *game);
+int     fill_minimap(t_game *game, char tile, int color);
 void	check_player_pos(t_game *game);
+void	render_background(t_img *img, int floor, int ceilling);
+void    display_minimap(t_game *game);
 
 /**
  * Key events

@@ -14,19 +14,16 @@
 
 void	init_screen(t_game *game)
 {
-	game->screen = malloc(sizeof(t_screen));
-	if (!game->screen)
+	game->screen.mlx = mlx_init();
+	if (!game->screen.mlx)
 		return ;
-	game->screen->mlx = mlx_init();
-	game->screen->win = mlx_new_window(
-			game->screen->mlx,
-			WIN_WIDTH,
-			WIN_HEIGHT,
-			WIN_NAME);
-	init_minimap(game);
-	mlx_hook(game->screen->win, 2, 1L << 0, key_event, game);
-	mlx_hook(game->screen->win, 17, 0L << 0, esc_win, game);
-	mlx_loop(game->screen->mlx);
+	game->screen.win = mlx_new_window(
+			game->screen.mlx,
+			WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
+	init_map_preset(game);
+	mlx_hook(game->screen.win, 2, 1L << 0, key_event, game);
+	mlx_hook(game->screen.win, 17, 0L << 0, esc_win, game);
+	mlx_loop(game->screen.mlx);
 }
 
 void	init_map_var(t_game *game)
@@ -50,4 +47,5 @@ void	init_map_var(t_game *game)
 	game->player->is_ready = 0;
 	game->player->pos_x = -1;
 	game->player->pos_y = -1;
+	game->screen.toggle_minimap = 1;
 }

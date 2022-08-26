@@ -31,7 +31,7 @@ int	setup_scene_arr(t_game *game)
 	int		i;
 
 	i = 0;
-	game->map->scene = ft_calloc(game->map->y + 1, sizeof(char *));
+	game->map->scene = ft_calloc(game->map->y, sizeof(char *));
 	if (!game->map->scene)
 		return (FAILURE);
 	game->map->scene[game->map->y] = NULL;

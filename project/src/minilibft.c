@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minilibft.c                                        :+:      :+:    :+:   */
+/*   fpf_map_preset.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -36,4 +36,26 @@ int	ft_isspace(char c)
 		|| c == '\v')
 		return (1);
 	return (0);
+}
+
+int	encode_rgb(uint8_t red, uint8_t green, uint8_t blue)
+{
+	return (red << 16 | green << 8 | blue);
+}
+
+int splitoi(char *tab)
+{
+	char    **split;
+	int     hexret;
+	int     i;
+
+	split = ft_split(tab, ',');
+	hexret = encode_rgb(ft_atoi(split[0]),
+	                    ft_atoi(split[1]),
+	                    ft_atoi(split[2]));
+	i = 3;
+	while (split[i])
+		free(split[i--]);
+	free(split);
+	return (hexret);
 }

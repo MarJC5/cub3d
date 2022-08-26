@@ -16,7 +16,8 @@ SRCS_FILES	+= 	pars_utils.c \
 				error_utils.c \
 				free.c \
 				init.c \
-				minimap.c \
+				image.c \
+				fpf_map_preset.c \
 				key_actions.c \
 				minilibft.c
 
@@ -67,7 +68,7 @@ RM			= rm -f
 
 CFLAGS		= -Wall -Wextra -Werror
 # Add this for debug
-# CFLAGS		+= -g3
+CFLAGS		+= -g3
 
 all:	${NAME}
 
