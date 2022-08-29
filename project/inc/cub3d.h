@@ -35,9 +35,11 @@
 # define FLOOR '0'
 # define EMPTY_ZONE '.'
 
+# define STEP 1
 # define SCALE 4
-# define TILE_SIZE 6
-# define MAPOS 10
+# define TILE_SIZE 16
+# define MAPOS TILE_SIZE / 2
+# define PI 3.1415926535
 
 # include "key_macos.h"
 # include "libft.h"
@@ -69,27 +71,61 @@ typedef struct s_rect
 {
 	int	x;
 	int	y;
-	int width;
-	int height;
-	int color;
+	int	width;
+	int	height;
+	int	color;
 }	t_rect;
+
+
+typedef struct s_line
+{
+	double	begin_x;
+	double	begin_y;
+	double	end_x;
+	double	end_y;
+	int		color;
+	double	delta_y;
+	double	delta_x;
+}	t_line;
+
+typedef struct s_rays
+{
+	int		r;
+	int		mx;
+	int		my;
+	int		mp;
+	int		dof;
+	float	rx;
+	float	ry;
+	float	ra;
+	float	xo;
+	float	yo;
+}	t_rays;
 
 typedef struct s_circle
 {
 	int	x;
 	int	y;
-	int radius;
-	int color;
+	int	radius;
+	int	color;
 }	t_circle;
 
 typedef struct s_player
 {
 	int		is_ready;
-	char    skin;
+	int		pos;
+	char	skin;
 	double	pos_x;
 	double	pos_y;
-	double	planet_x;
-	double	planet_y;
+	double	pos_x_map;
+	double	pos_y_map;
+	double	plane_x;
+	double	plane_y;
+	double	angle;
+	double	dir_x;
+	double	dir_y;
+	double	time;
+	double	old_time;
 }	t_player;
 
 
@@ -97,8 +133,8 @@ typedef struct s_screen
 {
 	void	*mlx;
 	void	*win;
-	int     toggle_minimap;
-	t_img   img;
+	int		toggle_minimap;
+	t_img	map;
 }	t_screen;
 
 typedef struct s_map
@@ -106,18 +142,17 @@ typedef struct s_map
 	int		fd;
 	int		x;
 	int		y;
-	int     **map2D;
+	int		size;
 	char	*map;
 	char	**identifier;
 	char	**colors;
 	char	**assets;
 	char	**scene;
+	t_img	img;
 }	t_map;
 
 typedef struct s_game
 {
-	double		time;
-	double		old_time;
 	t_player	*player;
 	t_screen	screen;
 	t_map		*map;
@@ -130,7 +165,7 @@ typedef struct s_game
 void	init_screen(t_game *game);
 void	init_map_var(t_game *game);
 void	init_map(t_game *game, char *file);
-void    init_map_preset(t_game *game);
+void	init_map_preset(t_game *game);
 void	init_screen(t_game *game);
 
 /**
@@ -140,10 +175,10 @@ int		printinvalid(int errno);
 int		printerr(char *err);
 int		ft_isspace(char c);
 int		ft_strcmp(char *s1, char *s2);
-int     encode_rgb(uint8_t alpha, uint8_t red, uint8_t green, uint8_t blue);
-int     chartohex(char *tab, int opacity);
-int     fpf_rect(t_img *img, t_rect rect);
-int     fpf_circle(t_img *img, t_circle circle);
+int		encode_rgb(uint8_t alpha, uint8_t red, uint8_t green, uint8_t blue);
+int		chartohex(char *tab, int opacity);
+int		fpf_rect(t_img *img, t_rect rect);
+int		fpf_circle(t_img *img, t_circle circle);
 void	img_pix_put(t_img *img, int x, int y, int color);
 
 /**
@@ -166,11 +201,13 @@ void	free_stuff(char *tofree);
 /**
  * Screen
  */
-int     fill_minimap(t_game *game, char tile, int color, float scale);
+int		fpf_ray(t_img *img, t_line line);
+int		fpf_draw_rays(t_game *game, t_img *img, t_rays rays);
+int		fill_minimap(t_game *game, char tile, int color);
 void	check_player_pos(t_game *game);
 void	render_background(t_img *img, int floor, int ceilling);
 void	render_wrapper(t_img *img, int h, int w, int color);
-void    display_minimap(t_game *game);
+void	display_minimap(t_game *game);
 
 /**
  * Key events

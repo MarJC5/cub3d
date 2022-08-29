@@ -17,21 +17,22 @@ SRCS_FILES	+= 	pars_utils.c \
 				free.c \
 				init.c \
 				image.c \
+				raycasting.c \
 				fpf_map_preset.c \
 				key_actions.c \
 				minilibft.c
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 
-UNAME_S 	:= $(shell uname)
+UNAME_S 	:= $(shell uname -s)
 
 LIBFT		= ./libft
 MAKELIB		= ${MAKE} -C ${LIBFT}
 
-ifeq (${UNAME_S},Darwin)
-LIBX		= ./mlx/
+ifeq (${UNAME_S}, Darwin)
+	LIBX		= ./mlx/
 else
-LIBX		= ./mlx-linux/
+	LIBX		= ./mlx-linux/
 endif
 MAKELIBX	= ${MAKE} -C ${LIBX}
 
@@ -49,8 +50,8 @@ DEBUGS		+= ${LIBX}/libmlx.a
 
 HEADS		= -I./inc/ -I${LIBFT} -I${LIBX}
 
-ifeq ($(UNAME), Darwin)
-	LIBS		= -framework OpenGL -framework AppKit
+ifeq ($(UNAME_S), Darwin)
+	LIBS		= -Lmlx -lmlx -lz -framework OpenGL -framework AppKit
 else
 	LIBS		= -lm -lbsd -lX11 -lXext
 endif
@@ -96,7 +97,7 @@ ${LIBX}/libmlx.a:
 
 #Compile and use valgrind
 valgrind:
-	valgrind --leak-check=full --track-origins=yes ./$(NAME) ./maps/maze.cub
+	valgrind --leak-check=full --track-origins=yes ./$(NAME) ./maps/demo.cub
 
 #Compile a debug executable with -g and fsanitize
 debug: ${D_DIR} ${DEBUGS}

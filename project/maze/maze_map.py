@@ -1,14 +1,14 @@
-#* ************************************************************************** *#
-#*                                                                            *#
-#*                                                        :::      ::::::::   *#
-#*   maze_map.h                                         :+:      :+:    :+:   *#
-#*                                                    +:+ +:+         +:+     *#
-#*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        *#
-#*                                                +#+#+#+#+#+   +#+           *#
-#*   Created: 2022/08/26 14:16:08 by jmartin           #+#    #+#             *#
-#*                                                    ###   ########.fr       *#
-#*                                                                            *#
-#* ************************************************************************** *#
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    maze_map.py                                        :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/08/26 14:16:08 by jmartin           #+#    #+#              #
+#    Updated: 2022/08/28 16:39:15 by jmartin          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 import os
 import inquirer #pip install inquirer
@@ -102,6 +102,8 @@ def make_maze(w = map_w, h = map_h):
     ver_tab = randrange(1, len(ver) - 1)
     var_arr = randrange(1, len(ver[ver_tab]) - 1)
     var_char = randrange(0, len(ver[ver_tab][var_arr]))
+    while ver[ver_tab][var_arr][var_char] != '0':
+        var_char = randrange(0, len(ver[ver_tab][var_arr]))
     shuffle(player_pos)
     if ver[ver_tab][var_arr][var_char] == '0':
         ver[ver_tab][var_arr] = ver[ver_tab][var_arr].replace('0', choice(player_pos), 1)

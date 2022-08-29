@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   images.c                                           :+:      :+:    :+:   */
+/*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 09:19:28 by jmartin          ###   ########.fr       */
+/*   Created: 2022/08/28 16:08:44 by jmartin           #+#    #+#             */
+/*   Updated: 2022/08/29 02:58:34 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,17 @@ void	render_wrapper(t_img *img, int h, int w, int color)
 		j = 0;
 		while (j < w)
 		{
-			img_pix_put(img, (j / SCALE) + MAPOS + 5,
-						(i / SCALE) + MAPOS + 5, color);
+			img_pix_put(img, j, i, color);
 			j++;
 		}
 		++i;
 	}
 }
 
-int    fill_minimap(t_game *game, char tile, int color, float scale)
+int	fill_minimap(t_game *game, char tile, int color)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < game->map->y)
@@ -64,9 +63,9 @@ int    fill_minimap(t_game *game, char tile, int color, float scale)
 		while (j < game->map->x)
 		{
 			if (game->map->scene[i][j] == tile)
-				fpf_rect(&game->screen.img, (t_rect) {
-						(j * scale) + MAPOS, (i * scale) + MAPOS,
-						TILE_SIZE, TILE_SIZE, color});
+				fpf_rect(&game->screen.map, (t_rect){
+					(j * TILE_SIZE) + MAPOS, (i * TILE_SIZE) + MAPOS,
+					TILE_SIZE - 1, TILE_SIZE - 1, color});
 			j++;
 		}
 		i++;
@@ -74,17 +73,19 @@ int    fill_minimap(t_game *game, char tile, int color, float scale)
 	return (0);
 }
 
-void display_minimap(t_game *game)
+void	display_minimap(t_game *game)
 {
 	if (game->screen.toggle_minimap == 1)
 	{
-		fill_minimap(game, FLOOR, 0xCCdcdde1, TILE_SIZE);
-		fill_minimap(game, WALL, 0xCC000000, TILE_SIZE);
-		fill_minimap(game, EMPTY_ZONE, 0xCCFF0000, TILE_SIZE);
-		fill_minimap(game, game->player->skin, 0xCCdcdde1, TILE_SIZE);
-		fpf_circle(&game->screen.img, (t_circle) {
-				(game->player->pos_x * TILE_SIZE + SCALE) + MAPOS,
-				(game->player->pos_y * TILE_SIZE + (SCALE - 2)) + MAPOS,
-				(TILE_SIZE / 2), chartohex("255, 63, 52", 255)});
+		fill_minimap(game, FLOOR, 0x33FFFFFF);
+		fill_minimap(game, WALL, 0x000000);
+		fill_minimap(game, EMPTY_ZONE, 0xBDC3C7);
+		fill_minimap(game, game->player->skin, 0x33FFFFFF);
+		fpf_circle(&game->screen.map, (t_circle){
+			(game->player->pos_x * TILE_SIZE) + TILE_SIZE / 2 + MAPOS,
+			(game->player->pos_y * TILE_SIZE) + TILE_SIZE / 2 + MAPOS,
+			TILE_SIZE / SCALE, chartohex("192, 57, 43", 0)});
+		fpf_draw_rays(game, &game->screen.map, (t_rays){
+			0, 0, 0, 0, 0, 0, 0, game->player->angle, 0, 0});
 	}
 }

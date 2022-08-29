@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 18:53:33 by jmartin          ###   ########.fr       */
+/*   Created: 2022/08/28 16:09:23 by jmartin           #+#    #+#             */
+/*   Updated: 2022/08/28 17:08:22 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	print_map_details(t_game *game)
 	int	i;
 
 	i = 0;
+	ft_printf("\n\033[1;37mPLAYER START POS\033[0m:\nx -> %d\ny -> %d\n",
+		(int)game->player->pos_x, (int)game->player->pos_y);
 	ft_printf("\n\033[1;33mASSETS\033[0;37m:\n");
 	while (i < 4)
 		ft_printf("%s", game->map->assets[i++]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/25 15:21:29 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 18:41:22 by jmartin          ###   ########.fr       */
+/*   Created: 2022/08/28 16:08:49 by jmartin           #+#    #+#             */
+/*   Updated: 2022/08/29 02:45:27 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	init_screen(t_game *game)
 	if (!game->screen.mlx)
 		return ;
 	game->screen.win = mlx_new_window(
-			game->screen.mlx,
-			WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
+			game->screen.mlx, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
 	init_map_preset(game);
 	mlx_hook(game->screen.win, 2, 1L << 0, key_event, game);
 	mlx_hook(game->screen.win, 17, 0L << 0, esc_win, game);
@@ -45,7 +44,12 @@ void	init_map_var(t_game *game)
 	if (!game->player)
 		exit(EXIT_FAILURE);
 	game->player->is_ready = 0;
-	game->player->pos_x = -1;
-	game->player->pos_y = -1;
+	game->player->pos_x = 0;
+	game->player->pos_y = 0;
+	game->player->angle = 0;
+	game->player->dir_x = cos(game->player->angle) * STEP;
+	game->player->dir_y = sin(game->player->angle) * STEP;
+	game->player->time = 0;
+	game->player->old_time = 0;
 	game->screen.toggle_minimap = 1;
 }

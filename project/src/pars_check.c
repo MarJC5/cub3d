@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 18:46:54 by jmartin          ###   ########.fr       */
+/*   Created: 2022/08/28 16:09:15 by jmartin           #+#    #+#             */
+/*   Updated: 2022/08/29 00:59:52 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	check_player_pos(t_game *game)
 		}
 		i++;
 	}
-	ft_printf("\n\033[1;37mPLAYER START POS\033[0m:\nx -> %d\ny -> %d\n",
-		(int)game->player->pos_x, (int)game->player->pos_y);
 }
 
 int	check_map_char(char *map)

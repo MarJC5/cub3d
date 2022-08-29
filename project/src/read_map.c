@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 18:47:41 by jmartin          ###   ########.fr       */
+/*   Created: 2022/08/28 16:09:28 by jmartin           #+#    #+#             */
+/*   Updated: 2022/08/29 01:54:35 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ void	save_map_scene(t_game *game, int i, int j, int k)
 			k = 0;
 			while (k < game->map->x)
 			{
+				if (game->map->map[i] == 'N'
+					|| game->map->map[i] == 'S'
+					|| game->map->map[i] == 'E'
+					|| game->map->map[i] == 'W')
+					game->player->pos = i;
 				if (game->map->map[i] == '\n'
 					|| game->map->map[i] == '\0')
 				{
@@ -85,6 +90,7 @@ void	save_map_scene(t_game *game, int i, int j, int k)
 			}
 			j++;
 		}
+		game->map->size = i;
 	}
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap.c                                          :+:      :+:    :+:   */
+/*   fpf_map_preset.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 09:19:28 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/29 03:09:56 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	img_pix_put(t_img *img, int x, int y, int color)
 {
-	char    *pixel;
+	char	*pixel;
 
 	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	*(unsigned int*)pixel = color;
+	*(unsigned int *)pixel = color;
 }
 
-int fpf_rect(t_img *img, t_rect rect)
+int	fpf_rect(t_img *img, t_rect rect)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = rect.y;
 	while (i < rect.y + rect.height)
@@ -35,11 +35,12 @@ int fpf_rect(t_img *img, t_rect rect)
 	}
 	return (0);
 }
-int fpf_circle(t_img *img, t_circle circle)
+
+int	fpf_circle(t_img *img, t_circle circle)
 {
-	int radius;
-	int i;
-	int j;
+	int	radius;
+	int	i;
+	int	j;
 
 	radius = pow(circle.radius, 2);
 	i = circle.x - circle.radius;
@@ -58,21 +59,23 @@ int fpf_circle(t_img *img, t_circle circle)
 	return (0);
 }
 
-int	fpf_render(t_game *game)
+int	fpf_render_view(t_game *game)
 {
-	render_background(&game->screen.img,
-		chartohex(game->map->colors[0], 255),
-		chartohex(game->map->colors[1], 255));
+	render_background(&game->screen.map,
+		chartohex(game->map->colors[0], 0),
+		chartohex(game->map->colors[1], 0));
 	display_minimap(game);
 	mlx_put_image_to_window(game->screen.mlx,
-		game->screen.win, game->screen.img.mlx_img, 0, 0);
+		game->screen.win, game->screen.map.mlx_img, 0, 0);
 	return (0);
 }
 
-void    init_map_preset(t_game *game)
+void	init_map_preset(t_game *game)
 {
-	game->screen.img.mlx_img = mlx_new_image(game->screen.mlx, WIN_WIDTH, WIN_HEIGHT);
-	game->screen.img.addr = mlx_get_data_addr(game->screen.img.mlx_img, &game->screen.img.bpp,
-	                                          &game->screen.img.line_len, &game->screen.img.endian);
-	mlx_loop_hook(game->screen.mlx, &fpf_render, game);
+	game->screen.map.mlx_img = mlx_new_image(game->screen.mlx,
+			WIN_WIDTH, WIN_HEIGHT);
+	game->screen.map.addr = mlx_get_data_addr(game->screen.map.mlx_img,
+			&game->screen.map.bpp,
+			&game->screen.map.line_len, &game->screen.map.endian);
+	mlx_loop_hook(game->screen.mlx, &fpf_render_view, game);
 }
