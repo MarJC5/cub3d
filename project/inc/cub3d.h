@@ -38,7 +38,7 @@
 # define STEP 1
 # define SCALE 4
 # define TILE_SIZE 16
-# define MAPOS TILE_SIZE / 2
+# define MAPOS 8
 # define PI 3.1415926535
 
 # include "key_macos.h"
@@ -50,8 +50,6 @@
 # include <stdio.h>
 # include <math.h>
 # include <string.h>
-# include <X11/X.h>
-# include <X11/keysym.h>
 # include <mlx.h>
 
 /**
@@ -76,7 +74,6 @@ typedef struct s_rect
 	int	color;
 }	t_rect;
 
-
 typedef struct s_line
 {
 	double	begin_x;
@@ -100,6 +97,8 @@ typedef struct s_rays
 	float	ra;
 	float	xo;
 	float	yo;
+	float	dis_h;
+	float	dis_v;
 }	t_rays;
 
 typedef struct s_circle
@@ -119,15 +118,12 @@ typedef struct s_player
 	double	pos_y;
 	double	pos_x_map;
 	double	pos_y_map;
-	double	plane_x;
-	double	plane_y;
 	double	angle;
 	double	dir_x;
 	double	dir_y;
 	double	time;
 	double	old_time;
 }	t_player;
-
 
 typedef struct s_screen
 {

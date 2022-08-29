@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:15 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/29 00:59:52 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/29 11:12:38 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ void	check_player_pos(t_game *game)
 				|| game->map->scene[i][j] == 'E'
 				|| game->map->scene[i][j] == 'W')
 			{
-				game->player->pos_y = (double)i;
-				game->player->pos_x = (double)j;
+				game->player->pos_y = ((double)(i * TILE_SIZE))
+					+ TILE_SIZE / 2 + MAPOS;
+				game->player->pos_x = ((double)(j * TILE_SIZE))
+					+ TILE_SIZE / 2 + MAPOS;
 				game->player->skin = game->map->scene[i][j];
 				game->player->is_ready = 1;
 				break ;

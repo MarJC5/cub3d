@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:44 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/29 02:58:34 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/29 11:49:47 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,11 @@ void	display_minimap(t_game *game)
 		fill_minimap(game, EMPTY_ZONE, 0xBDC3C7);
 		fill_minimap(game, game->player->skin, 0x33FFFFFF);
 		fpf_circle(&game->screen.map, (t_circle){
-			(game->player->pos_x * TILE_SIZE) + TILE_SIZE / 2 + MAPOS,
-			(game->player->pos_y * TILE_SIZE) + TILE_SIZE / 2 + MAPOS,
+			game->player->pos_x,
+			game->player->pos_y,
 			TILE_SIZE / SCALE, chartohex("192, 57, 43", 0)});
 		fpf_draw_rays(game, &game->screen.map, (t_rays){
-			0, 0, 0, 0, 0, 0, 0, game->player->angle, 0, 0});
+			0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+			game->player->angle, 0.0, 0.0, 100000, 100000});
 	}
 }

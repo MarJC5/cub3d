@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:28 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/29 01:54:35 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/29 11:03:25 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void	save_map_scene(t_game *game, int i, int j, int k)
 			}
 			j++;
 		}
-		game->map->size = i;
 	}
 }
 

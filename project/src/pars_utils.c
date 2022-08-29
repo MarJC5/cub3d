@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:23 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/28 17:08:22 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/29 11:03:51 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	setup_scene_arr(t_game *game)
 		game->map->scene[i][game->map->x - 1] = '\0';
 		i++;
 	}
+	game->map->size = game->map->y * game->map->x;
 	return (SUCCESS);
 }
 
@@ -61,8 +62,8 @@ void	print_map_details(t_game *game)
 	ft_printf("\n\033[1;31mCOLORS\033[0;37m:\n");
 	while (i < 2)
 		ft_printf("%s", game->map->colors[i++]);
-	ft_printf("\n\033[1;35mSIZE\033[0;37m:\nx -> %d \ny -> %d\n",
-		game->map->x, game->map->y);
+	ft_printf("\n\033[1;35mSIZE\033[0;37m:\nx -> %d \ny -> %d\nSize: %d\n",
+		game->map->x, game->map->y, game->map->size);
 	i = -1;
 	ft_printf("\n\033[1;34mMAPS\033[0;37m:\n");
 	while (++i < game->map->y)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:49 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/29 02:45:27 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/29 10:33:13 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void	init_map_var(t_game *game)
 	if (!game->player)
 		exit(EXIT_FAILURE);
 	game->player->is_ready = 0;
-	game->player->pos_x = 0;
-	game->player->pos_y = 0;
-	game->player->angle = 0;
-	game->player->dir_x = cos(game->player->angle) * STEP;
-	game->player->dir_y = sin(game->player->angle) * STEP;
-	game->player->time = 0;
-	game->player->old_time = 0;
+	game->player->pos_x = 0.0;
+	game->player->pos_y = 0.0;
+	game->player->angle = 0.0;
+	game->player->dir_x = cos(game->player->angle) * 5;
+	game->player->dir_y = sin(game->player->angle) * 5;
+	game->player->time = 0.0;
+	game->player->old_time = 0.0;
 	game->screen.toggle_minimap = 1;
 }

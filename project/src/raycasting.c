@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 02:37:08 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/29 02:50:28 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/29 11:59:35 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,45 +36,71 @@ int	fpf_ray(t_img *img, t_line line)
 	return (0);
 }
 
+float	deg_to_rad(int a)
+{
+	return (a * M_PI / 180.0);
+}
+
+int	fix_ang(int a)
+{
+	if (a > 359)
+		a -= 360;
+	if (a < 0)
+		a += 360;
+	return (a);
+}
+
+float distance(int ax, int ay, int bx, int by, int ang)
+{
+	return (cos(deg_to_rad(ang)) * (bx - ax)
+		- sin(deg_to_rad(ang)) * (by - ay));
+}
+
 int	fpf_draw_rays(t_game *game, t_img *img, t_rays rays)
 {
 	float	a_tan;
 
-	while (rays.r++ < 1)
+	while (rays.r < 60)
 	{
 		rays.dof = 0;
 		a_tan = -1 / tan(rays.ra);
-		if (rays.ra > PI)
+		if (rays.ra > M_PI)
 		{
-			rays.ry = (((int)game->player->pos_y >> 6) << 6) - 0.0001;
+			rays.ry = ((int)(game->player->pos_y / game->map->size))
+				* game->map->size - 0.0001;
 			rays.rx = (game->player->pos_y - rays.ry)
 				* a_tan + game->player->pos_x;
 			rays.yo = -game->map->size;
 			rays.xo = -rays.yo * a_tan;
 		}
-		if (rays.ra < PI)
+		if (rays.ra < M_PI)
 		{
-			rays.ry = (((int)game->player->pos_y >> 6) << 6) + game->map->size;
+			rays.ry = ((int)(game->player->pos_y / game->map->size))
+				* game->map->size + game->map->size;
 			rays.rx = (game->player->pos_y - rays.ry)
 				* a_tan + game->player->pos_x;
 			rays.yo = game->map->size;
 			rays.xo = -rays.yo * a_tan;
 		}
-		if (rays.ra == 0 || rays.ra == PI)
+		if (rays.ra == 0 || rays.ra == M_PI)
 		{
 			rays.rx = game->player->pos_x;
 			rays.ry = game->player->pos_y;
-			rays.dof = 8;
+			rays.dof = game->map->x;
 		}
-		while (rays.dof < 8)
+		while (rays.dof < game->map->x)
 		{
-			rays.mx = (int)(rays.rx) >> 6;
-			rays.my = (int)(rays.ry) >> 6;
+			rays.mx = ((int)(rays.rx / game->map->size));
+			rays.my = ((int)(rays.ry / game->map->size));
 			rays.mp = rays.my * game->map->x + rays.mx;
-			if (rays.mp < game->map->x * game->map->y
+			if (rays.mp > 0 && rays.mp < game->map->x * game->map->y
 				&& game->map->map[rays.mp] == '1')
 			{
-				rays.dof = 8;
+				rays.dof = game->map->x;
+				rays.dis_h = cos(deg_to_rad(rays.ra))
+					* (rays.rx - game->player->pos_x)
+					- sin(deg_to_rad(rays.ra))
+					* (rays.ry - game->player->pos_y);
 			}
 			else
 			{
@@ -84,12 +110,13 @@ int	fpf_draw_rays(t_game *game, t_img *img, t_rays rays)
 			}
 		}
 		fpf_ray(img, (t_line){
-			(game->player->pos_x * TILE_SIZE) + TILE_SIZE / 2 + MAPOS,
-			(game->player->pos_y * TILE_SIZE) + TILE_SIZE / 2 + MAPOS,
-			rays.rx * TILE_SIZE,
-			rays.ry * TILE_SIZE,
+			game->player->pos_x,
+			game->player->pos_y,
+			rays.rx,
+			rays.ry,
 			chartohex("243, 156, 17", 0),
 			game->player->dir_y, game->player->dir_x});
+		rays.r++;
 	}
 	return (0);
 }
