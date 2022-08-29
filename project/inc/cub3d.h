@@ -92,13 +92,13 @@ typedef struct s_rays
 	int		my;
 	int		mp;
 	int		dof;
-	float	rx;
-	float	ry;
-	float	ra;
-	float	xo;
-	float	yo;
-	float	dis_h;
-	float	dis_v;
+	double	rx;
+	double	ry;
+	double	ra;
+	double	xo;
+	double	yo;
+	double	dis_h;
+	double	dis_v;
 }	t_rays;
 
 typedef struct s_circle
@@ -123,6 +123,7 @@ typedef struct s_player
 	double	dir_y;
 	double	time;
 	double	old_time;
+	t_rays	*rays;
 }	t_player;
 
 typedef struct s_screen
@@ -198,7 +199,7 @@ void	free_stuff(char *tofree);
  * Screen
  */
 int		fpf_ray(t_img *img, t_line line);
-int		fpf_draw_rays(t_game *game, t_img *img, t_rays rays);
+int		fpf_draw_rays(t_game *game, t_rays *rays);
 int		fill_minimap(t_game *game, char tile, int color);
 void	check_player_pos(t_game *game);
 void	render_background(t_img *img, int floor, int ceilling);

@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:44 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/29 11:49:47 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/29 18:57:12 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,15 @@ int	fill_minimap(t_game *game, char tile, int color)
 void	display_minimap(t_game *game)
 {
 	if (game->screen.toggle_minimap == 1)
-	{
+	{	
 		fill_minimap(game, FLOOR, 0x33FFFFFF);
 		fill_minimap(game, WALL, 0x000000);
 		fill_minimap(game, EMPTY_ZONE, 0xBDC3C7);
 		fill_minimap(game, game->player->skin, 0x33FFFFFF);
+		fpf_draw_rays(game, game->player->rays);
 		fpf_circle(&game->screen.map, (t_circle){
 			game->player->pos_x,
 			game->player->pos_y,
 			TILE_SIZE / SCALE, chartohex("192, 57, 43", 0)});
-		fpf_draw_rays(game, &game->screen.map, (t_rays){
-			0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-			game->player->angle, 0.0, 0.0, 100000, 100000});
 	}
 }

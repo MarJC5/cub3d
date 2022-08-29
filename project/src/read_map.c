@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:28 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/29 11:03:25 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/29 16:14:23 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,24 @@ void	save_map_scene(t_game *game, int i, int j, int k)
 					|| game->map->map[i] == 'S'
 					|| game->map->map[i] == 'E'
 					|| game->map->map[i] == 'W')
+				{
+					if (game->map->map[i] == 'N')
+						game->player->angle = 0.0;
+					if (game->map->map[i] == 'S')
+						game->player->angle = 180.0;
+					if (game->map->map[i] == 'E')
+						game->player->angle = 90.0;
+					if (game->map->map[i] == 'W')
+						game->player->angle = 270.0;
+					game->player->dir_x = cos(game->player->angle) * 5;
+					game->player->dir_y = sin(game->player->angle) * 5;
+					game->player->pos_y = j;
+					game->player->pos_x = k;
 					game->player->pos = i;
+					game->player->rays = malloc(sizeof(t_rays));
+					if (!game->player->rays)
+						exit(EXIT_FAILURE);
+				}
 				if (game->map->map[i] == '\n'
 					|| game->map->map[i] == '\0')
 				{
