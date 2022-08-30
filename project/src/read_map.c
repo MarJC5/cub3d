@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:28 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/29 16:14:23 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/30 01:56:27 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,28 +72,6 @@ void	save_map_scene(t_game *game, int i, int j, int k)
 			k = 0;
 			while (k < game->map->x)
 			{
-				if (game->map->map[i] == 'N'
-					|| game->map->map[i] == 'S'
-					|| game->map->map[i] == 'E'
-					|| game->map->map[i] == 'W')
-				{
-					if (game->map->map[i] == 'N')
-						game->player->angle = 0.0;
-					if (game->map->map[i] == 'S')
-						game->player->angle = 180.0;
-					if (game->map->map[i] == 'E')
-						game->player->angle = 90.0;
-					if (game->map->map[i] == 'W')
-						game->player->angle = 270.0;
-					game->player->dir_x = cos(game->player->angle) * 5;
-					game->player->dir_y = sin(game->player->angle) * 5;
-					game->player->pos_y = j;
-					game->player->pos_x = k;
-					game->player->pos = i;
-					game->player->rays = malloc(sizeof(t_rays));
-					if (!game->player->rays)
-						exit(EXIT_FAILURE);
-				}
 				if (game->map->map[i] == '\n'
 					|| game->map->map[i] == '\0')
 				{
@@ -106,25 +84,6 @@ void	save_map_scene(t_game *game, int i, int j, int k)
 				i++;
 			}
 			j++;
-		}
-	}
-}
-
-void	init_map(t_game *game, char *file)
-{
-	if (check_map_name(game, file) == SUCCESS)
-	{
-		if (save_map_textures(game, -1, 0,
-				get_next_line(game->map->fd)) == SUCCESS)
-		{
-			if (save_map(game, NULL,
-					get_next_line(game->map->fd), 0) == SUCCESS)
-			{
-				save_map_scene(game, 0, 0, 0);
-				check_player_pos(game);
-				print_map_details(game);
-				init_screen(game);
-			}
 		}
 	}
 }

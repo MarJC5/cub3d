@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fpf_map_preset.c                                   :+:      :+:    :+:   */
+/*   shape.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/29 19:08:17 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/30 01:50:49 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	}
 }
 
-int	fpf_rect(t_img *img, t_rect rect)
+void	draw_rect(t_img *img, t_rect rect)
 {
 	int	i;
 	int	j;
@@ -44,10 +44,9 @@ int	fpf_rect(t_img *img, t_rect rect)
 			img_pix_put(img, j++, i, rect.color);
 		++i;
 	}
-	return (0);
 }
 
-int	fpf_circle(t_img *img, t_circle circle)
+void	draw_circle(t_img *img, t_circle circle)
 {
 	int	radius;
 	int	i;
@@ -67,26 +66,4 @@ int	fpf_circle(t_img *img, t_circle circle)
 		j++;
 		i = circle.x - circle.radius;
 	}
-	return (0);
-}
-
-int	fpf_render_view(t_game *game)
-{
-	render_background(&game->screen.map,
-		chartohex(game->map->colors[0], 0),
-		chartohex(game->map->colors[1], 0));
-	display_minimap(game);
-	mlx_put_image_to_window(game->screen.mlx,
-		game->screen.win, game->screen.map.mlx_img, 0, 0);
-	return (0);
-}
-
-void	init_map_preset(t_game *game)
-{
-	game->screen.map.mlx_img = mlx_new_image(game->screen.mlx,
-			WIN_WIDTH, WIN_HEIGHT);
-	game->screen.map.addr = mlx_get_data_addr(game->screen.map.mlx_img,
-			&game->screen.map.bpp,
-			&game->screen.map.line_len, &game->screen.map.endian);
-	mlx_loop_hook(game->screen.mlx, &fpf_render_view, game);
 }

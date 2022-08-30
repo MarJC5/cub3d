@@ -10,17 +10,20 @@ RESET	= \033[0m
 ##################################################
 SRCS_DIR	= ./src/
 SRCS_FILES	=  main.c
-SRCS_FILES	+= 	pars_utils.c \
+SRCS_FILES	+= 	key_actions.c \
+				move.c \
 				pars_check.c \
+				pars_utils.c \
 				read_map.c \
 				error_utils.c \
 				free.c \
-				init.c \
-				image.c \
+				minilibft.c \
+				shape.c \
+				ray.c \
 				raycasting.c \
-				fpf_map_preset.c \
-				key_actions.c \
-				minilibft.c
+				render.c \
+				init.c
+
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 

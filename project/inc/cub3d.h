@@ -35,11 +35,10 @@
 # define FLOOR '0'
 # define EMPTY_ZONE '.'
 
-# define STEP 1
+# define SPEED 5
 # define SCALE 4
 # define TILE_SIZE 16
 # define MAPOS 8
-# define PI 3.1415926535
 
 # include "key_macos.h"
 # include "libft.h"
@@ -80,9 +79,9 @@ typedef struct s_line
 	double	begin_y;
 	double	end_x;
 	double	end_y;
-	int		color;
-	double	delta_y;
 	double	delta_x;
+	double	delta_y;
+	int		color;
 }	t_line;
 
 typedef struct s_rays
@@ -94,11 +93,15 @@ typedef struct s_rays
 	int		dof;
 	double	rx;
 	double	ry;
+	double	hx;
+	double	hy;
+	double	vx;
+	double	vy;
 	double	ra;
 	double	xo;
 	double	yo;
-	double	dis_h;
-	double	dis_v;
+	double	dist_h;
+	double	dist_v;
 }	t_rays;
 
 typedef struct s_circle
@@ -116,22 +119,20 @@ typedef struct s_player
 	char	skin;
 	double	pos_x;
 	double	pos_y;
-	double	pos_x_map;
-	double	pos_y_map;
 	double	angle;
 	double	dir_x;
 	double	dir_y;
 	double	time;
 	double	old_time;
-	t_rays	*rays;
+	t_rays	rays;
 }	t_player;
 
 typedef struct s_screen
 {
-	void	*mlx;
-	void	*win;
-	int		toggle_minimap;
-	t_img	map;
+	void		*mlx;
+	void		*win;
+	int			toggle_minimap;
+	t_img		map;
 }	t_screen;
 
 typedef struct s_map
@@ -156,60 +157,82 @@ typedef struct s_game
 }	t_game;
 
 /**
+ * @brief
  * Init
  */
 
 void	init_screen(t_game *game);
-void	init_map_var(t_game *game);
+void	init_view(t_game *game);
+void	init_default(t_game *game);
 void	init_map(t_game *game, char *file);
-void	init_map_preset(t_game *game);
-void	init_screen(t_game *game);
 
 /**
+ * @brief
+ * Parsing
+ */
+
+int		setup_scene_arr(t_game *game);
+int		check_map_textures(char **identifier);
+int		check_map_char(char *map);
+int		check_map_name(t_game *game, char *file);
+int		save_map(t_game *game, char *save, char *line, int y);
+int		save_map_textures(t_game *game, int i, int j, char *line);
+
+void	save_map_scene(t_game *game, int i, int j, int k);
+void	print_map_details(t_game *game);
+
+char	*replace_char(char *str, char find, char replace);
+
+/**
+ * @brief
+ * Events
+ */
+
+int		esc_win(t_game *game);
+int		key_event(int key, t_game *game);
+
+void	move_left(t_game *game);
+void	move_right(t_game *game);
+void	move_up(t_game *game);
+void	move_down(t_game *game);
+
+/**
+ * @brief
  * Utils
  */
+
 int		printinvalid(int errno);
 int		printerr(char *err);
 int		ft_isspace(char c);
 int		ft_strcmp(char *s1, char *s2);
 int		encode_rgb(uint8_t alpha, uint8_t red, uint8_t green, uint8_t blue);
 int		chartohex(char *tab, int opacity);
-int		fpf_rect(t_img *img, t_rect rect);
-int		fpf_circle(t_img *img, t_circle circle);
-void	img_pix_put(t_img *img, int x, int y, int color);
+
+double	degtorad(int ang);
 
 /**
- * Parsing
+ * @brief
+ * Screen
  */
-int		check_map_textures(char **identifier);
-int		check_map_char(char *map);
-int		check_map_name(t_game *game, char *file);
-int		setup_scene_arr(t_game *game);
-char	*replace_char(char *str, char find, char replace);
-void	print_map_details(t_game *game);
+
+int		fpf_h_rays(t_player *player, t_img *img, t_map *map, t_rays *rays);
+int		render_view(t_game *game);
+
+void	draw_ray(t_img *img, t_line line);
+void	draw_rect(t_img *img, t_rect rect);
+void	draw_circle(t_img *img, t_circle circle);
+void	render_minimap(t_game *game);
+void	render_minimap_tile(t_game *game, char tile, int color);
+void	render_background(t_img *img, int floor, int ceilling);
+void	img_pix_put(t_img *img, int x, int y, int color);
+void	check_player_pos(t_game *game);
 
 /**
+ * @brief
  * Free
  */
 void	free_map(t_game *game);
 void	ft_free_multitab(char **tab);
 void	free_stuff(char *tofree);
-
-/**
- * Screen
- */
-int		fpf_ray(t_img *img, t_line line);
-int		fpf_draw_rays(t_game *game, t_rays *rays);
-int		fill_minimap(t_game *game, char tile, int color);
-void	check_player_pos(t_game *game);
-void	render_background(t_img *img, int floor, int ceilling);
-void	render_wrapper(t_img *img, int h, int w, int color);
-void	display_minimap(t_game *game);
-
-/**
- * Key events
- */
-int		esc_win(t_game *game);
-int		key_event(int key, t_game *game);
 
 #endif

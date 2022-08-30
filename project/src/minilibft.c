@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:06 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/28 17:05:44 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/30 00:39:31 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,9 @@ int	chartohex(char *tab, int opacity)
 	free(split[0]);
 	free(split);
 	return (hexret);
+}
+
+double	degtorad(int ang)
+{
+	return (ang * M_PI / 180.0);
 }

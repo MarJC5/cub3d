@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:59 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/29 14:52:01 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/30 01:52:09 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (argc == 2)
 	{
-		init_map_var(game);
+		init_default(game);
 		init_map(game, argv[argc - 1]);
 	}
 	else if (argc == 1 || argc > 2)
