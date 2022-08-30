@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:15 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/30 01:55:16 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/30 09:32:53 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@ void	check_player_pos(t_game *game)
 		j = 0;
 		while (j < game->map->x)
 		{
-			if (game->map->scene[i][j] == 'N'
-				|| game->map->scene[i][j] == 'S'
+			if (game->map->scene[i][j] == 'N' || game->map->scene[i][j] == 'S'
 				|| game->map->scene[i][j] == 'E'
 				|| game->map->scene[i][j] == 'W')
 			{
-				game->player->pos_y = (i * TILE_SIZE) + TILE_SIZE / 2 + MAPOS;
-				game->player->pos_x = (j * TILE_SIZE) + TILE_SIZE / 2 + MAPOS;
+				game->player->pos_y = i;
+				game->player->pos_x = j;
+				game->player->pos_ym = (i * MINI_TILE) + MAPOS + (SCALE - 1);
+				game->player->pos_xm = (j * MINI_TILE) + MAPOS + (SCALE - 1);
 				game->player->skin = game->map->scene[i][j];
 				game->player->is_ready = 1;
 				break ;

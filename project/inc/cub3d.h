@@ -37,7 +37,8 @@
 
 # define SPEED 5
 # define SCALE 4
-# define TILE_SIZE 16
+# define TILE_SIZE 64
+# define MINI_TILE 8
 # define MAPOS 8
 
 # include "key_macos.h"
@@ -119,9 +120,13 @@ typedef struct s_player
 	char	skin;
 	double	pos_x;
 	double	pos_y;
+	double	pos_xm;
+	double	pos_ym;
 	double	angle;
 	double	dir_x;
 	double	dir_y;
+	double	dir_xm;
+	double	dir_ym;
 	double	time;
 	double	old_time;
 	t_rays	rays;

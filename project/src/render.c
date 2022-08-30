@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/30 01:51:47 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/30 09:32:45 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	render_background(t_img *img, int floor, int ceilling)
 {
+	(void) floor;
 	int	i;
 	int	j;
 
@@ -23,10 +24,7 @@ void	render_background(t_img *img, int floor, int ceilling)
 		j = 0;
 		while (j < WIN_WIDTH)
 		{
-			if (i < WIN_HEIGHT / 2)
-				img_pix_put(img, j, i, ceilling);
-			else
-				img_pix_put(img, j, i, floor);
+			img_pix_put(img, j, i, ceilling);
 			j++;
 		}
 		++i;
@@ -46,8 +44,8 @@ void	render_minimap_tile(t_game *game, char tile, int color)
 		{
 			if (game->map->scene[i][j] == tile)
 				draw_rect(&game->screen.map, (t_rect){
-					(j * TILE_SIZE) + MAPOS, (i * TILE_SIZE) + MAPOS,
-					TILE_SIZE - 1, TILE_SIZE - 1, color});
+					(j * MINI_TILE) + MAPOS, (i * MINI_TILE) + MAPOS,
+					MINI_TILE - 1, MINI_TILE - 1, color});
 			j++;
 		}
 		i++;
@@ -58,14 +56,14 @@ void	render_minimap(t_game *game)
 {
 	if (game->screen.toggle_minimap == 1)
 	{
+		render_minimap_tile(game, game->player->skin, 0x33FFFFFF);
 		render_minimap_tile(game, FLOOR, 0x33FFFFFF);
 		render_minimap_tile(game, WALL, 0x000000);
 		render_minimap_tile(game, EMPTY_ZONE, 0xBDC3C7);
-		render_minimap_tile(game, game->player->skin, 0x33FFFFFF);
 		draw_circle(&game->screen.map, (t_circle){
-			game->player->pos_x,
-			game->player->pos_y,
-			TILE_SIZE / SCALE, chartohex("192, 57, 43", 0)});
+			game->player->pos_xm,
+			game->player->pos_ym,
+			MINI_TILE / (SCALE / 1.5), 0xC0392B});
 	}
 }
 

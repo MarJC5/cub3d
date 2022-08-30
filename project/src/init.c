@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:49 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/30 01:56:00 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/30 09:19:09 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,13 @@ void	init_player(t_game *game)
 	game->player->is_ready = 0;
 	game->player->pos_x = 0.0;
 	game->player->pos_y = 0.0;
+	game->player->pos_xm = 0.0;
+	game->player->pos_ym = 0.0;
 	game->player->angle = 0.0;
 	game->player->dir_x = cos(game->player->angle) * SPEED;
 	game->player->dir_y = sin(game->player->angle) * SPEED;
+	game->player->dir_xm = cos(game->player->angle) * (SPEED / 2);
+	game->player->dir_ym = sin(game->player->angle) * (SPEED / 2);
 	game->player->time = 0.0;
 	game->player->old_time = 0.0;
 	game->screen.toggle_minimap = 1;
