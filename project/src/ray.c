@@ -77,9 +77,11 @@ void	dda_algo(t_map *map, t_rays *rays)
 			map->map_y += rays->step_y;
 			rays->side = 1;
 		}
-		if (map->scene[map->map_x][map->map_y] != '1')
+		if (map->map_x >= 0 && map->map_x < map->x
+			&& map->map_y >= 0 && map->map_y < map->y
+			&& map->scene[map->map_y - 1][map->map_x] != '1')
 		{
-			printf("insite");
+			printf("Map posx %d posy %d\n", map->map_x, map->map_y);
 			rays->hit = 1;
 		}
 	}
@@ -103,6 +105,10 @@ void	init_ray(t_map *map, t_screen *screen, t_player *player, t_rays *rays)
 			rays->delta_dist_x = 1e30;
 		else
 			rays->delta_dist_x = (int)(1 / rays->dir_x);
+		if (rays->dir_y == 0)
+			rays->delta_dist_y = 1e30;
+		else
+			rays->delta_dist_y = (int)(1 / rays->dir_y);
 		rays->hit = 0;
 		step_dist(map, player, rays);
 		dda_algo(map, rays);
@@ -117,10 +123,10 @@ void	init_ray(t_map *map, t_screen *screen, t_player *player, t_rays *rays)
 		rays->draw_end = rays->line_h / 2 + map->y / 2;
 		if (rays->draw_end >= map->y)
 			rays->draw_end = map->y - 1;
-		/*draw_ray(&screen->map, (t_line){
+		draw_ray(&screen->map, (t_line){
 			player->pos_x,
 			player->pos_y,
-			rays->draw_start, rays->draw_end,
-			0, 0, 0xfeca57});*/
+			0, 0,
+			0, 0, 0xfeca57});
 	}
 }
