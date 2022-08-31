@@ -84,36 +84,18 @@ typedef struct s_circle
 
 typedef struct s_line
 {
-	double	begin_x;
-	double	begin_y;
-	double	end_x;
-	double	end_y;
+	double  posx;
+	double  posy;
 	double	delta_x;
 	double	delta_y;
+	double  dist;
 	int		color;
 }	t_line;
 
 
 typedef struct s_rays
 {
-	int		r;
-	int		mx;
-	int		my;
-	int		mp;
-	int		dof;
-	double	hmrx;
-	double	hmry;
-	double	vmrx;
-	double	vmry;
-	double	rx;
-	double	ry;
-	double	ra;
-	double	xo;
-	double	yo;
-	double	dis_h;
-	double	dis_v;
-	double  atan;
-	double  ntan;
+	double	dist;
 }	t_rays;
 
 typedef struct s_collision
@@ -242,8 +224,8 @@ double	degtorad(int ang);
  */
 
 int		render_view(t_game *game);
+
 void	init_ray(t_map *map, t_screen *screen, t_player *player, t_rays *rays);
-void	draw_ray(t_img *img, t_line line);
 void	draw_rect(t_img *img, t_rect rect);
 void	draw_circle(t_img *img, t_circle circle);
 void	render_minimap(t_game *game);
@@ -252,6 +234,8 @@ void	render_background(t_img *img, int floor, int ceilling);
 void	img_pix_put(t_img *img, int x, int y, int color);
 void	check_player_pos(t_game *game);
 void    render_stat(t_game *game, int x, int y, int data);
+
+double	draw_ray(t_map *map, t_img *img, t_line line);
 
 /**
  * @brief

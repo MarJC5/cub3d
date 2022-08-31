@@ -25,13 +25,13 @@ int	check_map_name(t_game *game, char *file)
 int init_player_angle(char angle)
 {
 	if (angle == 'N')
-		return (degtorad(0));
+		return (2 * M_PI);
 	if (angle == 'E')
-		return (degtorad(90));
+		return (M_PI_2);
 	if (angle == 'S')
-		return (degtorad(180));
+		return (M_PI);
 	if (angle == 'W')
-		return (degtorad(270));
+		return ((3 * M_PI) / 2);
 	return (0);
 }
 
@@ -60,7 +60,6 @@ void	check_player_pos(t_game *game)
 				game->player->delta_xm = cos(game->player->angle) * (SPEED / 2);
 				game->player->delta_ym = sin(game->player->angle) * (SPEED / 2);
 				game->player->angle = init_player_angle(game->player->skin);
-				game->player->rays.ra = game->player->angle;
 				game->player->is_ready = 1;
 				break ;
 			}

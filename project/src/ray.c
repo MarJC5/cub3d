@@ -12,25 +12,20 @@
 
 #include "../inc/cub3d.h"
 
-void	draw_ray(t_img *img, t_line line)
+double	draw_ray(t_map *map, t_img *img, t_line line)
 {
 	double	pixel_x;
 	double	pixel_y;
-	int		pixels;
 
-	line.delta_x = (line.end_x - line.begin_x);
-	line.delta_y = (line.end_y - line.begin_y);
-	pixels = sqrt((line.delta_x * line.delta_x)
-			+ (line.delta_y * line.delta_y));
-	line.delta_x /= pixels;
-	line.delta_y /= pixels;
-	pixel_x = line.begin_x;
-	pixel_y = line.begin_y;
-	while (pixels)
+	pixel_x = line.posx;
+	pixel_y = line.posy;
+	while (map->scene[(int)((pixel_y - MINI_TILE) / MINI_TILE)]
+			[(int)((pixel_x - MINI_TILE) / MINI_TILE)] != '1')
 	{
 		img_pix_put(img, pixel_x, pixel_y, line.color);
-		pixel_x += line.delta_x;
-		pixel_y += line.delta_y;
-		--pixels;
+		pixel_x += 0.2f * line.delta_x;
+		pixel_y += 0.2f * line.delta_y;
+		line.dist += 0.2f;
 	}
+	return (line.dist);
 }

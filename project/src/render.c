@@ -31,16 +31,23 @@ void	render_background(t_img *img, int floor, int ceilling)
 	}
 }
 
-void    render_stat(t_game *game, int x, int y, int data)
+void    render_info(t_game *game)
 {
 	char *value;
+	char *tmp;
 
-	value = ft_itoa(data);
-	mlx_string_put(game->screen.mlx,
-	               game->screen.win,
-				   x, y,
-				   0x000, value);
+	value = ft_itoa(game->player->pos_x);
+	tmp = ft_strjoin("X: ", value);
+	mlx_string_put(game->screen.mlx,game->screen.win,
+				   MAPOS, game->map->y * (MINI_TILE * 1.25), 0x000, tmp);
 	free(value);
+	free(tmp);
+	value = ft_itoa(game->player->pos_y);
+	tmp = ft_strjoin("Y: ", value);
+	mlx_string_put(game->screen.mlx,game->screen.win,
+	               MAPOS, game->map->y * (MINI_TILE * 1.4), 0x000, tmp);
+	free(value);
+	free(tmp);
 }
 
 void	render_minimap_tile(t_game *game, char tile, int color)
@@ -78,8 +85,7 @@ void	render_minimap(t_game *game)
 			game->player->pos_xm,
 			game->player->pos_ym,
 			MINI_TILE / (SCALE / 1.5), 0xC0392B});
-		render_stat(game, MAPOS, game->map->y * (MAPOS), (int)game->player->pos_xm);
-		render_stat(game, MAPOS, game->map->y * (MAPOS * 2), (int)game->player->pos_ym);
+		render_info(game);
 	}
 }
 
