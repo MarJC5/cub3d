@@ -22,6 +22,19 @@ int	check_map_name(t_game *game, char *file)
 	return (SUCCESS);
 }
 
+int init_player_angle(char angle)
+{
+	if (angle == 'N')
+		return (degtorad(0));
+	if (angle == 'E')
+		return (degtorad(90));
+	if (angle == 'S')
+		return (degtorad(180));
+	if (angle == 'W')
+		return (degtorad(270));
+	return (0);
+}
+
 void	check_player_pos(t_game *game)
 {
 	int	i;
@@ -42,6 +55,12 @@ void	check_player_pos(t_game *game)
 				game->player->pos_ym = (i * MINI_TILE) + MAPOS + (SCALE - 1);
 				game->player->pos_xm = (j * MINI_TILE) + MAPOS + (SCALE - 1);
 				game->player->skin = game->map->scene[i][j];
+				game->player->delta_x = cos(game->player->angle) * SPEED;
+				game->player->delta_y = sin(game->player->angle) * SPEED;
+				game->player->delta_xm = cos(game->player->angle) * (SPEED / 2);
+				game->player->delta_ym = sin(game->player->angle) * (SPEED / 2);
+				game->player->angle = init_player_angle(game->player->skin);
+				game->player->rays.ra = game->player->angle;
 				game->player->is_ready = 1;
 				break ;
 			}

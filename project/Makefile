@@ -20,6 +20,7 @@ SRCS_FILES	+= 	key_actions.c \
 				minilibft.c \
 				shape.c \
 				ray.c \
+				rays.c \
 				raycasting.c \
 				render.c \
 				init.c
@@ -84,19 +85,19 @@ ${NAME}: ${O_DIR} ${OBJS}
 
 #Create objects directory
 ${O_DIR}:
-	${MKDIR} ${O_DIR}
+	@${MKDIR} ${O_DIR}
 
 #Compile normals objects
 ${O_DIR}%.o: ${SRCS_DIR}%.c
-	${CC} ${CFLAGS} ${HEADS} -o $@ -c $<
+	@${CC} ${CFLAGS} ${HEADS} -o $@ -c $<
 
 #Compile libft
 ${LIBFT}/libft.a:
-	${MAKELIB} all
+	@${MAKELIB} all
 
 #Compile minilibx
 ${LIBX}/libmlx.a:
-	${MAKELIBX} all
+	@${MAKELIBX} all
 
 #Compile and use valgrind
 valgrind:
@@ -104,9 +105,10 @@ valgrind:
 
 #Compile a debug executable with -g and fsanitize
 debug: ${D_DIR} ${DEBUGS}
-	${MAKELIB} all
-	${MAKELIBX} all
-	${CC} ${CFLAGS} -fsanitize=address -o ${NAME} ${DEBUGS} ${LIBS}
+	@${MAKELIB} all
+	@${MAKELIBX} all
+	@${CC} ${CFLAGS} -fsanitize=address -o ${NAME} ${DEBUGS} ${LIBS}
+	@./$(NAME) ./maps/demo.cub
 
 #Create debug directory
 ${D_DIR}:
@@ -114,7 +116,7 @@ ${D_DIR}:
 
 #Compile debug objects
 ${D_DIR}%.o: ${SRCS_DIR}%.c
-	${CC} ${CFLAGS} -g ${HEADS} -o $@ -c $<
+	@${CC} ${CFLAGS} -g ${HEADS} -o $@ -c $<
 
 clean:
 	@${RM} ${OBJS} ${OBJSB} ${DEBUGS}

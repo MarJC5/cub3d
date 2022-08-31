@@ -31,6 +31,18 @@ void	render_background(t_img *img, int floor, int ceilling)
 	}
 }
 
+void    render_stat(t_game *game, int x, int y, int data)
+{
+	char *value;
+
+	value = ft_itoa(data);
+	mlx_string_put(game->screen.mlx,
+	               game->screen.win,
+				   x, y,
+				   0x000, value);
+	free(value);
+}
+
 void	render_minimap_tile(t_game *game, char tile, int color)
 {
 	int	i;
@@ -66,6 +78,8 @@ void	render_minimap(t_game *game)
 			game->player->pos_xm,
 			game->player->pos_ym,
 			MINI_TILE / (SCALE / 1.5), 0xC0392B});
+		render_stat(game, MAPOS, game->map->y * (MAPOS), (int)game->player->pos_xm);
+		render_stat(game, MAPOS, game->map->y * (MAPOS * 2), (int)game->player->pos_ym);
 	}
 }
 

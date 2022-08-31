@@ -93,39 +93,57 @@ typedef struct s_line
 	int		color;
 }	t_line;
 
+
 typedef struct s_rays
 {
-	int		hit;
-	int		side;
-	int		step_x;
-	int		step_y;
-	int		line_h;
-	int		draw_start;
-	int		draw_end;
-	double	dir_x;
-	double	dir_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	pp_wall_dist;
+	int		r;
+	int		mx;
+	int		my;
+	int		mp;
+	int		dof;
+	double	hmrx;
+	double	hmry;
+	double	vmrx;
+	double	vmry;
+	double	rx;
+	double	ry;
+	double	ra;
+	double	xo;
+	double	yo;
+	double	dis_h;
+	double	dis_v;
+	double  atan;
+	double  ntan;
 }	t_rays;
+
+typedef struct s_collision
+{
+	int xo;
+	int yo;
+	int ipx;
+	int ipy;
+	int ipx_add_xo;
+	int ipx_sub_xo;
+	int ipy_add_yo;
+	int ipy_sub_yo;
+} t_collision;
 
 typedef struct s_player
 {
-	int		is_ready;
-	int		pos;
-	char	skin;
-	double	pos_x;
-	double	pos_y;
-	double	pos_xm;
-	double	pos_ym;
-	double	angle;
-	double	dir_x;
-	double	dir_y;
-	double	dir_xm;
-	double	dir_ym;
-	t_rays	rays;
+	int		    is_ready;
+	int		    pos;
+	char	    skin;
+	double	    pos_x;
+	double	    pos_y;
+	double	    pos_xm;
+	double	    pos_ym;
+	double	    angle;
+	double	    delta_x;
+	double	    delta_y;
+	double	    delta_xm;
+	double	    delta_ym;
+	t_rays	    rays;
+	t_collision collision;
 }	t_player;
 
 typedef struct s_screen
@@ -233,6 +251,7 @@ void	render_minimap_tile(t_game *game, char tile, int color);
 void	render_background(t_img *img, int floor, int ceilling);
 void	img_pix_put(t_img *img, int x, int y, int color);
 void	check_player_pos(t_game *game);
+void    render_stat(t_game *game, int x, int y, int data);
 
 /**
  * @brief
