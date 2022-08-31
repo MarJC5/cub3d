@@ -74,6 +74,14 @@ typedef struct s_rect
 	int	color;
 }	t_rect;
 
+typedef struct s_circle
+{
+	int	x;
+	int	y;
+	int	radius;
+	int	color;
+}	t_circle;
+
 typedef struct s_line
 {
 	double	begin_x;
@@ -87,31 +95,21 @@ typedef struct s_line
 
 typedef struct s_rays
 {
-	int		r;
-	int		mx;
-	int		my;
-	int		mp;
-	int		dof;
-	double	rx;
-	double	ry;
-	double	hx;
-	double	hy;
-	double	vx;
-	double	vy;
-	double	ra;
-	double	xo;
-	double	yo;
-	double	dist_h;
-	double	dist_v;
+	int		hit;
+	int		side;
+	int		step_x;
+	int		step_y;
+	int		line_h;
+	int		draw_start;
+	int		draw_end;
+	double	dir_x;
+	double	dir_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	pp_wall_dist;
 }	t_rays;
-
-typedef struct s_circle
-{
-	int	x;
-	int	y;
-	int	radius;
-	int	color;
-}	t_circle;
 
 typedef struct s_player
 {
@@ -127,8 +125,6 @@ typedef struct s_player
 	double	dir_y;
 	double	dir_xm;
 	double	dir_ym;
-	double	time;
-	double	old_time;
 	t_rays	rays;
 }	t_player;
 
@@ -137,6 +133,11 @@ typedef struct s_screen
 	void		*mlx;
 	void		*win;
 	int			toggle_minimap;
+	double		time;
+	double		old_time;
+	double		plane_x;
+	double		plane_y;
+	double		camera_x;
 	t_img		map;
 }	t_screen;
 
@@ -146,6 +147,8 @@ typedef struct s_map
 	int		x;
 	int		y;
 	int		size;
+	int		map_x;
+	int		map_y;
 	char	*map;
 	char	**identifier;
 	char	**colors;
@@ -220,9 +223,8 @@ double	degtorad(int ang);
  * Screen
  */
 
-int		fpf_h_rays(t_player *player, t_img *img, t_map *map, t_rays *rays);
 int		render_view(t_game *game);
-
+void	init_ray(t_map *map, t_screen *screen, t_player *player, t_rays *rays);
 void	draw_ray(t_img *img, t_line line);
 void	draw_rect(t_img *img, t_rect rect);
 void	draw_circle(t_img *img, t_circle circle);

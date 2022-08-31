@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/30 09:32:45 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/30 23:55:08 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	render_background(t_img *img, int floor, int ceilling)
 {
-	(void) floor;
+	(void) ceilling;
 	int	i;
 	int	j;
 
@@ -24,7 +24,7 @@ void	render_background(t_img *img, int floor, int ceilling)
 		j = 0;
 		while (j < WIN_WIDTH)
 		{
-			img_pix_put(img, j, i, ceilling);
+			img_pix_put(img, j, i, floor);
 			j++;
 		}
 		++i;
@@ -60,6 +60,8 @@ void	render_minimap(t_game *game)
 		render_minimap_tile(game, FLOOR, 0x33FFFFFF);
 		render_minimap_tile(game, WALL, 0x000000);
 		render_minimap_tile(game, EMPTY_ZONE, 0xBDC3C7);
+		init_ray(game->map, &game->screen,
+			game->player, &game->player->rays);
 		draw_circle(&game->screen.map, (t_circle){
 			game->player->pos_xm,
 			game->player->pos_ym,

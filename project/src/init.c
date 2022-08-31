@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:49 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/30 09:19:09 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/30 22:57:26 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ void	init_player(t_game *game)
 	game->player->dir_y = sin(game->player->angle) * SPEED;
 	game->player->dir_xm = cos(game->player->angle) * (SPEED / 2);
 	game->player->dir_ym = sin(game->player->angle) * (SPEED / 2);
-	game->player->time = 0.0;
-	game->player->old_time = 0.0;
-	game->screen.toggle_minimap = 1;
 }
 
 void	init_default(t_game *game)
@@ -84,6 +81,11 @@ void	init_screen(t_game *game)
 	game->screen.mlx = mlx_init();
 	if (!game->screen.mlx)
 		return ;
+	game->screen.time = 0.0;
+	game->screen.old_time = 0.0;
+	game->screen.plane_x = 0.0;
+	game->screen.plane_y = 0.66;
+	game->screen.toggle_minimap = 1;
 	game->screen.win = mlx_new_window(
 			game->screen.mlx, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
 	init_view(game);
