@@ -40,8 +40,13 @@
 # define TILE_SIZE 64
 # define MINI_TILE 8
 # define MAPOS 8
+# define FOV 60
+# define COLLISION 0.7f
 
 # define DR 0.0174533
+# define PI 3.1415926535
+# define P2 PI / 2
+# define P3 3 * PI / 2
 
 # include "key_macos.h"
 # include "libft.h"
@@ -84,17 +89,23 @@ typedef struct s_circle
 	int	color;
 }	t_circle;
 
+typedef struct s_dline
+{
+	float  posx;
+	float  posy;
+	float	delta_x;
+	float	delta_y;
+	float  dist;
+	int		color;
+}	t_dline;
+
 typedef struct s_line
 {
-	double  posx;
-	double  posy;
-	double	delta_x;
-	double	delta_y;
-	double  begin_x;
-	double  begin_y;
-	double  end_x;
-	double  end_y;
-	double  dist;
+	float  posx;
+	float  posy;
+	float   delta_x;
+	float   delta_y;
+	float   dist;
 	int		color;
 }	t_line;
 
@@ -102,24 +113,26 @@ typedef struct s_line
 typedef struct s_rays
 {
 	int		r;
-	int		mx;
-	int		my;
-	int		mp;
+	int		vmx;
+	int		vmy;
+	int		hmx;
+	int		hmy;
 	int		dof;
-	double	hmrx;
-	double	hmry;
-	double	vmrx;
-	double	vmry;
-	double	rx;
-	double	ry;
-	double	ra;
-	double	xo;
-	double	yo;
-	double	dis_h;
-	double	dis_v;
-	double  atan;
-	double  ntan;
-	double  dist;
+	int     h_shift;
+	float	vx;
+	float	vy;
+	float	hx;
+	float	hy;
+	float	rx;
+	float	ry;
+	float	ra;
+	float	xo;
+	float	yo;
+	float	dis_h;
+	float   dis_v;
+	float   atan;
+	float   ntan;
+	float   dist;
 }	t_rays;
 
 typedef struct s_collision
@@ -139,15 +152,15 @@ typedef struct s_player
 	int		    is_ready;
 	int		    pos;
 	char	    skin;
-	double	    pos_x;
-	double	    pos_y;
-	double	    pos_xm;
-	double	    pos_ym;
-	double	    angle;
-	double	    delta_x;
-	double	    delta_y;
-	double	    delta_xm;
-	double	    delta_ym;
+	float	    pos_x;
+	float	    pos_y;
+	float	    pos_xm;
+	float	    pos_ym;
+	float	    angle;
+	float	    delta_x;
+	float	    delta_y;
+	float	    delta_xm;
+	float	    delta_ym;
 	t_rays	    rays;
 	t_collision collision;
 }	t_player;
@@ -157,11 +170,11 @@ typedef struct s_screen
 	void		*mlx;
 	void		*win;
 	int			toggle_minimap;
-	double		time;
-	double		old_time;
-	double		plane_x;
-	double		plane_y;
-	double		camera_x;
+	float		time;
+	float		old_time;
+	float		plane_x;
+	float		plane_y;
+	float		camera_x;
 	t_img		map;
 }	t_screen;
 
@@ -220,8 +233,8 @@ char	*replace_char(char *str, char find, char replace);
  * Events
  */
 
-int		esc_win(t_game *game);
 int		key_event(int key, t_game *game);
+int 	esc_win(t_game *game);
 
 void	move_left(t_game *game);
 void	move_right(t_game *game);
@@ -240,7 +253,7 @@ int		ft_strcmp(char *s1, char *s2);
 int		encode_rgb(uint8_t alpha, uint8_t red, uint8_t green, uint8_t blue);
 int		chartohex(char *tab, int opacity);
 
-double	degtorad(int ang);
+float	degtorad(float ang);
 
 /**
  * @brief
@@ -259,8 +272,8 @@ void	img_pix_put(t_img *img, int x, int y, int color);
 void	check_player_pos(t_game *game);
 void    render_stat(t_game *game, int x, int y, int data);
 
-void    draw_ray(t_img *img, t_line line);
-double	draw_player_ray(t_map *map, t_img *img, t_line line);
+void    draw_line(t_img *img, t_dline dline);
+float	draw_player_ray(t_map *map, t_img *img, t_line line);
 
 /**
  * @brief

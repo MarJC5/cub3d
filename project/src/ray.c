@@ -12,20 +12,18 @@
 
 #include "../inc/cub3d.h"
 
-void	draw_ray(t_img *img, t_line line)
+void	draw_line(t_img *img, t_dline line)
 {
-	double	pixel_x;
-	double	pixel_y;
+	float	pixel_x;
+	float	pixel_y;
 	int		pixels;
 
-	line.delta_x = (line.end_x - line.begin_x);
-	line.delta_y = (line.end_y - line.begin_y);
 	pixels = sqrt((line.delta_x * line.delta_x)
 			+ (line.delta_y * line.delta_y));
 	line.delta_x /= pixels;
 	line.delta_y /= pixels;
-	pixel_x = line.begin_x;
-	pixel_y = line.begin_y;
+	pixel_x = line.posx;
+	pixel_y = line.posy;
 	while (pixels)
 	{
 		img_pix_put(img, pixel_x, pixel_y, line.color);
@@ -35,10 +33,10 @@ void	draw_ray(t_img *img, t_line line)
 	}
 }
 
-double	draw_player_ray(t_map *map, t_img *img, t_line line)
+float	draw_player_ray(t_map *map, t_img *img, t_line line)
 {
-	double	pixel_x;
-	double	pixel_y;
+	float	pixel_x;
+	float	pixel_y;
 
 	pixel_x = line.posx;
 	pixel_y = line.posy;

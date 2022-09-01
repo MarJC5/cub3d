@@ -14,7 +14,7 @@
 
 void	render_background(t_img *img, int floor, int ceilling)
 {
-	(void) ceilling;
+	(void) floor;
 	int	i;
 	int	j;
 
@@ -24,7 +24,7 @@ void	render_background(t_img *img, int floor, int ceilling)
 		j = 0;
 		while (j < WIN_WIDTH)
 		{
-			img_pix_put(img, j, i, floor);
+			img_pix_put(img, j, i, ceilling);
 			j++;
 		}
 		++i;
@@ -80,7 +80,7 @@ void	render_minimap(t_game *game)
 		render_minimap_tile(game, WALL, 0x000000);
 		render_minimap_tile(game, EMPTY_ZONE, 0xBDC3C7);
 		init_ray(game->map, &game->screen,
-			game->player, &game->player->rays);
+		         game->player, &game->player->rays);
 		draw_circle(&game->screen.map, (t_circle){
 			game->player->pos_xm,
 			game->player->pos_ym,

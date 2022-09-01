@@ -60,7 +60,7 @@ int	chartohex(char *tab, int opacity)
 	return (hexret);
 }
 
-double	degtorad(int ang)
+float	degtorad(float ang)
 {
 	return (ang * M_PI / 180.0);
 }

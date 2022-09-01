@@ -99,6 +99,9 @@ ${LIBFT}/libft.a:
 ${LIBX}/libmlx.a:
 	@${MAKELIBX} all
 
+run: all
+	./$(NAME) ./maps/demo.cub
+
 #Compile and use valgrind
 valgrind:
 	valgrind --leak-check=full --track-origins=yes ./$(NAME) ./maps/demo.cub
