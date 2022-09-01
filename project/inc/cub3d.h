@@ -41,6 +41,8 @@
 # define MINI_TILE 8
 # define MAPOS 8
 
+# define DR 0.0174533
+
 # include "key_macos.h"
 # include "libft.h"
 # include "ft_printf.h"
@@ -88,6 +90,10 @@ typedef struct s_line
 	double  posy;
 	double	delta_x;
 	double	delta_y;
+	double  begin_x;
+	double  begin_y;
+	double  end_x;
+	double  end_y;
 	double  dist;
 	int		color;
 }	t_line;
@@ -95,7 +101,25 @@ typedef struct s_line
 
 typedef struct s_rays
 {
-	double	dist;
+	int		r;
+	int		mx;
+	int		my;
+	int		mp;
+	int		dof;
+	double	hmrx;
+	double	hmry;
+	double	vmrx;
+	double	vmry;
+	double	rx;
+	double	ry;
+	double	ra;
+	double	xo;
+	double	yo;
+	double	dis_h;
+	double	dis_v;
+	double  atan;
+	double  ntan;
+	double  dist;
 }	t_rays;
 
 typedef struct s_collision
@@ -235,7 +259,8 @@ void	img_pix_put(t_img *img, int x, int y, int color);
 void	check_player_pos(t_game *game);
 void    render_stat(t_game *game, int x, int y, int data);
 
-double	draw_ray(t_map *map, t_img *img, t_line line);
+void    draw_ray(t_img *img, t_line line);
+double	draw_player_ray(t_map *map, t_img *img, t_line line);
 
 /**
  * @brief
