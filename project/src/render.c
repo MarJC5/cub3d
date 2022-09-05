@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/30 23:55:08 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/05 09:42:12 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	render_background(t_img *img, int floor, int ceilling)
 {
-	(void) floor;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
+	(void) floor;
 	i = 0;
 	while (i < WIN_HEIGHT)
 	{
@@ -31,21 +31,21 @@ void	render_background(t_img *img, int floor, int ceilling)
 	}
 }
 
-void    render_info(t_game *game)
+void	render_info(t_game *game)
 {
-	char *value;
-	char *tmp;
+	char	*value;
+	char	*tmp;
 
 	value = ft_itoa(game->player->pos_x);
 	tmp = ft_strjoin("X: ", value);
-	mlx_string_put(game->screen.mlx,game->screen.win,
-				   MAPOS, game->map->y * (MINI_TILE * 1.25), 0x000, tmp);
+	mlx_string_put(game->screen.mlx, game->screen.win,
+		MAPOS, game->map->y * (MINI_TILE * 1.25), 0x000, tmp);
 	free(value);
 	free(tmp);
 	value = ft_itoa(game->player->pos_y);
 	tmp = ft_strjoin("Y: ", value);
-	mlx_string_put(game->screen.mlx,game->screen.win,
-	               MAPOS, game->map->y * (MINI_TILE * 1.4), 0x000, tmp);
+	mlx_string_put(game->screen.mlx, game->screen.win,
+		MAPOS, game->map->y * (MINI_TILE * 1.4), 0x000, tmp);
 	free(value);
 	free(tmp);
 }
@@ -80,7 +80,7 @@ void	render_minimap(t_game *game)
 		render_minimap_tile(game, WALL, 0x000000);
 		render_minimap_tile(game, EMPTY_ZONE, 0xBDC3C7);
 		init_ray(game->map, &game->screen,
-		         game->player, &game->player->rays);
+			game->player, &game->player->rays);
 		draw_circle(&game->screen.map, (t_circle){
 			game->player->pos_xm,
 			game->player->pos_ym,

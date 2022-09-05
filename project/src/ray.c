@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 01:24:48 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/31 00:16:47 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/05 09:39:57 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ float	draw_player_ray(t_map *map, t_img *img, t_line line)
 	pixel_x = line.posx;
 	pixel_y = line.posy;
 	while (map->scene[(int)((pixel_y - MINI_TILE) / MINI_TILE)]
-	       [(int)((pixel_x - MINI_TILE) / MINI_TILE)] != '1')
+		[(int)((pixel_x - MINI_TILE) / MINI_TILE)] != '1')
 	{
 		img_pix_put(img, pixel_x, pixel_y, line.color);
 		pixel_x += 0.0001 * line.delta_x;
