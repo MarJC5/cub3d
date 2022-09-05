@@ -12,7 +12,7 @@
 
 #include "../inc/cub3d.h"
 
-void	init_map(t_game *game, char *file)
+int	init_map(t_game *game, char *file)
 {
 	if (check_map_name(game, file) == SUCCESS)
 	{
@@ -23,12 +23,16 @@ void	init_map(t_game *game, char *file)
 					get_next_line(game->map->fd), 0) == SUCCESS)
 			{
 				save_map_scene(game, 0, 0, 0);
+				if (printinvalid(check_map(game)) == ERR_UNCLOSED)
+					return (FAILURE);
 				check_player_pos(game);
 				print_map_details(game);
 				init_screen(game);
+				return (SUCCESS);
 			}
 		}
 	}
+	return (SUCCESS);
 }
 
 

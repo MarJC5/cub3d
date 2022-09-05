@@ -23,6 +23,7 @@ SRCS_FILES	+= 	key_actions.c \
 				rays.c \
 				raycasting.c \
 				render.c \
+				check_map.c \
 				init.c
 
 

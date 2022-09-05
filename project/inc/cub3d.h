@@ -18,6 +18,7 @@
 # define WRONG_PRESET "Wrong identifier."
 # define WRONG_MAP "Map is not enclosed by 1."
 # define WRONG_NAME "Wrong map name, please give a *.cub file"
+# define MAP_UNCLOSED "The map is not closed by the char '1'"
 
 # define SUCCESS 0
 # define FAILURE 1
@@ -26,6 +27,7 @@
 # define ERR_CHAR 3
 # define ERR_MAP 4
 # define ERR_NAME 5
+# define ERR_UNCLOSED 6
 
 # define WIN_NAME "cub3D"
 # define WIN_WIDTH 1080
@@ -209,7 +211,7 @@ typedef struct s_game
 void	init_screen(t_game *game);
 void	init_view(t_game *game);
 void	init_default(t_game *game);
-void	init_map(t_game *game, char *file);
+int		init_map(t_game *game, char *file);
 
 /**
  * @brief
@@ -282,5 +284,11 @@ float	draw_player_ray(t_map *map, t_img *img, t_line line);
 void	free_map(t_game *game);
 void	ft_free_multitab(char **tab);
 void	free_stuff(char *tofree);
+
+/**
+ * @brief
+ * Map
+ */
+int		check_map(t_game *game);
 
 #endif
