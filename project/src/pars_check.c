@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 13:56:34 by jmartin          ###   ########.fr       */
+/*   Created: 2022/08/28 16:09:15 by jmartin           #+#    #+#             */
+/*   Updated: 2022/08/30 09:32:53 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,56 @@ int	check_map_name(t_game *game, char *file)
 	if (ft_strcmp(ft_strrchr(file, '.'), ".cub") != 0)
 		return (printinvalid(ERR_NAME));
 	game->map->fd = open(file, O_RDONLY);
+	if (game->map->fd == -1)
+		return (FAILURE);
 	return (SUCCESS);
+}
+
+double init_player_angle(char angle)
+{
+	if (angle == 'N')
+		return (degtorad(0.0));
+	if (angle == 'E')
+		return (degtorad(90.0));
+	if (angle == 'S')
+		return (degtorad(180.0));
+	if (angle == 'W')
+		return (degtorad(270.0));
+	return (0);
+}
+
+void	check_player_pos(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < game->map->y && game->player->is_ready == 0)
+	{
+		j = 0;
+		while (j < game->map->x)
+		{
+			if (game->map->scene[i][j] == 'N' || game->map->scene[i][j] == 'S'
+				|| game->map->scene[i][j] == 'E'
+				|| game->map->scene[i][j] == 'W')
+			{
+				game->player->pos_y = i;
+				game->player->pos_x = j;
+				game->player->pos_ym = (i * MINI_TILE) + MAPOS + (SCALE - 1);
+				game->player->pos_xm = (j * MINI_TILE) + MAPOS + (SCALE - 1);
+				game->player->skin = game->map->scene[i][j];
+				game->player->delta_x = cos(game->player->angle) * SPEED;
+				game->player->delta_y = sin(game->player->angle) * SPEED;
+				game->player->delta_xm = cos(game->player->angle) * (SPEED / 2);
+				game->player->delta_ym = sin(game->player->angle) * (SPEED / 2);
+				game->player->angle = 0;
+				game->player->is_ready = 1;
+				break ;
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
 int	check_map_char(char *map)
@@ -33,7 +82,7 @@ int	check_map_char(char *map)
 			|| map[i] == 'N'
 			|| map[i] == 'S'
 			|| map[i] == 'E'
-			|| map[i] == 'w'
+			|| map[i] == 'W'
 			|| map[i] == '\n'
 			|| map[i] == '\0')
 			i++;

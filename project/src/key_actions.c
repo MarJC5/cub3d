@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_actions.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:18:29 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 15:21:05 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/08/30 09:06:16 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,28 @@ int	esc_win(t_game *game)
 	return (EXIT_SUCCESS);
 }
 
+int	show_minimap(t_game *game)
+{
+	if (game->screen.toggle_minimap == 0)
+		game->screen.toggle_minimap = 1;
+	else
+		game->screen.toggle_minimap = 0;
+	return (game->screen.toggle_minimap);
+}
+
 int	key_event(int key, t_game *game)
 {
-	if (key == K_ESCAPE)
+	if (key == K_MAC_ESCAPE || key == 65307)
 		esc_win(game);
+	if (key == K_MAC_M || key == 109)
+		show_minimap(game);
+	if (key == K_MAC_A || key == 97 || key == 65361 || key == 123)
+		move_left(game);
+	if (key == K_MAC_D || key == 100 || key == 65363 || key == 124)
+		move_right(game);
+	if (key == K_MAC_W || key == 119 || key == 65362 || key == 126)
+		move_up(game);
+	if (key == K_MAC_S || key == 115 || key == 65364 || key == 125)
+		move_down(game);
 	return (key);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 14:28:57 by jmartin          ###   ########.fr       */
+/*   Created: 2022/08/28 16:09:28 by jmartin           #+#    #+#             */
+/*   Updated: 2022/08/30 09:11:55 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	save_map(t_game *game, char *save, char *line, int y)
 {
 	save = ft_strdup("");
-	game->map->x = ft_strlen(line);
+	game->map->x = (int)ft_strlen(line);
 	while (line != NULL)
 	{
 		if (game->map->map != NULL)
@@ -84,24 +84,6 @@ void	save_map_scene(t_game *game, int i, int j, int k)
 				i++;
 			}
 			j++;
-		}
-	}
-}
-
-void	init_map(t_game *game, char *file)
-{
-	if (check_map_name(game, file) == SUCCESS)
-	{
-		if (save_map_textures(game, -1, 0,
-				get_next_line(game->map->fd)) == SUCCESS)
-		{
-			if (save_map(game, NULL,
-					get_next_line(game->map->fd), 0) == SUCCESS)
-			{
-				save_map_scene(game, 0, 0, 0);
-				print_map_details(game);
-				init_screen(game);
-			}
 		}
 	}
 }
