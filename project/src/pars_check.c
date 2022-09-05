@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:15 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/30 09:32:53 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/05 17:01:43 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int	check_map_name(t_game *game, char *file)
 	return (SUCCESS);
 }
 
-double init_player_angle(char angle)
+float	init_player_angle(char angle)
 {
 	if (angle == 'N')
-		return (degtorad(0.0));
+		return (degtorad(360));
 	if (angle == 'E')
 		return (degtorad(90.0));
 	if (angle == 'S')
@@ -55,11 +55,11 @@ void	check_player_pos(t_game *game)
 				game->player->pos_ym = (i * MINI_TILE) + MAPOS + (SCALE - 1);
 				game->player->pos_xm = (j * MINI_TILE) + MAPOS + (SCALE - 1);
 				game->player->skin = game->map->scene[i][j];
+				game->player->angle = init_player_angle(game->player->skin);
 				game->player->delta_x = cos(game->player->angle) * SPEED;
 				game->player->delta_y = sin(game->player->angle) * SPEED;
 				game->player->delta_xm = cos(game->player->angle) * (SPEED / 2);
 				game->player->delta_ym = sin(game->player->angle) * (SPEED / 2);
-				game->player->angle = 0;
 				game->player->is_ready = 1;
 				break ;
 			}

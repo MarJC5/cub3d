@@ -91,21 +91,21 @@ typedef struct s_circle
 
 typedef struct s_dline
 {
-	float  posx;
-	float  posy;
+	float	posx;
+	float	posy;
 	float	delta_x;
 	float	delta_y;
-	float  dist;
+	float	dist;
 	int		color;
 }	t_dline;
 
 typedef struct s_line
 {
-	float  posx;
-	float  posy;
-	float   delta_x;
-	float   delta_y;
-	float   dist;
+	float	posx;
+	float	posy;
+	float	delta_x;
+	float	delta_y;
+	float	dist;
 	int		color;
 }	t_line;
 
@@ -118,7 +118,8 @@ typedef struct s_rays
 	int		hmx;
 	int		hmy;
 	int		dof;
-	int     h_shift;
+	int		h_shift;
+	int		v_shift;
 	float	vx;
 	float	vy;
 	float	hx;
@@ -129,40 +130,55 @@ typedef struct s_rays
 	float	xo;
 	float	yo;
 	float	dis_h;
-	float   dis_v;
-	float   atan;
-	float   ntan;
-	float   dist;
+	float	dis_v;
+	float	atan;
+	float	ntan;
+	float	dist;
 }	t_rays;
 
-typedef struct s_collision
+typedef struct s_raycast
 {
-	int xo;
-	int yo;
-	int ipx;
-	int ipy;
-	int ipx_add_xo;
-	int ipx_sub_xo;
-	int ipy_add_yo;
-	int ipy_sub_yo;
-} t_collision;
+	int		hit;
+	int		side;
+	int		lh;
+	int		draw_start;
+	int		draw_end;
+	int		color;
+	double	time;
+	double	oldtime;
+	double	planex;
+	double	planey;
+	double	dirx;
+	double	diry;
+	double	raydx;
+	double	raydy;
+	double	camx;
+	double	mapx;
+	double	mapy;
+	double	sidedx;
+	double	sidedy;
+	double	deldx;
+	double	deldy;
+	double	stepx;
+	double	stepy;
+	double	perp_walldist;
+}	t_raycast;
 
 typedef struct s_player
 {
-	int		    is_ready;
-	int		    pos;
-	char	    skin;
-	float	    pos_x;
-	float	    pos_y;
-	float	    pos_xm;
-	float	    pos_ym;
-	float	    angle;
-	float	    delta_x;
-	float	    delta_y;
-	float	    delta_xm;
-	float	    delta_ym;
-	t_rays	    rays;
-	t_collision collision;
+	int			is_ready;
+	int			pos;
+	char		skin;
+	float		pos_x;
+	float		pos_y;
+	float		pos_xm;
+	float		pos_ym;
+	float		angle;
+	float		delta_x;
+	float		delta_y;
+	float		delta_xm;
+	float		delta_ym;
+	t_rays		rays;
 }	t_player;
 
 typedef struct s_screen
@@ -170,11 +186,6 @@ typedef struct s_screen
 	void		*mlx;
 	void		*win;
 	int			toggle_minimap;
-	float		time;
-	float		old_time;
-	float		plane_x;
-	float		plane_y;
-	float		camera_x;
 	t_img		map;
 }	t_screen;
 
@@ -197,6 +208,7 @@ typedef struct s_map
 typedef struct s_game
 {
 	t_player	*player;
+	t_raycast	raycast;
 	t_screen	screen;
 	t_map		*map;
 }	t_game;
@@ -234,7 +246,7 @@ char	*replace_char(char *str, char find, char replace);
  */
 
 int		key_event(int key, t_game *game);
-int 	esc_win(t_game *game);
+int		esc_win(t_game *game);
 
 void	move_left(t_game *game);
 void	move_right(t_game *game);
@@ -262,6 +274,7 @@ float	degtorad(float ang);
 
 int		render_view(t_game *game);
 
+//void	init_ray(t_screen *screen, t_game *game, t_raycast *ray);
 void	init_ray(t_map *map, t_screen *screen, t_player *player, t_rays *rays);
 void	draw_rect(t_img *img, t_rect rect);
 void	draw_circle(t_img *img, t_circle circle);
@@ -270,9 +283,9 @@ void	render_minimap_tile(t_game *game, char tile, int color);
 void	render_background(t_img *img, int floor, int ceilling);
 void	img_pix_put(t_img *img, int x, int y, int color);
 void	check_player_pos(t_game *game);
-void    render_stat(t_game *game, int x, int y, int data);
+void	render_stat(t_game *game, int x, int y, int data);
 
-void    draw_line(t_img *img, t_dline dline);
+void	draw_line(t_img *img, t_dline dline);
 float	draw_player_ray(t_map *map, t_img *img, t_line line);
 
 /**

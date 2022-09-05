@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:49 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/30 22:57:26 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/05 18:41:02 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,6 @@ void	init_map(t_game *game, char *file)
 	}
 }
 
-
-void    init_collision(t_player *player)
-{
-	player->collision.xo = 0;
-	if (player->delta_x < 0)
-		player->collision.xo = -20;
-	else
-		player->collision.xo = 20;
-	player->collision.yo = 0;
-	if (player->delta_y < 0)
-		player->collision.yo = -20;
-	else
-		player->collision.yo = 20;
-	player->collision.ipx = player->pos_x / MINI_TILE;
-	player->collision.ipx_add_xo = (player->pos_x + player->collision.xo) / MINI_TILE;
-	player->collision.ipx_sub_xo = (player->pos_x - player->collision.xo) / MINI_TILE;
-	player->collision.ipy = player->pos_y / MINI_TILE;
-	player->collision.ipy_add_yo = (player->pos_y + player->collision.yo) / MINI_TILE;
-	player->collision.ipy_sub_yo = (player->pos_y - player->collision.yo) / MINI_TILE;
-}
-
 void	init_default(t_game *game)
 {
 	game->map = malloc(sizeof(t_map));
@@ -71,7 +50,6 @@ void	init_default(t_game *game)
 	if (!game->player)
 		exit(EXIT_FAILURE);
 	game->player->is_ready = 0;
-	init_collision(game->player);
 }
 
 void	init_view(t_game *game)
@@ -89,10 +67,12 @@ void	init_screen(t_game *game)
 	game->screen.mlx = mlx_init();
 	if (!game->screen.mlx)
 		return ;
-	game->screen.time = 0.0;
-	game->screen.old_time = 0.0;
-	game->screen.plane_x = 0.0;
-	game->screen.plane_y = 0.66;
+	game->raycast.time = 0.0;
+	game->raycast.oldtime = 0.0;
+	game->raycast.planex = 0;
+	game->raycast.planey = 0.66;
+	game->raycast.dirx = game->player->delta_x;
+	game->raycast.diry = game->player->delta_y;
 	game->screen.toggle_minimap = 1;
 	game->screen.win = mlx_new_window(
 			game->screen.mlx, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
