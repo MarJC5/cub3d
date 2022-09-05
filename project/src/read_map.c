@@ -16,8 +16,10 @@ int	save_map(t_game *game, char *save, char *line, int y)
 {
 	save = ft_strdup("");
 	game->map->x = (int)ft_strlen(line);
+	printf("\nmap line\n");
 	while (line != NULL)
 	{
+		printf("%s", line);
 		if (game->map->map != NULL)
 			free_stuff(game->map->map);
 		if (game->map->x < (int)ft_strlen(line))
@@ -40,24 +42,34 @@ int	save_map_textures(t_game *game, int i, int j, char *line)
 	int		k;
 
 	k = 0;
-	while (++i < 7)
+	while (++i < 6)
 	{
 		if (ft_strcmp(line, "\n") != 0 && i < 4)
 		{
+			printf("%s", line);
+			printf("%d 4 first\n", i);
 			len = ft_strlen(line) - ft_strlen(ft_strchr(line, ' '));
 			game->map->identifier[k++] = ft_substr(line, 0, len);
 			game->map->assets[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
 			if (i == 3)
 				j = 0;
 		}
-		if (ft_strcmp(line, "\n") != 0 && i > 4)
+		if (ft_strcmp(line, "\n") != 0 && i >= 4)
 		{
+			printf("%s", line);
+			printf("%d 4 last\n", i);
 			len = ft_strlen(line) - ft_strlen(ft_strchr(line, ' '));
 			game->map->identifier[k++] = ft_substr(line, 0, len);
 			game->map->colors[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
 		}
 		free_stuff(line);
 		line = get_next_line(game->map->fd);
+		while (line[0] == '\n' && i < 5)
+		{
+			printf("wtihjbgwiu\n");
+			free_stuff(line);
+			line = get_next_line(game->map->fd);
+		}
 	}
 	free_stuff(line);
 	return (printinvalid(check_map_textures(game->map->identifier)));
