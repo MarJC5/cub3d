@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/05 18:59:43 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/06 08:30:06 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,5 +138,9 @@ void	init_ray(t_map *map, t_screen *screen, t_player *player, t_rays *rays)
 			player->pos_xm, player->pos_ym,
 			rays->vx, rays->vy, rays->dis_v,
 			0xcccccc});
+		draw_player_ray(map, &screen->map, (t_line){
+			player->pos_xm, player->pos_ym,
+			rays->rx, rays->ry, rays->dist,
+			0x000000});
 	}
 }

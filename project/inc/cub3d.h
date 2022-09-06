@@ -38,7 +38,7 @@
 # define SPEED 5
 # define SCALE 4
 # define TILE_SIZE 64
-# define MINI_TILE 8
+# define MINI_TILE 16
 # define MAPOS 8
 # define FOV 60
 # define COLLISION 0.7f
@@ -264,6 +264,7 @@ int		ft_isspace(char c);
 int		ft_strcmp(char *s1, char *s2);
 int		encode_rgb(uint8_t alpha, uint8_t red, uint8_t green, uint8_t blue);
 int		chartohex(char *tab, int opacity);
+int		fixang(int ang);
 
 float	degtorad(float ang);
 

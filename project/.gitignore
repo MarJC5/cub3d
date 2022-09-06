@@ -1,6 +1,7 @@
 # Others
 .DS_Store
 .vscode
+../.vscode/
 ../.idea
 
 # Prerequisites
