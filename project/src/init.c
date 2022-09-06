@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:49 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/05 18:41:02 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/06 10:10:08 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	init_map(t_game *game, char *file)
 				save_map_scene(game, 0, 0, 0);
 				if (printinvalid(check_map(game)) == ERR_UNCLOSED)
 					return (FAILURE);
-				check_player_pos(game);
+				check_player_pos(game, 0, -1);
 				print_map_details(game);
 				init_screen(game);
 				return (SUCCESS);
@@ -71,12 +71,6 @@ void	init_screen(t_game *game)
 	game->screen.mlx = mlx_init();
 	if (!game->screen.mlx)
 		return ;
-	game->raycast.time = 0.0;
-	game->raycast.oldtime = 0.0;
-	game->raycast.planex = 0;
-	game->raycast.planey = 0.66;
-	game->raycast.dirx = game->player->delta_x;
-	game->raycast.diry = game->player->delta_y;
 	game->screen.toggle_minimap = 1;
 	game->screen.win = mlx_new_window(
 			game->screen.mlx, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);

@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/05 18:35:06 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/06 10:47:17 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,11 @@ void	render_minimap(t_game *game)
 		render_minimap_tile(game, FLOOR, 0x33FFFFFF);
 		render_minimap_tile(game, WALL, 0x000000);
 		render_minimap_tile(game, EMPTY_ZONE, 0xBDC3C7);
-		//init_ray(&game->screen, game, &game->raycast);
-		init_ray(game->map, &game->screen,
-			game->player, &game->player->rays);
+		draw_ray(game->map, &game->screen.map, (t_line){
+			game->player->pos_xm, game->player->pos_ym,
+			game->player->delta_xm, game->player->delta_ym,
+			0.0, 0x000000});
+		rays_fov(game, game->player, &game->player->rays);
 		draw_circle(&game->screen.map, (t_circle){
 			game->player->pos_xm,
 			game->player->pos_ym,

@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:15 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/05 17:01:43 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/06 10:02:41 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,12 @@ float	init_player_angle(char angle)
 	return (0);
 }
 
-void	check_player_pos(t_game *game)
+void	check_player_pos(t_game *game, int i, int j)
 {
-	int	i;
-	int	j;
-
-	i = 0;
 	while (i < game->map->y && game->player->is_ready == 0)
 	{
-		j = 0;
-		while (j < game->map->x)
+		j = -1;
+		while (++j < game->map->x)
 		{
 			if (game->map->scene[i][j] == 'N' || game->map->scene[i][j] == 'S'
 				|| game->map->scene[i][j] == 'E'
@@ -63,7 +59,6 @@ void	check_player_pos(t_game *game)
 				game->player->is_ready = 1;
 				break ;
 			}
-			j++;
 		}
 		i++;
 	}

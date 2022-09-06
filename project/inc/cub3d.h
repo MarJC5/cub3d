@@ -40,15 +40,12 @@
 # define SPEED 5
 # define SCALE 4
 # define TILE_SIZE 64
-# define MINI_TILE 16
+# define MINI_TILE 8
 # define MAPOS 8
 # define FOV 60
 # define COLLISION 0.7f
 
 # define DR 0.0174533
-# define PI 3.1415926535
-# define P2 PI / 2
-# define P3 3 * PI / 2
 
 # include "key_macos.h"
 # include "libft.h"
@@ -91,16 +88,6 @@ typedef struct s_circle
 	int	color;
 }	t_circle;
 
-typedef struct s_dline
-{
-	float	posx;
-	float	posy;
-	float	delta_x;
-	float	delta_y;
-	float	dist;
-	int		color;
-}	t_dline;
-
 typedef struct s_line
 {
 	float	posx;
@@ -111,71 +98,26 @@ typedef struct s_line
 	int		color;
 }	t_line;
 
-
 typedef struct s_rays
 {
-	int		r;
-	int		vmx;
-	int		vmy;
-	int		hmx;
-	int		hmy;
-	int		dof;
-	int		h_shift;
-	int		v_shift;
-	float	vx;
-	float	vy;
-	float	hx;
-	float	hy;
-	float	rx;
-	float	ry;
-	float	ra;
-	float	xo;
-	float	yo;
-	float	dis_h;
-	float	dis_v;
-	float	atan;
-	float	ntan;
+	float	posx;
+	float	posy;
+	float	deltax;
+	float	deltay;
 	float	dist;
+	float	angle;
 }	t_rays;
-
-typedef struct s_raycast
-{
-	int		hit;
-	int		side;
-	int		lh;
-	int		draw_start;
-	int		draw_end;
-	int		color;
-	double	time;
-	double	oldtime;
-	double	planex;
-	double	planey;
-	double	dirx;
-	double	diry;
-	double	raydx;
-	double	raydy;
-	double	camx;
-	double	mapx;
-	double	mapy;
-	double	sidedx;
-	double	sidedy;
-	double	deldx;
-	double	deldy;
-	double	stepx;
-	double	stepy;
-	double	perp_walldist;
-}	t_raycast;
 
 typedef struct s_player
 {
 	int			is_ready;
 	int			pos;
 	char		skin;
+	float		angle;
 	float		pos_x;
 	float		pos_y;
 	float		pos_xm;
 	float		pos_ym;
-	float		angle;
 	float		delta_x;
 	float		delta_y;
 	float		delta_xm;
@@ -209,9 +151,8 @@ typedef struct s_map
 
 typedef struct s_game
 {
-	t_player	*player;
-	t_raycast	raycast;
 	t_screen	screen;
+	t_player	*player;
 	t_map		*map;
 }	t_game;
 
@@ -277,19 +218,18 @@ float	degtorad(float ang);
 
 int		render_view(t_game *game);
 
-//void	init_ray(t_screen *screen, t_game *game, t_raycast *ray);
-void	init_ray(t_map *map, t_screen *screen, t_player *player, t_rays *rays);
+void	rays_fov(t_game *game, t_player *player, t_rays *ray);
 void	draw_rect(t_img *img, t_rect rect);
 void	draw_circle(t_img *img, t_circle circle);
 void	render_minimap(t_game *game);
 void	render_minimap_tile(t_game *game, char tile, int color);
 void	render_background(t_img *img, int floor, int ceilling);
 void	img_pix_put(t_img *img, int x, int y, int color);
-void	check_player_pos(t_game *game);
+void	check_player_pos(t_game *game, int i, int j);
 void	render_stat(t_game *game, int x, int y, int data);
+void	draw_line(t_img *img, t_line line);
 
-void	draw_line(t_img *img, t_dline dline);
-float	draw_player_ray(t_map *map, t_img *img, t_line line);
+float	draw_ray(t_map *map, t_img *img, t_line line);
 
 /**
  * @brief

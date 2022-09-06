@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minilibft.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:06 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/06 07:53:21 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/06 10:04:31 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,4 @@ int	chartohex(char *tab, int opacity)
 	free(split[0]);
 	free(split);
 	return (hexret);
-}
-
-float	degtorad(float ang)
-{
-	return (ang * M_PI / 180.0);
-}
-
-int fixang(int ang)
-{
-	if (ang > 359)
-		ang -= 360;
-	if (ang < 0)
-		ang += 360;
-	return (ang);
 }

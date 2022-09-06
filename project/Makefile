@@ -24,7 +24,8 @@ SRCS_FILES	+= 	key_actions.c \
 				raycasting.c \
 				render.c \
 				check_map.c \
-				init.c
+				init.c \
+				utils.c
 
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}

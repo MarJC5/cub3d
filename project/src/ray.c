@@ -6,13 +6,13 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 01:24:48 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/05 09:39:57 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/06 10:09:31 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	draw_line(t_img *img, t_dline line)
+void	draw_line(t_img *img, t_line line)
 {
 	float	pixel_x;
 	float	pixel_y;
@@ -33,7 +33,7 @@ void	draw_line(t_img *img, t_dline line)
 	}
 }
 
-float	draw_player_ray(t_map *map, t_img *img, t_line line)
+float	draw_ray(t_map *map, t_img *img, t_line line)
 {
 	float	pixel_x;
 	float	pixel_y;

@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 00:57:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/05 19:01:59 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/06 10:39:34 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	move_left(t_game *game)
 {
 	game->player->angle -= 0.1;
 	if (game->player->angle < 0)
-		game->player->angle += 2 * PI;
+		game->player->angle += 2 * M_PI;
 	game->player->delta_xm = cos(game->player->angle) * (SPEED / 2);
 	game->player->delta_ym = sin(game->player->angle) * (SPEED / 2);
 	game->player->delta_x = cos(game->player->angle) * SPEED;
@@ -26,8 +26,8 @@ void	move_left(t_game *game)
 void	move_right(t_game *game)
 {
 	game->player->angle += 0.1;
-	if (game->player->angle > 2 * PI)
-		game->player->angle -= 2 * PI;
+	if (game->player->angle > 2 * M_PI)
+		game->player->angle -= 2 * M_PI;
 	game->player->delta_xm = cos(game->player->angle) * (SPEED / 2);
 	game->player->delta_ym = sin(game->player->angle) * (SPEED / 2);
 	game->player->delta_x = cos(game->player->angle) * SPEED;
