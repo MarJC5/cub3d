@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:18:29 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/30 09:06:16 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/06 22:32:40 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,23 @@ int	show_minimap(t_game *game)
 	else
 		game->screen.toggle_minimap = 0;
 	return (game->screen.toggle_minimap);
+}
+
+int	mouse_event(int x, int y, t_game *game)
+{
+	(void) y;
+
+	if (x > 0 && x < game->screen.oldx)
+	{
+		game->screen.oldx = x;
+		move_left(game);
+	}
+	else if (x < WIN_WIDTH && x > game->screen.oldx)
+	{
+		game->screen.oldx = x;
+		move_right(game);
+	}
+	return (x);
 }
 
 int	key_event(int key, t_game *game)

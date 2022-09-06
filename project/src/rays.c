@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/06 18:36:06 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/06 22:02:56 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,19 @@
 
 void	draw_wall(t_game *game, t_rays *ray, int r)
 {
+	int	color;
+
+	color = FRONT_WALL;
 	ray->wall_height = (TILE_SIZE * WIN_HEIGHT * 1.0) / ray->dist;
 	if (ray->wall_height > WIN_HEIGHT)
 		ray->wall_height = WIN_HEIGHT;
-	ray->wall_offset = (WIN_HEIGHT / 2) - ray->wall_height / 2;
+	ray->wall_offset = (WIN_HEIGHT / 2.0) - ray->wall_height / 2;
 	draw_rect(&game->screen.map, (t_rect){
 		r * TILE_SIZE, ray->wall_offset - TILE_SIZE * 3,
-		TILE_SIZE, ray->wall_height + 1, 0xcccccc});
+		TILE_SIZE, ray->wall_height + 1, color});
 	draw_rect(&game->screen.map, (t_rect){
 		r * TILE_SIZE, ray->wall_height + ray->wall_offset - TILE_SIZE * 3,
-		TILE_SIZE, ray->wall_height, 0xcccccc});
+		TILE_SIZE, ray->wall_height, color});
 }
 
 void	rays_fov(t_game *game, t_player *player, t_rays *ray)

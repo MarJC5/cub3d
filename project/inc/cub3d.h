@@ -50,6 +50,8 @@
 # define ORANGE 0xfeca57
 # define RED 0xee5253
 # define YELLOW 0xfeca57
+# define FRONT_WALL 0xbdc3c7
+# define SIDEW_WALL 0x95a5a6
 
 # include "key_macos.h"
 # include "libft.h"
@@ -137,6 +139,7 @@ typedef struct s_screen
 	void		*mlx;
 	void		*win;
 	int			toggle_minimap;
+	int			oldx;
 	t_img		view;
 	t_img		map;
 }	t_screen;
@@ -196,6 +199,7 @@ char	*replace_char(char *str, char find, char replace);
  * Events
  */
 
+int		mouse_event(int x, int y, t_game *game);
 int		key_event(int key, t_game *game);
 int		esc_win(t_game *game);
 

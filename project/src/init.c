@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:49 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/06 10:10:08 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/06 22:29:22 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,13 @@ void	init_screen(t_game *game)
 	game->screen.mlx = mlx_init();
 	if (!game->screen.mlx)
 		return ;
+	game->screen.oldx = WIN_WIDTH / 2;
 	game->screen.toggle_minimap = 1;
 	game->screen.win = mlx_new_window(
 			game->screen.mlx, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
 	init_view(game);
 	mlx_hook(game->screen.win, 2, 1L << 0, key_event, game);
+	mlx_hook(game->screen.win, 6, 1L << 0, mouse_event, game);
 	mlx_hook(game->screen.win, 17, 0L << 0, esc_win, game);
 	mlx_loop(game->screen.mlx);
 }
