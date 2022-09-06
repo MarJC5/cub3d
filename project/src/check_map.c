@@ -12,7 +12,7 @@
 
 #include "../inc/cub3d.h"
 
-int checker(t_game *game, int i, int j)
+static int	checker(t_game *game, int i, int j)
 {
 	if (game->map->scene[i][j] != '0' && game->map->scene[i][j] != '1'
 		&& game->map->scene[i][j] != 'N')
@@ -20,9 +20,10 @@ int checker(t_game *game, int i, int j)
 	return (SUCCESS);
 }
 
-int check_zero(t_game *game, int i, int j)
+static int	check_zero(t_game *game, int i, int j)
 {
-	if ((i - 1) >= 0 && (i + 1) < game->map->y && (j - 1) >= 0 && (j + 1) < game->map->x)
+	if ((i - 1) >= 0 && (i + 1) < game->map->y && (j - 1) >= 0
+		&& (j + 1) < game->map->x)
 	{
 		if (checker(game, (i - 1), j) == FAILURE)
 			return (FAILURE);
@@ -38,7 +39,7 @@ int check_zero(t_game *game, int i, int j)
 	return (SUCCESS);
 }
 
-int check_map(t_game *game)
+int	check_map(t_game *game)
 {
 	int	i;
 	int	j;
