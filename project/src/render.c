@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/06 10:47:17 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/06 15:36:49 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,22 @@ void	render_minimap_tile(t_game *game, char tile, int color)
 	}
 }
 
-void	render_minimap(t_game *game)
+void	setup_minimap(t_game *game)
 {
+	draw_ray(game->map, &game->screen.map, (t_line){
+		game->player->pos_xm, game->player->pos_ym,
+		game->player->delta_xm, game->player->delta_ym,
+		0.0, 0xFFFFFF}, 0);
+	rays_fov(game, game->player, &game->player->rays);
+	render_info(game);
+}
+
+void	render_map_view(t_game *game)
+{
+	render_background(&game->screen.map,
+		chartohex(game->map->colors[0], 0),
+		chartohex(game->map->colors[1], 0));
+	setup_minimap(game);
 	if (game->screen.toggle_minimap == 1)
 	{
 		render_minimap_tile(game, game->player->skin, 0x33FFFFFF);
@@ -82,22 +96,17 @@ void	render_minimap(t_game *game)
 		draw_ray(game->map, &game->screen.map, (t_line){
 			game->player->pos_xm, game->player->pos_ym,
 			game->player->delta_xm, game->player->delta_ym,
-			0.0, 0x000000});
-		rays_fov(game, game->player, &game->player->rays);
+			0.0, 0x000000}, game->screen.toggle_minimap);
 		draw_circle(&game->screen.map, (t_circle){
 			game->player->pos_xm,
 			game->player->pos_ym,
 			MINI_TILE / (SCALE / 1.5), 0xC0392B});
-		render_info(game);
 	}
 }
 
 int	render_view(t_game *game)
 {
-	render_background(&game->screen.map,
-		chartohex(game->map->colors[0], 0),
-		chartohex(game->map->colors[1], 0));
-	render_minimap(game);
+	render_map_view(game);
 	mlx_put_image_to_window(game->screen.mlx,
 		game->screen.win, game->screen.map.mlx_img, 0, 0);
 	return (0);

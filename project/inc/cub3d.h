@@ -100,6 +100,7 @@ typedef struct s_line
 
 typedef struct s_rays
 {
+	int		r;
 	float	posx;
 	float	posy;
 	float	deltax;
@@ -232,7 +233,7 @@ void	check_player_pos(t_game *game, int i, int j);
 void	render_stat(t_game *game, int x, int y, int data);
 void	draw_line(t_img *img, t_line line);
 
-float	draw_ray(t_map *map, t_img *img, t_line line);
+float	draw_ray(t_map *map, t_img *img, t_line line, int active);
 
 /**
  * @brief
