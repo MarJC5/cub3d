@@ -20,13 +20,13 @@ int	collision(t_game *game)
 	int py;
 
 	if (game->player->delta_xm > 0)
-		x = COLLISION / 2;
+		x = COLLISION / 3;
 	else
-		x = -COLLISION / 2;
+		x = -COLLISION / 3;
 	if (game->player->delta_ym > 0)
-		y = COLLISION / 2;
+		y = COLLISION / 3;
 	else
-		y = -COLLISION / 2;
+		y = -COLLISION / 3;
 	
 	px = game->player->pos_xm + x;
 	py = game->player->pos_ym + y;
