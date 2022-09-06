@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaquier <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:53:29 by tpaquier          #+#    #+#             */
-/*   Updated: 2022/09/06 13:53:30 by tpaquier         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:27:34 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	collision(t_game *game)
 {
-	int x;
-	int y;
-	int px;
-	int py;
+	int	x;
+	int	y;
+	int	px;
+	int	py;
 
 	if (game->player->delta_xm > 0)
 		x = COLLISION / 3;
@@ -27,22 +27,21 @@ int	collision(t_game *game)
 		y = COLLISION / 3;
 	else
 		y = -COLLISION / 3;
-	
 	px = game->player->pos_xm + x;
 	py = game->player->pos_ym + y;
 	px = (px - MAPOS) / 8;
 	py = (py - MAPOS) / 8;
 	if (game->map->scene[py][px] == '1')
-		return(1);
+		return (1);
 	return (0);
 }
 
 int	collision_bck(t_game *game)
 {
-	int x;
-	int y;
-	int px;
-	int py;
+	int	x;
+	int	y;
+	int	px;
+	int	py;
 
 	if (game->player->delta_xm > 0)
 		x = COLLISION / 2;
@@ -57,7 +56,7 @@ int	collision_bck(t_game *game)
 	px = (px - MAPOS) / 8;
 	py = (py - MAPOS) / 8;
 	if (game->map->scene[py][px] == '1')
-		return(1);
+		return (1);
 	return (0);
 }
 

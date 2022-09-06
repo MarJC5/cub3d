@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/06 15:36:49 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/06 18:36:16 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,13 @@ void	render_map_view(t_game *game)
 		render_minimap_tile(game, EMPTY_ZONE, 0xBDC3C7);
 		draw_ray(game->map, &game->screen.map, (t_line){
 			game->player->pos_xm, game->player->pos_ym,
-			game->player->delta_xm, game->player->delta_ym,
-			0.0, 0x000000}, game->screen.toggle_minimap);
+			game->player->delta_xm,
+			game->player->delta_ym,
+			0.0, ORANGE}, game->screen.toggle_minimap);
 		draw_circle(&game->screen.map, (t_circle){
 			game->player->pos_xm,
 			game->player->pos_ym,
-			MINI_TILE / (SCALE / 1.5), 0xC0392B});
+			MINI_TILE / (SCALE / 1.5), RED});
 	}
 }
 

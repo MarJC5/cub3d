@@ -47,6 +47,10 @@
 
 # define DR 0.0174533
 
+# define ORANGE 0xfeca57
+# define RED 0xee5253
+# define YELLOW 0xfeca57
+
 # include "key_macos.h"
 # include "libft.h"
 # include "ft_printf.h"
