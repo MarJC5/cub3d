@@ -43,7 +43,7 @@
 # define MINI_TILE 8
 # define MAPOS 8
 # define FOV 60
-# define COLLISION 0.7f
+# define COLLISION 8
 
 # define DR 0.0174533
 
@@ -248,5 +248,12 @@ void	free_stuff(char *tofree);
  * Map
  */
 int		check_map(t_game *game);
+
+/**
+ * @brief
+ * Collision
+ */
+int collision(t_game *game);
+int	collision_bck(t_game *game);
 
 #endif
