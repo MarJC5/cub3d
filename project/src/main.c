@@ -22,7 +22,8 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		init_default(game);
-		init_map(game, argv[argc - 1]);
+		if (init_map(game, argv[argc - 1]) == FAILURE)
+			return (EXIT_FAILURE);
 	}
 	else if (argc == 1 || argc > 2)
 		printinvalid(ERR_NAME);

@@ -30,5 +30,7 @@ int	printinvalid(int errno)
 		printerr(WRONG_MAP);
 	if (errno == ERR_NAME)
 		printerr(WRONG_NAME);
+	if (errno == ERR_UNCLOSED)
+		printerr(MAP_UNCLOSED);
 	return (errno);
 }

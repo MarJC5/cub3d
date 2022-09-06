@@ -102,4 +102,5 @@ int	check_map_textures(char **identifier)
 		&& ft_strcmp(identifier[5], "C") == 0)
 		return (SUCCESS);
 	return (ERR_PRESET);
+	return (SUCCESS);
 }

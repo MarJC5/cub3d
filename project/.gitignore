@@ -3,6 +3,7 @@
 .vscode
 ../.vscode/
 ../.idea
+./cube3D
 
 # Prerequisites
 *.d

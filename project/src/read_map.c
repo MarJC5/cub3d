@@ -12,10 +12,20 @@
 
 #include "../inc/cub3d.h"
 
+static void	whilebn(t_game *game, char **line, int i)
+{
+	while (*line[0] == '\n' && i < 5)
+	{
+		free_stuff(*line);
+		*line = get_next_line(game->map->fd);
+	}
+}
+
 int	save_map(t_game *game, char *save, char *line, int y)
 {
 	save = ft_strdup("");
 	game->map->x = (int)ft_strlen(line);
+	whilebn(game, &line, 0);
 	while (line != NULL)
 	{
 		if (game->map->map != NULL)
@@ -34,23 +44,30 @@ int	save_map(t_game *game, char *save, char *line, int y)
 	return (printinvalid(check_map_char(game->map->map)));
 }
 
+static int	ligne_gain(int i, int j)
+{
+	if (i == 3)
+		return (0);
+	return (j);
+}
+
 int	save_map_textures(t_game *game, int i, int j, char *line)
 {
 	size_t	len;
 	int		k;
 
 	k = 0;
-	while (++i < 7)
+	while (++i < 6)
 	{
+		whilebn(game, &line, 0);
 		if (ft_strcmp(line, "\n") != 0 && i < 4)
 		{
 			len = ft_strlen(line) - ft_strlen(ft_strchr(line, ' '));
 			game->map->identifier[k++] = ft_substr(line, 0, len);
 			game->map->assets[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
-			if (i == 3)
-				j = 0;
+			j = ligne_gain(i, j);
 		}
-		if (ft_strcmp(line, "\n") != 0 && i > 4)
+		if (ft_strcmp(line, "\n") != 0 && i >= 4)
 		{
 			len = ft_strlen(line) - ft_strlen(ft_strchr(line, ' '));
 			game->map->identifier[k++] = ft_substr(line, 0, len);
