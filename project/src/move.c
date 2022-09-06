@@ -36,16 +36,22 @@ void	move_right(t_game *game)
 
 void	move_up(t_game *game)
 {
-	game->player->pos_xm += game->player->delta_xm;
-	game->player->pos_ym += game->player->delta_ym;
-	game->player->pos_x = (int)game->player->pos_xm / MINI_TILE;
-	game->player->pos_y = (int)game->player->pos_ym / MINI_TILE;
+	if (collision(game) == 0)
+	{
+		game->player->pos_xm += game->player->delta_xm;
+		game->player->pos_ym += game->player->delta_ym;
+		game->player->pos_x = (int)game->player->pos_xm / MINI_TILE;
+		game->player->pos_y = (int)game->player->pos_ym / MINI_TILE;
+	}
 }
 
 void	move_down(t_game *game)
 {
-	game->player->pos_xm -= game->player->delta_xm;
-	game->player->pos_ym -= game->player->delta_ym;
-	game->player->pos_x = (int)game->player->pos_xm / MINI_TILE;
-	game->player->pos_y = (int)game->player->pos_ym / MINI_TILE;
+	if (collision_bck(game) == 0)
+	{
+		game->player->pos_xm -= game->player->delta_xm;
+		game->player->pos_ym -= game->player->delta_ym;
+		game->player->pos_x = (int)game->player->pos_xm / MINI_TILE;
+		game->player->pos_y = (int)game->player->pos_ym / MINI_TILE;
+	}
 }

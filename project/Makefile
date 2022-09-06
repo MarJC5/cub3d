@@ -25,6 +25,7 @@ SRCS_FILES	+= 	key_actions.c \
 				render.c \
 				check_map.c \
 				init.c \
+				collision.c \
 				utils.c
 
 
