@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/06 16:21:17 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/06 17:26:12 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 
 void	draw_wall(t_game *game, t_rays *ray, int r)
 {
-	int	i;
-
-	i = 0;
 	ray->wall_height = (TILE_SIZE * 320) / ray->dist;
 	if (ray->wall_height > 320)
 		ray->wall_height = 320;
 	ray->wall_offset = 160 - ray->wall_height / 2;
 	draw_rect(&game->screen.map, (t_rect){
-		r, 0, TILE_SIZE, ray->wall_height, 0xcccccc});
+		r * TILE_SIZE, ray->wall_offset, TILE_SIZE, TILE_SIZE, 0xcccccc});
+	draw_rect(&game->screen.map, (t_rect){
+		r * TILE_SIZE, ray->wall_height + ray->wall_offset, TILE_SIZE, TILE_SIZE, 0xcccccc});
 }
 
 void	rays_fov(t_game *game, t_player *player, t_rays *ray)
@@ -44,6 +43,7 @@ void	rays_fov(t_game *game, t_player *player, t_rays *ray)
 				player->pos_xm, player->pos_ym,
 				ray->deltax, ray->deltay,
 				ray->dist, 0x2e86de}, game->screen.toggle_minimap);
+			ray->dist *= (MINI_TILE + MAPOS);
 		}
 		draw_wall(game, ray, ray->r);
 		ray->angle += DR;
