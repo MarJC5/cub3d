@@ -106,6 +106,7 @@ typedef struct s_rays
 	float	deltay;
 	float	dist;
 	float	angle;
+	float	wall_height;
 }	t_rays;
 
 typedef struct s_player
