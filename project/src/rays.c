@@ -11,6 +11,17 @@
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+/*
+void	draw_wall(t_game *game, t_rays *ray, int r)
+{
+	ray->wall_height = (TILE_SIZE * 320) / ray->dist;
+	if (ray->wall_height > 320)
+		ray->wall_height = 320;
+	ray->wall_offset = 160 - ray->wall_height / 2;
+	draw_line(&game->screen.view, (t_line){
+		r * game->map->x, 
+	});
+}*/
 
 void	rays_fov(t_game *game, t_player *player, t_rays *ray)
 {
@@ -32,6 +43,7 @@ void	rays_fov(t_game *game, t_player *player, t_rays *ray)
 				ray->deltax, ray->deltay,
 				ray->dist, 0x2e86de});
 		//printf("ray dist %d: %f\n", r, ray->dist);
+		//draw_wall(game, ray, r);
 		ray->angle += DR;
 		if (ray->angle < 0)
 			ray->angle += 2 * M_PI;

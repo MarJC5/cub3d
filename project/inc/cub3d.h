@@ -107,6 +107,7 @@ typedef struct s_rays
 	float	dist;
 	float	angle;
 	float	wall_height;
+	float	wall_offset;
 }	t_rays;
 
 typedef struct s_player
@@ -131,6 +132,7 @@ typedef struct s_screen
 	void		*mlx;
 	void		*win;
 	int			toggle_minimap;
+	t_img		view;
 	t_img		map;
 }	t_screen;
 
