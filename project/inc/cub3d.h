@@ -161,12 +161,21 @@ typedef struct s_map
 	t_img	img;
 }	t_map;
 
+typedef struct s_col
+{
+	int	x;
+	int	y;
+	int	px;
+	int	py;
+}	t_col;
+
 typedef struct s_game
 {
 	int			is_started;
 	t_screen	screen;
 	t_player	*player;
 	t_map		*map;
+	t_col		*col;
 }	t_game;
 
 /**
