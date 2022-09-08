@@ -53,7 +53,7 @@
 # define SIDEW_WALL 0x95a5a6
 
 # define WHITE 0xffffff
-# define BLACK 0x404040
+# define BLACK 0x1f1e23
 # define GREY 0x8b8b8b
 # define BROWN 0x73493c
 # define RED 0xe55656
@@ -199,7 +199,7 @@ typedef struct s_game
 	t_screen	screen;
 	t_player	*player;
 	t_map		*map;
-	t_col		*col;
+	t_col		col;
 }	t_game;
 
 /**

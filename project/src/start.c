@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 15:38:16 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/08 15:51:59 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/08 16:20:08 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	start_view(t_game *game)
 {
 	render_background(&game->screen.welcome,
-		0xf2f2f2, 0xf2f2f2);
+		BLACK, BLACK);
 	init_ascii((t_art){
 		0, 0, -1, 0,
 		0, MINI_TILE, WHITE,
