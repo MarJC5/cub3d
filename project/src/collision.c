@@ -14,48 +14,38 @@
 
 int	collision(t_game *game)
 {
-	int	x;
-	int	y;
-	int	px;
-	int	py;
-
 	if (game->player->delta_xm > 0)
-		x = COLLISION / 3;
+		game->col->x = COLLISION / 3;
 	else
-		x = -COLLISION / 3;
+		game->col->x = -COLLISION / 3;
 	if (game->player->delta_ym > 0)
-		y = COLLISION / 3;
+		game->col->y = COLLISION / 3;
 	else
-		y = -COLLISION / 3;
-	px = game->player->pos_xm + x;
-	py = game->player->pos_ym + y;
-	px = (px - MAPOS) / 8;
-	py = (py - MAPOS) / 8;
-	if (game->map->scene[py][px] == '1')
+		game->col->y = -COLLISION / 3;
+	game->col->px = game->player->pos_xm + game->col->x;
+	game->col->py = game->player->pos_ym + game->col->y;
+	game->col->px = (game->col->px - MAPOS) / 8;
+	game->col->py = (game->col->py - MAPOS) / 8;
+	if (game->map->scene[game->col->py][game->col->px] == '1')
 		return (1);
 	return (0);
 }
 
 int	collision_bck(t_game *game)
 {
-	int	x;
-	int	y;
-	int	px;
-	int	py;
-
 	if (game->player->delta_xm > 0)
-		x = COLLISION / 2;
+		game->col->x = COLLISION / 2;
 	else
-		x = -COLLISION / 2;
+		game->col->x = -COLLISION / 2;
 	if (game->player->delta_ym > 0)
-		y = COLLISION / 2;
+		game->col->y = COLLISION / 2;
 	else
-		y = -COLLISION / 2;
-	px = game->player->pos_xm - x;
-	py = game->player->pos_ym - y;
-	px = (px - MAPOS) / 8;
-	py = (py - MAPOS) / 8;
-	if (game->map->scene[py][px] == '1')
+		game->col->y = -COLLISION / 2;
+	game->col->px = game->player->pos_xm - game->col->x;
+	game->col->py = game->player->pos_ym - game->col->y;
+	game->col->px = (game->col->px - MAPOS) / 8;
+	game->col->py = (game->col->py - MAPOS) / 8;
+	if (game->map->scene[game->col->py][game->col->px] == '1')
 		return (1);
 	return (0);
 }
