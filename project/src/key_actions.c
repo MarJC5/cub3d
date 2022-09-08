@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_actions.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:18:29 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/08 08:06:13 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/08 13:40:34 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ int	key_event(int key, t_game *game)
 {
 	if (key == K_MAC_SP)
 		game->is_started = 1;
+	if (key == K_MAC_ESCAPE || key == 65307)
+		esc_win(game);
 	if (game->is_started == 1)
 	{
-		if (key == K_MAC_ESCAPE || key == 65307)
-			esc_win(game);
 		if (key == K_MAC_M || key == 109)
 			show_minimap(game);
 		if (key == K_MAC_A || key == 97 || key == 65361 || key == 123)

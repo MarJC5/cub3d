@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/08 08:04:28 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/08 15:42:58 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,6 @@ void	render_background(t_img *img, int floor, int ceilling)
 		}
 		++i;
 	}
-}
-
-void	render_info(t_game *game)
-{
-	char	*value;
-	char	*tmp;
-
-	value = ft_itoa(game->player->pos_x);
-	tmp = ft_strjoin("X: ", value);
-	mlx_string_put(game->screen.mlx, game->screen.win,
-		MAPOS, game->map->y * (MINI_TILE * 1.25), 0x000, tmp);
-	free(value);
-	free(tmp);
-	value = ft_itoa(game->player->pos_y);
-	tmp = ft_strjoin("Y: ", value);
-	mlx_string_put(game->screen.mlx, game->screen.win,
-		MAPOS, game->map->y * (MINI_TILE * 1.4), 0x000, tmp);
-	free(value);
-	free(tmp);
 }
 
 void	render_minimap_tile(t_game *game, char tile, int color)
@@ -78,7 +59,6 @@ void	setup_minimap(t_game *game)
 		game->player->delta_xm, game->player->delta_ym,
 		0.0, 0xFFFFFF}, 0);
 	rays_fov(game, game->player, &game->player->rays);
-	render_info(game);
 }
 
 void	render_map_view(t_game *game)
@@ -106,24 +86,17 @@ void	render_map_view(t_game *game)
 	}
 }
 
-int	render_welcome(t_game *game)
+int	render_view(t_game *game)
 {
 	if (game->is_started == 0)
 	{
-		printf("start in: %d\n", game->is_started);
-		render_background(&game->screen.welcome,
-			chartohex(game->map->colors[0], 0),
-			chartohex(game->map->colors[0], 0));
+		start_view(game);
 		mlx_put_image_to_window(game->screen.mlx,
 			game->screen.win, game->screen.welcome.mlx_img, 0, 0);
+		return (game->is_started);
 	}
-	return (0);
-}
-
-int	render_view(t_game *game)
-{
 	render_map_view(game);
 	mlx_put_image_to_window(game->screen.mlx,
 		game->screen.win, game->screen.map.mlx_img, 0, 0);
-	return (0);
+	return (SUCCESS);
 }

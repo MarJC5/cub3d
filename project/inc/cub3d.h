@@ -49,10 +49,17 @@
 # define DR 0.0174533
 
 # define ORANGE 0xfeca57
-# define RED 0xee5253
-# define YELLOW 0xfeca57
 # define FRONT_WALL 0xbdc3c7
 # define SIDEW_WALL 0x95a5a6
+
+# define WHITE 0xffffff
+# define BLACK 0x404040
+# define GREY 0x8b8b8b
+# define BROWN 0x73493c
+# define RED 0xe55656
+# define YELLOW 0xdcac6c
+# define GREEN 0x6a9254
+# define BLUE 0x524ba3
 
 # include "key_macos.h"
 # include "libft.h"
@@ -68,6 +75,23 @@
 /**
  * Struct
  */
+
+typedef struct s_art
+{
+	int		x;
+	int		y;
+	int		fd;
+	int		posx;
+	int		posy;
+	int		size;
+	int		color;
+	char	*file;
+	char	*tmp;
+	char	*save;
+	char	*line;
+	char	*tab;
+	void	*mlx_img;
+}	t_art;
 
 typedef struct s_img
 {
@@ -174,6 +198,7 @@ typedef struct s_game
  * Init
  */
 
+void	init_ascii(t_art art);
 void	init_screen(t_game *game);
 void	init_view(t_game *game);
 void	init_default(t_game *game);
@@ -242,6 +267,7 @@ void	img_pix_put(t_img *img, int x, int y, int color);
 void	check_player_pos(t_game *game, int i, int j);
 void	render_stat(t_game *game, int x, int y, int data);
 void	draw_line(t_img *img, t_line line);
+void	start_view(t_game *game);
 
 float	draw_ray(t_map *map, t_img *img, t_line line, int active);
 

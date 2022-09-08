@@ -26,7 +26,9 @@ SRCS_FILES	+= 	key_actions.c \
 				check_map.c \
 				init.c \
 				collision.c \
-				utils.c
+				utils.c \
+				pixel_art.c \
+				start.c
 
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
