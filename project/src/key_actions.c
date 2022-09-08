@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:18:29 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/08 13:40:34 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/08 16:51:32 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ int	mouse_event(int x, int y, t_game *game)
 {
 	(void) y;
 
-	if (x > 0 && x < game->screen.oldx)
+	if (x < game->screen.oldx)
 	{
 		game->screen.oldx = x;
 		move_left(game);
 	}
-	else if (x < WIN_WIDTH && x > game->screen.oldx)
+	else if (x > game->screen.oldx)
 	{
 		game->screen.oldx = x;
 		move_right(game);

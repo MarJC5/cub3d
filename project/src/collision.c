@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:53:29 by tpaquier          #+#    #+#             */
-/*   Updated: 2022/09/08 16:36:50 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/08 16:43:46 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,3 @@ int	collision_bck(t_game *game)
 		return (1);
 	return (0);
 }
-

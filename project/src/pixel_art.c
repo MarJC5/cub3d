@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 10:52:57 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/08 15:21:14 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/08 16:47:20 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,5 @@ void	init_ascii(t_art art)
 		art.y++;
 	}
 	close(art.fd);
-	free(art.line);
-	free(art.tmp);
 	init_ascii_scene(art);
-	free(art.save);
 }

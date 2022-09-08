@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/08 15:42:58 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/08 16:49:42 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	setup_minimap(t_game *game)
 	draw_ray(game->map, &game->screen.map, (t_line){
 		game->player->pos_xm, game->player->pos_ym,
 		game->player->delta_xm, game->player->delta_ym,
-		0.0, 0xFFFFFF}, 0);
+		0.0, WHITE}, 0);
 	rays_fov(game, game->player, &game->player->rays);
 }
 
@@ -69,9 +69,9 @@ void	render_map_view(t_game *game)
 	setup_minimap(game);
 	if (game->screen.toggle_minimap == 1)
 	{
-		render_minimap_tile(game, game->player->skin, 0x33FFFFFF);
-		render_minimap_tile(game, FLOOR, 0x33FFFFFF);
-		render_minimap_tile(game, WALL, 0x000000);
+		render_minimap_tile(game, game->player->skin, WHITE);
+		render_minimap_tile(game, FLOOR, WHITE);
+		render_minimap_tile(game, WALL, BLACK);
 		render_minimap_tile(game, DOOR, 0xcc8e35);
 		render_minimap_tile(game, EMPTY_ZONE, 0xccBDC3C7);
 		draw_ray(game->map, &game->screen.map, (t_line){
