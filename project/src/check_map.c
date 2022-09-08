@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaquier <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 10:47:51 by tpaquier          #+#    #+#             */
-/*   Updated: 2022/09/05 10:47:57 by tpaquier         ###   ########.fr       */
+/*   Updated: 2022/09/07 23:04:42 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static int	checker(t_game *game, int i, int j)
 {
 	if (game->map->scene[i][j] != '0' && game->map->scene[i][j] != '1'
-		&& game->map->scene[i][j] != 'N')
+		&& game->map->scene[i][j] != 'N'
+		&& game->map->scene[i][j] != 'D')
 		return (FAILURE);
 	return (SUCCESS);
 }

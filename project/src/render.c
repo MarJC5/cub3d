@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/06 18:36:16 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/08 08:04:28 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void	render_map_view(t_game *game)
 		render_minimap_tile(game, game->player->skin, 0x33FFFFFF);
 		render_minimap_tile(game, FLOOR, 0x33FFFFFF);
 		render_minimap_tile(game, WALL, 0x000000);
-		render_minimap_tile(game, EMPTY_ZONE, 0xBDC3C7);
+		render_minimap_tile(game, DOOR, 0xcc8e35);
+		render_minimap_tile(game, EMPTY_ZONE, 0xccBDC3C7);
 		draw_ray(game->map, &game->screen.map, (t_line){
 			game->player->pos_xm, game->player->pos_ym,
 			game->player->delta_xm,
@@ -103,6 +104,20 @@ void	render_map_view(t_game *game)
 			game->player->pos_ym,
 			MINI_TILE / (SCALE / 1.5), RED});
 	}
+}
+
+int	render_welcome(t_game *game)
+{
+	if (game->is_started == 0)
+	{
+		printf("start in: %d\n", game->is_started);
+		render_background(&game->screen.welcome,
+			chartohex(game->map->colors[0], 0),
+			chartohex(game->map->colors[0], 0));
+		mlx_put_image_to_window(game->screen.mlx,
+			game->screen.win, game->screen.welcome.mlx_img, 0, 0);
+	}
+	return (0);
 }
 
 int	render_view(t_game *game)

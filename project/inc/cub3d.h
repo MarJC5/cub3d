@@ -36,6 +36,7 @@
 # define WALL '1'
 # define FLOOR '0'
 # define EMPTY_ZONE '.'
+# define DOOR 'D'
 
 # define SPEED 5
 # define SCALE 4
@@ -140,7 +141,7 @@ typedef struct s_screen
 	void		*win;
 	int			toggle_minimap;
 	int			oldx;
-	t_img		view;
+	t_img		welcome;
 	t_img		map;
 }	t_screen;
 
@@ -162,6 +163,7 @@ typedef struct s_map
 
 typedef struct s_game
 {
+	int			is_started;
 	t_screen	screen;
 	t_player	*player;
 	t_map		*map;
@@ -227,7 +229,7 @@ float	degtorad(float ang);
  * @brief
  * Screen
  */
-
+int		render_welcome(t_game *game);
 int		render_view(t_game *game);
 
 void	rays_fov(t_game *game, t_player *player, t_rays *ray);
@@ -261,7 +263,7 @@ int		check_map(t_game *game);
  * @brief
  * Collision
  */
-int collision(t_game *game);
-int	collision_bck(t_game *game);
+int		collision(t_game *game);
+int		collision_bck(t_game *game);
 
 #endif

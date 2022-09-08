@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:49 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/06 22:29:22 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/08 08:06:44 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,14 @@ void	init_view(t_game *game)
 			&game->screen.map.bpp,
 			&game->screen.map.line_len, &game->screen.map.endian);
 	mlx_loop_hook(game->screen.mlx, &render_view, game);
+	game->is_started = 0;
+	// game->screen.welcome.mlx_img = mlx_new_image(game->screen.mlx,
+	// 		WIN_WIDTH, WIN_HEIGHT);
+	// game->screen.welcome.addr = mlx_get_data_addr(game->screen.welcome.mlx_img,
+	// 		&game->screen.welcome.bpp,
+	// 		&game->screen.welcome.line_len, &game->screen.welcome.endian);
+	// if (game->is_started == 0)
+	// 	mlx_loop_hook(game->screen.mlx, &render_welcome, game);
 }
 
 void	init_screen(t_game *game)
@@ -72,7 +80,7 @@ void	init_screen(t_game *game)
 	if (!game->screen.mlx)
 		return ;
 	game->screen.oldx = WIN_WIDTH / 2;
-	game->screen.toggle_minimap = 1;
+	game->screen.toggle_minimap = 0;
 	game->screen.win = mlx_new_window(
 			game->screen.mlx, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
 	init_view(game);

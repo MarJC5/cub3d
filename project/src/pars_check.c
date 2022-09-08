@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:15 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/06 10:02:41 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/07 23:00:59 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	check_map_char(char *map)
 			|| map[i] == 'S'
 			|| map[i] == 'E'
 			|| map[i] == 'W'
+			|| map[i] == 'D'
 			|| map[i] == '\n'
 			|| map[i] == '\0')
 			i++;
