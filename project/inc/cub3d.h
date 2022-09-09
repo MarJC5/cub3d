@@ -50,7 +50,7 @@
 
 # define ORANGE 0xfeca57
 # define FRONT_WALL 0xbdc3c7
-# define SIDEW_WALL 0x95a5a6
+# define SIDE_WALL 0x95a5a6
 
 # define WHITE 0xffffff
 # define BLACK 0x1f1e23
@@ -132,6 +132,7 @@ typedef struct s_line
 typedef struct s_rays
 {
 	int		r;
+	int		color;
 	float	posx;
 	float	posy;
 	float	deltax;
@@ -277,6 +278,7 @@ void	check_player_pos(t_game *game, int i, int j);
 void	render_stat(t_game *game, int x, int y, int data);
 void	draw_line(t_img *img, t_line line);
 void	start_view(t_game *game);
+void	init_orientation(t_game *game);
 
 float	draw_ray(t_map *map, t_img *img, t_line line, int active);
 
