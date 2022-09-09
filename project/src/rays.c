@@ -12,6 +12,25 @@
 
 #include "../inc/cub3d.h"
 
+void    draw_floor(t_game *game, t_rays *ray, int r)
+{
+	int	c;
+	int	color;
+
+	c = ray->wall_height + ray->wall_offset;
+	color = RED;
+	while (c < WIN_HEIGHT)
+	{
+		draw_rect(&game->screen.map, (t_rect){
+		r * TILE_SIZE, c - TILE_SIZE * 3,
+		TILE_SIZE, c, color});
+		draw_rect(&game->screen.map, (t_rect){
+		r * TILE_SIZE, c - TILE_SIZE * 3,
+		TILE_SIZE, WIN_HEIGHT - c, color});
+		c++;
+	}
+}
+
 void	draw_wall(t_game *game, t_rays *ray, int r)
 {
 	int	color;
@@ -48,6 +67,7 @@ void	rays_fov(t_game *game, t_player *player, t_rays *ray)
 				ray->dist, YELLOW}, game->screen.toggle_minimap);
 		ray->dist *= (MINI_TILE + MAPOS) + 1;
 		draw_wall(game, ray, ray->r);
+		draw_floor(game, ray, ray->r);
 		ray->angle += DR;
 		if (ray->angle < 0)
 			ray->angle += 2 * M_PI;
