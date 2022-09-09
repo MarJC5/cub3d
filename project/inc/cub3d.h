@@ -83,7 +83,7 @@ typedef struct s_art
 	int		fd;
 	int		posx;
 	int		posy;
-	int		size;
+	float	size;
 	int		color;
 	char	*file;
 	char	*tmp;

@@ -153,4 +153,4 @@ maze: all
 
 re:			fclean all
 
-.PHONY:		all clean fclean re debug valgrind leaks maze
+.PHONY:		all clean fclean re debug valgrind leaks maze run

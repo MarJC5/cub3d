@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 10:52:57 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/08 16:47:20 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/09 11:23:34 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	render_art(t_art art, char **tab_art)
 			art.color = bit_color(tab_art[i][j]);
 			if (ft_isdigit(tab_art[i][j]))
 				draw_rect(art.mlx_img, (t_rect){
-					(j * art.size) + art.posx, (i * art.size) + art.posx,
+					(j * art.size) + art.posx, (i * art.size) + art.posy,
 					art.size, art.size, art.color});
 			j++;
 		}
