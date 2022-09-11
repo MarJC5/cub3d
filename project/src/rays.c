@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/09 13:00:03 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/09 18:10:19 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	rays_fov(t_game *game, t_player *player, t_rays *ray)
 		ray->angle += 2 * M_PI;
 	if (ray->angle > 2 * M_PI)
 		ray->angle -= 2 * M_PI;
-	while (ray->r < 90)
+	while (ray->r < 180)
 	{
 		ray->dist = 0;
 		ray->deltax = cos(ray->angle) * (SPEED / 2);

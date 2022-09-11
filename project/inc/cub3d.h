@@ -46,7 +46,7 @@
 # define FOV 60
 # define COLLISION 8
 
-# define DR 0.0174533
+# define DR 0.0174533f
 
 # define ORANGE 0xfeca57
 # define FRONT_WALL 0xbdc3c7
@@ -133,6 +133,7 @@ typedef struct s_rays
 {
 	int		r;
 	int		color;
+	int		side;
 	float	posx;
 	float	posy;
 	float	deltax;
@@ -258,6 +259,7 @@ int		encode_rgb(uint8_t alpha, uint8_t red, uint8_t green, uint8_t blue);
 int		chartohex(char *tab, int opacity);
 int		fixang(int ang);
 
+float	radtodeg(float ang);
 float	degtorad(float ang);
 
 /**
@@ -278,7 +280,7 @@ void	check_player_pos(t_game *game, int i, int j);
 void	render_stat(t_game *game, int x, int y, int data);
 void	draw_line(t_img *img, t_line line);
 void	start_view(t_game *game);
-void	init_orientation(t_game *game);
+int		init_orientation(t_game *game);
 
 float	draw_ray(t_map *map, t_img *img, t_line line, int active);
 

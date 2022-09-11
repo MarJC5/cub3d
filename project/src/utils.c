@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 10:04:35 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/08 16:50:54 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/09 15:42:26 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 float	degtorad(float ang)
 {
 	return (ang * M_PI / 180.0);
+}
+
+float	radtodeg(float ang)
+{
+	return (ang * (180.0 / M_PI));
 }
 
 int	fixang(int ang)
