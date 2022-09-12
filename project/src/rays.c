@@ -30,7 +30,7 @@ void	draw_ceiling(t_game *game, t_rays *ray, int r)
 {
 	int c;
 	int	wh;
-	int	wo;
+	int	wo; 
 
 	wh = (TILE_SIZE * WIN_HEIGHT * 1.0) / ray->dist;
 	wo = (WIN_HEIGHT / 2.0) - wh / 2;
