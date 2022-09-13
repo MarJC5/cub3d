@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/09 18:10:19 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/13 08:02:56 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	draw_floor(t_game *game, t_rays *ray, int r)
 {
-	int c;
+	int	c;
 	int	wh;
 	int	wo;
 
@@ -23,21 +23,15 @@ void	draw_floor(t_game *game, t_rays *ray, int r)
 	c = wh + wo;
 	draw_rect(&game->screen.map, (t_rect){
 		r * TILE_SIZE, c - TILE_SIZE * 3,
-		TILE_SIZE, 816 - c, RED});
+		TILE_SIZE, 816 - c, chartohex(game->map->colors[0], 0)});
 }
 
 void	draw_ceiling(t_game *game, t_rays *ray, int r)
 {
-	int c;
-	int	wh;
-	int	wo; 
-
-	wh = (TILE_SIZE * WIN_HEIGHT * 1.0) / ray->dist;
-	wo = (WIN_HEIGHT / 2.0) - wh / 2;
-	c = wh + wo;
+	(void) ray;
 	draw_rect(&game->screen.map, (t_rect){
 		r * TILE_SIZE, 0,
-		TILE_SIZE, 260, GREY});
+		TILE_SIZE, 260, chartohex(game->map->colors[1], 0)});
 }
 
 void	draw_wall(t_game *game, t_rays *ray, int r)
@@ -55,14 +49,19 @@ void	draw_wall(t_game *game, t_rays *ray, int r)
 		TILE_SIZE, ray->wall_height, ray->color});
 }
 
+void	reset_angle(t_game *game)
+{
+	if (game->player->angle > 2 * M_PI)
+		game->player->angle -= 2 * M_PI;
+	if (game->player->angle < 0)
+		game->player->angle += 2 * M_PI;
+}
+
 void	rays_fov(t_game *game, t_player *player, t_rays *ray)
 {
 	ray->r = 0;
 	ray->angle = player->angle - DR * 30;
-	if (ray->angle < 0)
-		ray->angle += 2 * M_PI;
-	if (ray->angle > 2 * M_PI)
-		ray->angle -= 2 * M_PI;
+	reset_angle(game);
 	while (ray->r < 180)
 	{
 		ray->dist = 0;
@@ -77,10 +76,7 @@ void	rays_fov(t_game *game, t_player *player, t_rays *ray)
 		draw_ceiling(game, ray, ray->r);
 		draw_wall(game, ray, ray->r);
 		ray->angle += DR;
-		if (ray->angle < 0)
-			ray->angle += 2 * M_PI;
-		if (ray->angle > 2 * M_PI)
-			ray->angle -= 2 * M_PI;
+		reset_angle(game);
 		ray->r++;
 	}
 }

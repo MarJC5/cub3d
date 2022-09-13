@@ -46,7 +46,7 @@
 # define FOV 60
 # define COLLISION 8
 
-# define DR 0.0174533f
+# define DR 0.00872665f
 
 # define ORANGE 0xfeca57
 # define FRONT_WALL 0xbdc3c7
@@ -142,6 +142,10 @@ typedef struct s_rays
 	float	angle;
 	float	wall_height;
 	float	wall_offset;
+	float	horz_hit;
+	float	vert_hit;
+	float	horz_dist;
+	float	vert_dist;
 }	t_rays;
 
 typedef struct s_player

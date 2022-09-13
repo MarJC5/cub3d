@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:23 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/30 09:09:07 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/13 08:18:07 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ void	print_map_details(t_game *game)
 	int	i;
 
 	i = 0;
-	ft_printf("\n\033[1;37mPLAYER START POS\033[0m:\nx -> %d\ny -> %d\n",
-		(int)game->player->pos_x, (int)game->player->pos_y);
+	ft_printf("\n\033[1;37mPLAYER START POS\033[0m:\nx -> %d\ny -> %d\nd° -> %d\n",
+		(int)game->player->pos_x, (int)game->player->pos_y,
+		(int)radtodeg(game->player->angle));
 	ft_printf("\n\033[1;33mASSETS\033[0;37m:\n");
 	while (i < 4)
 		ft_printf("%s", game->map->assets[i++]);

@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:15 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/09 16:30:01 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/13 08:16:42 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int	check_map_name(t_game *game, char *file)
 float	init_player_angle(char angle)
 {
 	if (angle == 'N')
-		return (degtorad(0));
+		return (0.0);
 	if (angle == 'E')
-		return (degtorad(90.0));
+		return (1.5708f);
 	if (angle == 'S')
-		return (degtorad(180.0));
+		return (3.14159f);
 	if (angle == 'W')
-		return (degtorad(270.0));
+		return (4.71239f);
 	return (0);
 }
 

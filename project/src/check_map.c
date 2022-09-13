@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 10:47:51 by tpaquier          #+#    #+#             */
-/*   Updated: 2022/09/07 23:04:42 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/13 08:14:17 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ static int	checker(t_game *game, int i, int j)
 {
 	if (game->map->scene[i][j] != '0' && game->map->scene[i][j] != '1'
 		&& game->map->scene[i][j] != 'N'
+		&& game->map->scene[i][j] != 'S'
+		&& game->map->scene[i][j] != 'E'
+		&& game->map->scene[i][j] != 'W'
 		&& game->map->scene[i][j] != 'D')
 		return (FAILURE);
 	return (SUCCESS);
