@@ -16,7 +16,7 @@ static int	checker(t_game *game, int i, int j)
 {
 	if (game->map->scene[i][j] != '0' && game->map->scene[i][j] != '1'
 		&& game->map->scene[i][j] != 'N'
-		&& game->map->scene[i][j] != 'S'
+		&& game->map->scene[i][j] != 'S' 
 		&& game->map->scene[i][j] != 'E'
 		&& game->map->scene[i][j] != 'W'
 		&& game->map->scene[i][j] != 'D')
