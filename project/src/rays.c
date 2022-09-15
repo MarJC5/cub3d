@@ -65,7 +65,7 @@ void    hori_check(t_map *map, t_player *player, t_rays *rays)
 		rays->rx = (player->pos_ym - rays->ry) * rays->atan + player->pos_xm;
 		rays->yo = -MINI_TILE;
 		rays->xo = -rays->yo * rays->atan;
-		rays->hshift = 1;
+		rays->hshift = -1;
 		printf("DOWN\n");
 	}
 	if (rays->ra < M_PI)
@@ -74,6 +74,7 @@ void    hori_check(t_map *map, t_player *player, t_rays *rays)
 		rays->rx = (player->pos_ym - rays->ry) * rays->atan + player->pos_xm;
 		rays->yo = MINI_TILE;
 		rays->xo = -rays->yo * rays->atan;
+		rays->hshift = -1;
 		printf("UP\n");
 	}
 	if (rays->ra == 0 || rays->ra == M_PI)
