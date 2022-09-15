@@ -12,9 +12,9 @@
 
 #include "../inc/cub3d.h"
 
-static void	whilebn(t_game *game, char **line, int i)
+static void	whilebn(t_game *game, char **line)
 {
-	while (*line[0] == '\n' && i < 5)
+	while (*line[0] == '\n')
 	{
 		free_stuff(*line);
 		*line = get_next_line(game->map->fd);
@@ -25,7 +25,7 @@ int	save_map(t_game *game, char *save, char *line, int y)
 {
 	save = ft_strdup("");
 	game->map->x = (int)ft_strlen(line);
-	whilebn(game, &line, 0);
+	whilebn(game, &line);
 	while (line != NULL)
 	{
 		if (game->map->map != NULL)
@@ -59,7 +59,7 @@ int	save_map_textures(t_game *game, int i, int j, char *line)
 	k = 0;
 	while (++i < 6)
 	{
-		whilebn(game, &line, 0);
+		whilebn(game, &line);
 		if (ft_strcmp(line, "\n") != 0 && i < 4)
 		{
 			len = ft_strlen(line) - ft_strlen(ft_strchr(line, ' '));
