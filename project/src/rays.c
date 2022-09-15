@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/15 15:10:22 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/15 15:51:59 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void	draw_wall(t_game *game, t_rays *ray, int r)
 {
 	ray->wall_height = (TILE_SIZE * WIN_HEIGHT * 1.0) / ray->dist;
 	if (ray->wall_height > WIN_HEIGHT)
-		ray->wall_height = WIN_HEIGHT;
+		ray->wall_height = WIN_HEIGHT ;
 	ray->wall_offset = (WIN_HEIGHT / 2.0) - ray->wall_height / 2;
 	draw_rect(&game->screen.map, (t_rect){
 		r * TILE_SIZE, ray->wall_offset - TILE_SIZE * 3,
-		TILE_SIZE, ray->wall_height + 1, ray->color});
-	draw_rect(&game->screen.map, (t_rect){
-		r * TILE_SIZE, ray->wall_height + ray->wall_offset - TILE_SIZE * 3,
 		TILE_SIZE, ray->wall_height, ray->color});
+	draw_rect(&game->screen.map, (t_rect){
+	 	r * TILE_SIZE, ray->wall_height + ray->wall_offset - TILE_SIZE * 3,
+	 	TILE_SIZE, ray->wall_height, ray->color});
 }
 
 void	reset_angle(t_rays *ray)
@@ -100,8 +100,6 @@ void    hori_loop(t_map *map, t_player *player, t_rays *rays)
 			&& map->scene[(int)rays->hmry]
 			[(int)rays->hmrx] == '1')
 		{
-			printf("H HIT\n");
-			printf("y: %d x: %d\n", (int)rays->hmry, (int)rays->hmrx);
 			rays->hx = rays->rx;
 			rays->hy = rays->ry;
 			rays->dis_h = sqrt(powf((rays->hx - player->pos_xm), 2)
@@ -161,8 +159,6 @@ void    verti_loop( t_map *map, t_player *player, t_rays *rays)
 			&& map->scene[(int)rays->vmry]
 			[(int)rays->vmrx] == '1')
 		{
-			printf("V HIT\n");
-			printf("y: %d x: %d\n", (int)rays->vmry, (int)rays->vmrx);
 			rays->vx = rays->rx;
 			rays->vy = rays->ry;
 			rays->dis_v = sqrt(powf((rays->vx - player->pos_xm), 2)
@@ -181,9 +177,9 @@ void    verti_loop( t_map *map, t_player *player, t_rays *rays)
 void	rays_fov(t_game *game, t_player *player, t_rays *rays)
 {
 	rays->r = -1;
-	rays->ra = player->angle;
+	rays->ra = player->angle - DR * 30;
 	reset_angle(rays);
-	while (++rays->r < 1)
+	while (++rays->r < 90)
 	{
 		hori_loop(game->map, player, rays);
 		verti_loop(game->map, player, rays);
@@ -191,14 +187,24 @@ void	rays_fov(t_game *game, t_player *player, t_rays *rays)
 		{
 			rays->rx = rays->vx;
 			rays->ry = rays->vy;
+			rays->dist = rays->dis_v;
 			rays->color = YELLOW;
 		}
 		if (rays->dis_h < rays->dis_v)
 		{
 			rays->rx = rays->hx;
 			rays->ry = rays->hy;
+			rays->dist = rays->dis_h;
 			rays->color = GREEN;
 		}
+		draw_line(&game->screen.map, (t_dline){
+			game->player->pos_xm,
+			game->player->pos_ym,
+			game->player->rays.rx, 
+			game->player->rays.ry, 
+			0, 0, RED});
+		draw_wall(game, rays, rays->r);
+		rays->ra += DR;
 		reset_angle(rays);
 	}
 }
