@@ -18,12 +18,12 @@ void	draw_floor(t_game *game, t_rays *ray, int r)
 	int	wh;
 	int	wo;
 
-	wh = (TILE_SIZE * WIN_HEIGHT * 1.0) / ray->dist;
+	wh = (TILE_SIZE * WIN_HEIGHT) / ray->dist;
 	wo = (WIN_HEIGHT / 2.0) - wh / 2;
 	c = wh + wo;
 	draw_rect(&game->screen.map, (t_rect){
-		r * TILE_SIZE, c - TILE_SIZE * 3,
-		TILE_SIZE, 816 - c, chartohex(game->map->colors[0], 0)});
+		r * TILE_SIZE, WIN_HEIGHT / 2,
+		TILE_SIZE, 360, chartohex(game->map->colors[0], 0)});
 }
 
 void	draw_ceiling(t_game *game, t_rays *ray, int r)
@@ -31,7 +31,7 @@ void	draw_ceiling(t_game *game, t_rays *ray, int r)
 	(void) ray;
 	draw_rect(&game->screen.map, (t_rect){
 		r * TILE_SIZE, 0,
-		TILE_SIZE, 260, chartohex(game->map->colors[1], 0)});
+		TILE_SIZE, 360, BLUE});
 }
 
 void	draw_wall(t_game *game, t_rays *ray, int r)
@@ -203,6 +203,8 @@ void	rays_fov(t_game *game, t_player *player, t_rays *rays)
 			game->player->rays.rx, 
 			game->player->rays.ry, 
 			0, 0, RED});
+		draw_ceiling(game, rays, rays->r);
+		draw_floor(game, rays, rays->r);
 		draw_wall(game, rays, rays->r);
 		rays->ra += DR;
 		reset_angle(rays);
