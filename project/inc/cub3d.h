@@ -47,6 +47,9 @@
 # define COLLISION 8
 
 # define DR 0.0174533
+# define PI 3.1415926535
+# define P2 (PI / 2)
+# define P3 3 * PI / 2
 
 # define ORANGE 0xfeca57
 # define FRONT_WALL 0xbdc3c7
@@ -162,19 +165,24 @@ typedef struct s_rays
 	int		mp;
 	int		dof;
 	int		hshift;
-	double	hmrx;
-	double	hmry;
-	double	vmrx;
-	double	vmry;
-	double	rx;
-	double	ry;
-	double	ra;
-	double	xo;
-	double	yo;
-	double	dis_h;
-	double	dis_v;
-	double  atan;
-	double  ntan;
+	int		vshift;
+	float	hmrx;
+	float	hmry;
+	float	vmrx;
+	float	vmry;
+	float	rx;
+	float	ry;
+	float	hx;
+	float	hy;
+	float	vx;
+	float	vy;
+	float	ra;
+	float	xo;
+	float	yo;
+	float	dis_h;
+	float	dis_v;
+	float	atan;
+	float	ntan;
 }	t_rays;
 
 typedef struct s_player

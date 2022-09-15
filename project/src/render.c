@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/15 13:36:48 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/15 14:59:12 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	render_map_view(t_game *game)
 			game->player->pos_ym,
 			game->player->rays.rx, 
 			game->player->rays.ry, 
-			0, 0, YELLOW});
+			0, 0, game->player->rays.color});
 		draw_line(&game->screen.map, (t_dline){
 				game->player->pos_xm,
 				game->player->pos_ym,
