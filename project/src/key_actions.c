@@ -48,7 +48,7 @@ int	mouse_event(int x, int y, t_game *game)
 
 int	key_event(int key, t_game *game)
 {
-	if (key == K_MAC_SP)
+	if (key == K_MAC_SP || key == 32)
 		game->is_started = 1;
 	if (key == K_MAC_ESCAPE || key == 65307)
 		esc_win(game);

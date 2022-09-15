@@ -39,9 +39,9 @@ LIBFT		= ./libft
 MAKELIB		= ${MAKE} -C ${LIBFT}
 
 ifeq (${UNAME_S}, Darwin)
-	LIBX		= ./mlx/
+	LIBX		= ./mlx
 else
-	LIBX		= ./mlx-linux/
+	LIBX		= ./mlx-linux
 endif
 MAKELIBX	= ${MAKE} -C ${LIBX}
 
