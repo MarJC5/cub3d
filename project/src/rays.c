@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/13 08:02:56 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/15 13:51:53 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	draw_ceiling(t_game *game, t_rays *ray, int r)
 
 void	draw_wall(t_game *game, t_rays *ray, int r)
 {
-	init_orientation(game);
 	ray->wall_height = (TILE_SIZE * WIN_HEIGHT * 1.0) / ray->dist;
 	if (ray->wall_height > WIN_HEIGHT)
 		ray->wall_height = WIN_HEIGHT;
@@ -49,34 +48,77 @@ void	draw_wall(t_game *game, t_rays *ray, int r)
 		TILE_SIZE, ray->wall_height, ray->color});
 }
 
-void	reset_angle(t_game *game)
+void	reset_angle(t_rays *ray)
 {
-	if (game->player->angle > 2 * M_PI)
-		game->player->angle -= 2 * M_PI;
-	if (game->player->angle < 0)
-		game->player->angle += 2 * M_PI;
+	if (ray->angle > 2 * M_PI)
+		ray->angle -= 2 * M_PI;
+	if (ray->angle < 0)
+		ray->angle += 2 * M_PI;
 }
 
-void	rays_fov(t_game *game, t_player *player, t_rays *ray)
+void    hori_check(t_map *map, t_player *player, t_rays *rays)
 {
-	ray->r = 0;
-	ray->angle = player->angle - DR * 30;
-	reset_angle(game);
-	while (ray->r < 180)
+	rays->hshift = 0;
+	if (rays->ra > M_PI)
 	{
-		ray->dist = 0;
-		ray->deltax = cos(ray->angle) * (SPEED / 2);
-		ray->deltay = sin(ray->angle) * (SPEED / 2);
-		ray->dist = draw_ray(game->map, &game->screen.map, (t_line){
-				player->pos_xm, player->pos_ym,
-				ray->deltax, ray->deltay,
-				ray->dist, YELLOW}, game->screen.toggle_minimap);
-		ray->dist *= (MINI_TILE + MAPOS) + 1;
-		draw_floor(game, ray, ray->r);
-		draw_ceiling(game, ray, ray->r);
-		draw_wall(game, ray, ray->r);
-		ray->angle += DR;
-		reset_angle(game);
-		ray->r++;
+		rays->ry = ((int)(player->pos_ym / MINI_TILE) * MINI_TILE) - 0.0001;
+		rays->rx = (player->pos_ym - rays->ry) * rays->atan + player->pos_xm;
+		rays->yo = -MINI_TILE;
+		rays->xo = -rays->yo * rays->atan;
+		rays->hshift = 1;
+		printf("DOWN\n");
 	}
+	if (rays->ra < M_PI)
+	{
+		rays->ry = ((int)(player->pos_ym / MINI_TILE) * MINI_TILE)+ MINI_TILE;
+		rays->rx = (player->pos_ym - rays->ry) * rays->atan + player->pos_xm;
+		rays->yo = MINI_TILE;
+		rays->xo = -rays->yo * rays->atan;
+		printf("UP\n");
+	}
+	if (rays->ra == 0 || rays->ra == M_PI)
+	{
+		rays->rx = player->pos_xm;
+		rays->ry = player->pos_ym;
+		rays->dof = map->x;
+		printf("SIDE\n");
+	}
+}
+
+void    hori_loop(t_map *map, t_player *player, t_rays *rays)
+{
+	rays->r = -1;
+	rays->ra = player->angle;
+	reset_angle(rays);
+	while (++rays->r < 1)
+	{
+		rays->dof = 0;
+		rays->atan = -1 / tan(rays->ra);
+		hori_check(map, player, rays);
+		while (rays->dof < map->x)
+		{
+			rays->hmrx = (int)rays->rx / MINI_TILE;
+			rays->hmry = (int)rays->ry / MINI_TILE;
+			if (rays->hmrx >= 0 && rays->hmrx < map->x
+			    && rays->hmry >= 0 && rays->hmry < map->y
+				&& map->scene[(int)rays->hmry + rays->hshift][(int)rays->hmrx] == '1')
+			{
+				printf("HIT\n");
+				printf("y: %d x: %d\n", (int)rays->hmry, (int)rays->hmrx);
+				rays->dof = map->x;
+			}
+			else
+			{
+				rays->rx += rays->xo;
+				rays->ry += rays->yo;
+				rays->dof += 1;
+			}
+		}
+		reset_angle(rays);
+	}
+}
+
+void	rays_fov(t_game *game, t_player *player, t_rays *rays)
+{
+	hori_loop(game->map, player, rays);
 }

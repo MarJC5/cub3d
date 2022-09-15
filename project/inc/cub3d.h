@@ -46,7 +46,7 @@
 # define FOV 60
 # define COLLISION 8
 
-# define DR 0.00872665f
+# define DR 0.0174533
 
 # define ORANGE 0xfeca57
 # define FRONT_WALL 0xbdc3c7
@@ -119,6 +119,17 @@ typedef struct s_circle
 	int	color;
 }	t_circle;
 
+typedef struct s_dline
+{
+	double	begin_x;
+	double	begin_y;
+	double	end_x;
+	double	end_y;
+	double	delta_x;
+	double	delta_y;
+	int		color;
+}	t_dline;
+
 typedef struct s_line
 {
 	float	posx;
@@ -146,6 +157,24 @@ typedef struct s_rays
 	float	vert_hit;
 	float	horz_dist;
 	float	vert_dist;
+	int		mx;
+	int		my;
+	int		mp;
+	int		dof;
+	int		hshift;
+	double	hmrx;
+	double	hmry;
+	double	vmrx;
+	double	vmry;
+	double	rx;
+	double	ry;
+	double	ra;
+	double	xo;
+	double	yo;
+	double	dis_h;
+	double	dis_v;
+	double  atan;
+	double  ntan;
 }	t_rays;
 
 typedef struct s_player
@@ -282,7 +311,7 @@ void	render_background(t_img *img, int floor, int ceilling);
 void	img_pix_put(t_img *img, int x, int y, int color);
 void	check_player_pos(t_game *game, int i, int j);
 void	render_stat(t_game *game, int x, int y, int data);
-void	draw_line(t_img *img, t_line line);
+void	draw_line(t_img *img, t_dline line);
 void	start_view(t_game *game);
 int		init_orientation(t_game *game);
 

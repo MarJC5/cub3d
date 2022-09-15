@@ -3,27 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 01:24:48 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/09 18:08:28 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/15 13:14:20 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	draw_line(t_img *img, t_line line)
+void	draw_line(t_img *img, t_dline line)
 {
-	float	pixel_x;
-	float	pixel_y;
+	double	pixel_x;
+	double	pixel_y;
 	int		pixels;
 
+	line.delta_x = (line.end_x - line.begin_x);
+	line.delta_y = (line.end_y - line.begin_y);
 	pixels = sqrt((line.delta_x * line.delta_x)
 			+ (line.delta_y * line.delta_y));
 	line.delta_x /= pixels;
 	line.delta_y /= pixels;
-	pixel_x = line.posx;
-	pixel_y = line.posy;
+	pixel_x = line.begin_x;
+	pixel_y = line.begin_y;
 	while (pixels)
 	{
 		img_pix_put(img, pixel_x, pixel_y, line.color);
