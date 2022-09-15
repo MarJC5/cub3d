@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/15 15:51:59 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/15 16:02:56 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ void	draw_ceiling(t_game *game, t_rays *ray, int r)
 
 void	draw_wall(t_game *game, t_rays *ray, int r)
 {
-	ray->wall_height = (TILE_SIZE * WIN_HEIGHT * 1.0) / ray->dist;
+	ray->wall_height = (TILE_SIZE * WIN_HEIGHT) / (ray->dist *  4);
 	if (ray->wall_height > WIN_HEIGHT)
 		ray->wall_height = WIN_HEIGHT ;
 	ray->wall_offset = (WIN_HEIGHT / 2.0) - ray->wall_height / 2;
 	draw_rect(&game->screen.map, (t_rect){
-		r * TILE_SIZE, ray->wall_offset - TILE_SIZE * 3,
+		r * TILE_SIZE, ray->wall_offset,
 		TILE_SIZE, ray->wall_height, ray->color});
 	draw_rect(&game->screen.map, (t_rect){
-	 	r * TILE_SIZE, ray->wall_height + ray->wall_offset - TILE_SIZE * 3,
-	 	TILE_SIZE, ray->wall_height, ray->color});
+	  	r * TILE_SIZE, ray->wall_offset,
+	  	TILE_SIZE, ray->wall_height, ray->color});
 }
 
 void	reset_angle(t_rays *ray)
@@ -179,7 +179,7 @@ void	rays_fov(t_game *game, t_player *player, t_rays *rays)
 	rays->r = -1;
 	rays->ra = player->angle - DR * 30;
 	reset_angle(rays);
-	while (++rays->r < 90)
+	while (++rays->r < 180)
 	{
 		hori_loop(game->map, player, rays);
 		verti_loop(game->map, player, rays);
