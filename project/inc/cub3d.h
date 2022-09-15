@@ -52,8 +52,8 @@
 # define P3 3 * PI / 2
 
 # define ORANGE 0xfeca57
-# define FRONT_WALL 0xbdc3c7
-# define SIDE_WALL 0x95a5a6
+# define FRONT_WALL 0x43424a
+# define SIDE_WALL 0x1f1e23
 
 # define WHITE 0xffffff
 # define BLACK 0x1f1e23

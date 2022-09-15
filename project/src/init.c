@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:49 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/08 13:37:57 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/15 16:24:57 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	init_screen(t_game *game)
 	if (!game->screen.mlx)
 		return ;
 	game->screen.oldx = WIN_WIDTH / 2;
-	game->screen.toggle_minimap = 0;
+	game->screen.toggle_minimap = 1;
 	game->screen.win = mlx_new_window(
 			game->screen.mlx, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
 	init_view(game);

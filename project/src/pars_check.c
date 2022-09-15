@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:15 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/15 11:36:08 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/15 16:36:55 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	check_player_pos(t_game *game, int i, int j)
 				game->player->pos_xm = (j * MINI_TILE) + MAPOS + (SCALE - 1);
 				game->player->skin = game->map->scene[i][j];
 				game->player->angle = init_player_angle(game->player->skin);
+				game->player->rays.angle = game->player->angle;
 				game->player->delta_x = cos(game->player->angle) * SPEED;
 				game->player->delta_y = sin(game->player->angle) * SPEED;
 				game->player->delta_xm = cos(game->player->angle) * (SPEED / 2);

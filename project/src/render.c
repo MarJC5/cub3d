@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/15 15:21:44 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/15 16:31:42 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ void	render_background(t_img *img, int floor, int ceilling)
 	int		j;
 
 	(void) floor;
+	(void) ceilling;
 	i = 0;
 	while (i < WIN_HEIGHT)
 	{
 		j = 0;
 		while (j < WIN_WIDTH)
 		{
-			img_pix_put(img, j, i, ceilling);
+			img_pix_put(img, j, i, BLACK);
 			j++;
 		}
 		++i;
@@ -75,11 +76,11 @@ void	render_map_view(t_game *game)
 		render_minimap_tile(game, DOOR, 0xcc8e35);
 		render_minimap_tile(game, EMPTY_ZONE, 0xccBDC3C7);
 		draw_line(&game->screen.map, (t_dline){
-				game->player->pos_xm,
-				game->player->pos_ym,
-				game->player->pos_xm + game->player->delta_xm * 4, 
-				game->player->pos_ym + game->player->delta_ym * 4,
-				0, 0, RED});
+			game->player->pos_xm,
+			game->player->pos_ym,
+			game->player->pos_xm + game->player->delta_xm * 4,
+			game->player->pos_ym + game->player->delta_ym * 4,
+			0, 0, YELLOW});
 		draw_circle(&game->screen.map, (t_circle){
 			game->player->pos_xm,
 			game->player->pos_ym,

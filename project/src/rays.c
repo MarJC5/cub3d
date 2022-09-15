@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/15 16:02:56 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/15 16:34:31 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	draw_ceiling(t_game *game, t_rays *ray, int r)
 	(void) ray;
 	draw_rect(&game->screen.map, (t_rect){
 		r * TILE_SIZE, 0,
-		TILE_SIZE, 360, BLUE});
+		TILE_SIZE, 360, chartohex(game->map->colors[1], 0)});
 }
 
 void	draw_wall(t_game *game, t_rays *ray, int r)
@@ -67,7 +67,7 @@ void    hori_check(t_map *map, t_player *player, t_rays *rays)
 		rays->hshift = -1;
 		rays->xo = -rays->yo * rays->atan;
 	}
-	if (rays->ra < M_PI)
+	else if (rays->ra < M_PI)
 	{
 		rays->ry = ((int)(player->pos_ym / MINI_TILE) * MINI_TILE) + MINI_TILE;
 		rays->rx = (player->pos_ym - rays->ry) * rays->atan + player->pos_xm;
@@ -75,7 +75,7 @@ void    hori_check(t_map *map, t_player *player, t_rays *rays)
 		rays->hshift = -1;
 		rays->xo = -rays->yo * rays->atan;
 	}
-	if (rays->ra == 0 || rays->ra == M_PI)
+	else
 	{
 		rays->rx = player->pos_xm;
 		rays->ry = player->pos_ym;
@@ -126,7 +126,7 @@ void    verti_check(t_map *map, t_player *player, t_rays *rays)
 		rays->vshift = -1;
 		rays->yo = -rays->xo * rays->ntan;
 	}
-	if (rays->ra < M_PI / 2 || rays->ra > 3 * M_PI / 2)
+	else if (rays->ra < M_PI / 2 || rays->ra > 3 * M_PI / 2)
 	{
 		rays->rx = ((int)(player->pos_xm / MINI_TILE) * MINI_TILE) + MINI_TILE;
 		rays->ry = (player->pos_xm - rays->rx) * rays->ntan + player->pos_ym;
@@ -134,7 +134,7 @@ void    verti_check(t_map *map, t_player *player, t_rays *rays)
 		rays->vshift = -1;
 		rays->yo = -rays->xo * rays->ntan;
 	}
-	if (rays->ra == 0 || rays->ra == M_PI)
+	else
 	{
 		rays->rx = player->pos_xm;
 		rays->ry = player->pos_ym;
@@ -179,7 +179,7 @@ void	rays_fov(t_game *game, t_player *player, t_rays *rays)
 	rays->r = -1;
 	rays->ra = player->angle - DR * 30;
 	reset_angle(rays);
-	while (++rays->r < 180)
+	while (++rays->r < 90)
 	{
 		hori_loop(game->map, player, rays);
 		verti_loop(game->map, player, rays);
@@ -188,20 +188,20 @@ void	rays_fov(t_game *game, t_player *player, t_rays *rays)
 			rays->rx = rays->vx;
 			rays->ry = rays->vy;
 			rays->dist = rays->dis_v;
-			rays->color = YELLOW;
+			rays->color = SIDE_WALL;
 		}
 		if (rays->dis_h < rays->dis_v)
 		{
 			rays->rx = rays->hx;
 			rays->ry = rays->hy;
 			rays->dist = rays->dis_h;
-			rays->color = GREEN;
+			rays->color = FRONT_WALL;
 		}
 		draw_line(&game->screen.map, (t_dline){
 			game->player->pos_xm,
 			game->player->pos_ym,
-			game->player->rays.rx, 
-			game->player->rays.ry, 
+			game->player->rays.rx,
+			game->player->rays.ry,
 			0, 0, RED});
 		draw_ceiling(game, rays, rays->r);
 		draw_floor(game, rays, rays->r);
