@@ -17,15 +17,15 @@ void	render_background(t_img *img, int floor, int ceilling)
 	int		i;
 	int		j;
 
-	(void) floor;
-	(void) ceilling;
 	i = 0;
 	while (i < WIN_HEIGHT)
 	{
 		j = 0;
 		while (j < WIN_WIDTH)
 		{
-			img_pix_put(img, j, i, BLACK);
+			img_pix_put(img, j, i, ceilling);
+			if (i > WIN_HEIGHT / 2)
+				img_pix_put(img, j, i, floor);
 			j++;
 		}
 		++i;
@@ -64,9 +64,6 @@ void	setup_minimap(t_game *game)
 
 void	render_map_view(t_game *game)
 {
-	render_background(&game->screen.map,
-		chartohex(game->map->colors[0], 0),
-		chartohex(game->map->colors[1], 0));
 	setup_minimap(game);
 	if (game->screen.toggle_minimap == 1)
 	{
@@ -90,6 +87,7 @@ void	render_map_view(t_game *game)
 
 int	render_view(t_game *game)
 {
+	mlx_clear_window(game->screen.mlx, game->screen.win);
 	if (game->is_started == 0)
 	{
 		start_view(game);
