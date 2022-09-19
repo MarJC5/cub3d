@@ -78,8 +78,8 @@ void	render_map_view(t_game *game)
 		draw_line(&game->screen.map, (t_dline){
 			game->player->pos_xm,
 			game->player->pos_ym,
-			game->player->pos_xm + game->player->delta_xm * 4,
-			game->player->pos_ym + game->player->delta_ym * 4,
+			game->player->pos_xm + game->player->delta_xm * 10,
+			game->player->pos_ym + game->player->delta_ym * 10,
 			0, 0, YELLOW});
 		draw_circle(&game->screen.map, (t_circle){
 			game->player->pos_xm,

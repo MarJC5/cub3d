@@ -23,7 +23,7 @@ void	draw_floor(t_game *game, t_rays *ray, int r)
 	wo = (WIN_HEIGHT / 2.0) - wh / 2;
 	c = wh + wo;*/
 	draw_rect(&game->screen.map, (t_rect){
-		r * TILE_SIZE, WIN_HEIGHT / 2,
+		r, WIN_HEIGHT / 2,
 		TILE_SIZE, 360, chartohex(game->map->colors[0], 0)});
 }
 
@@ -31,7 +31,7 @@ void	draw_ceiling(t_game *game, t_rays *ray, int r)
 {
 	(void) ray;
 	draw_rect(&game->screen.map, (t_rect){
-		r * TILE_SIZE, 0,
+		r, 0,
 		TILE_SIZE, 360, chartohex(game->map->colors[1], 0)});
 }
 
@@ -42,9 +42,9 @@ void	draw_wall(t_game *game, t_rays *ray, int r)
 		ray->wall_height = WIN_HEIGHT ;
 	ray->wall_offset = (WIN_HEIGHT / 2.0) - ray->wall_height / 2;
 	draw_rect(&game->screen.map, (t_rect){
-		r * TILE_SIZE, ray->wall_offset,
+		r, ray->wall_offset,
 		TILE_SIZE, ray->wall_height, ray->color});
 	draw_rect(&game->screen.map, (t_rect){
-	  	r * TILE_SIZE, ray->wall_offset,
+	  	r, ray->wall_offset,
 	  	TILE_SIZE, ray->wall_height, ray->color});
 }

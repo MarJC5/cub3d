@@ -325,7 +325,8 @@ void	img_pix_put(t_img *img, int x, int y, int color);
 void	check_player_pos(t_game *game, int i, int j);
 void	render_stat(t_game *game, int x, int y, int data);
 void	start_view(t_game *game);
-int		init_orientation(t_game *game);
+int		init_orientation(t_game *game, t_rays *ray);
+int		init_orientation_v(t_game *game, t_rays *ray);
 
 float	draw_ray(t_map *map, t_img *img, t_line line, int active);
 

@@ -33,10 +33,10 @@ int	fixang(int ang)
 
 void	reset_angle(t_rays *ray)
 {
-	if (ray->angle > 2 * M_PI)
-		ray->angle -= 2 * M_PI;
-	if (ray->angle < 0)
-		ray->angle += 2 * M_PI;
+	if (ray->ra > 2 * M_PI)
+		ray->ra -= 2 * M_PI;
+	if (ray->ra < 0)
+		ray->ra += 2 * M_PI;
 }
 
 float	dist(t_player *player, t_rays *rays)
