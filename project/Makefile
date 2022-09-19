@@ -28,7 +28,8 @@ SRCS_FILES	+= 	key_actions.c \
 				collision.c \
 				utils.c \
 				pixel_art.c \
-				start.c
+				start.c \
+				draw.c
 
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}

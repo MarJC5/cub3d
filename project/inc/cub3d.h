@@ -43,13 +43,11 @@
 # define TILE_SIZE 32
 # define MINI_TILE 8
 # define MAPOS 8
-# define FOV 60
+# define FOV 90
 # define COLLISION 8
 
 # define DR 0.0174533
 # define PI 3.1415926535
-# define P2 (PI / 2)
-# define P3 3 * PI / 2
 
 # define ORANGE 0xfeca57
 # define FRONT_WALL 0x43424a
@@ -302,6 +300,9 @@ int		fixang(int ang);
 
 float	radtodeg(float ang);
 float	degtorad(float ang);
+float	dist(t_player *player, t_rays *rays);
+
+void	reset_angle(t_rays *ray);
 
 /**
  * @brief
@@ -313,13 +314,16 @@ int		render_view(t_game *game);
 void	rays_fov(t_game *game, t_player *player, t_rays *ray);
 void	draw_rect(t_img *img, t_rect rect);
 void	draw_circle(t_img *img, t_circle circle);
+void	draw_line(t_img *img, t_dline line);
+void	draw_floor(t_game *game, t_rays *ray, int r);
+void	draw_ceiling(t_game *game, t_rays *ray, int r);
+void	draw_wall(t_game *game, t_rays *ray, int r);
 void	render_minimap(t_game *game);
 void	render_minimap_tile(t_game *game, char tile, int color);
 void	render_background(t_img *img, int floor, int ceilling);
 void	img_pix_put(t_img *img, int x, int y, int color);
 void	check_player_pos(t_game *game, int i, int j);
 void	render_stat(t_game *game, int x, int y, int data);
-void	draw_line(t_img *img, t_dline line);
 void	start_view(t_game *game);
 int		init_orientation(t_game *game);
 

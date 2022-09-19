@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 10:04:35 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/09 15:42:26 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/19 07:49:46 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,18 @@ int	fixang(int ang)
 	if (ang < 0)
 		ang += 360;
 	return (ang);
+}
+
+void	reset_angle(t_rays *ray)
+{
+	if (ray->angle > 2 * M_PI)
+		ray->angle -= 2 * M_PI;
+	if (ray->angle < 0)
+		ray->angle += 2 * M_PI;
+}
+
+float	dist(t_player *player, t_rays *rays)
+{
+	return (sqrt(powf((rays->rx - player->pos_xm), 2)
+			+ powf((rays->ry - player->pos_ym), 2)));
 }

@@ -3,60 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/15 16:34:31 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/19 08:01:38 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	draw_floor(t_game *game, t_rays *ray, int r)
-{
-	int	c;
-	int	wh;
-	int	wo;
-
-	wh = (TILE_SIZE * WIN_HEIGHT) / ray->dist;
-	wo = (WIN_HEIGHT / 2.0) - wh / 2;
-	c = wh + wo;
-	draw_rect(&game->screen.map, (t_rect){
-		r * TILE_SIZE, WIN_HEIGHT / 2,
-		TILE_SIZE, 360, chartohex(game->map->colors[0], 0)});
-}
-
-void	draw_ceiling(t_game *game, t_rays *ray, int r)
-{
-	(void) ray;
-	draw_rect(&game->screen.map, (t_rect){
-		r * TILE_SIZE, 0,
-		TILE_SIZE, 360, chartohex(game->map->colors[1], 0)});
-}
-
-void	draw_wall(t_game *game, t_rays *ray, int r)
-{
-	ray->wall_height = (TILE_SIZE * WIN_HEIGHT) / (ray->dist *  4);
-	if (ray->wall_height > WIN_HEIGHT)
-		ray->wall_height = WIN_HEIGHT ;
-	ray->wall_offset = (WIN_HEIGHT / 2.0) - ray->wall_height / 2;
-	draw_rect(&game->screen.map, (t_rect){
-		r * TILE_SIZE, ray->wall_offset,
-		TILE_SIZE, ray->wall_height, ray->color});
-	draw_rect(&game->screen.map, (t_rect){
-	  	r * TILE_SIZE, ray->wall_offset,
-	  	TILE_SIZE, ray->wall_height, ray->color});
-}
-
-void	reset_angle(t_rays *ray)
-{
-	if (ray->angle > 2 * M_PI)
-		ray->angle -= 2 * M_PI;
-	if (ray->angle < 0)
-		ray->angle += 2 * M_PI;
-}
-
-void    hori_check(t_map *map, t_player *player, t_rays *rays)
+void	hori_check(t_map *map, t_player *player, t_rays *rays)
 {
 	rays->hshift = 0;
 	if (rays->ra > M_PI)
@@ -83,15 +39,15 @@ void    hori_check(t_map *map, t_player *player, t_rays *rays)
 	}
 }
 
-void    hori_loop(t_map *map, t_player *player, t_rays *rays)
+void	hori_loop(t_map *map, t_player *player, t_rays *rays)
 {
 	rays->dof = 0;
-	rays->dis_h = 1000000;
 	rays->hx = player->pos_xm;
 	rays->hy = player->pos_ym;
+	rays->dis_h = 1000000;
 	rays->atan = -1 / tan(rays->ra);
 	hori_check(map, player, rays);
-	while (rays->dof < map->x)
+	while (rays->dof < map->x - 2)
 	{
 		rays->hmrx = ((int)rays->rx / MINI_TILE) + rays->hshift;
 		rays->hmry = ((int)rays->ry / MINI_TILE) + rays->hshift;
@@ -100,10 +56,10 @@ void    hori_loop(t_map *map, t_player *player, t_rays *rays)
 			&& map->scene[(int)rays->hmry]
 			[(int)rays->hmrx] == '1')
 		{
+			printf("HY: %d, HX: %d\n", (int)rays->hmry, (int)rays->hmrx);
 			rays->hx = rays->rx;
 			rays->hy = rays->ry;
-			rays->dis_h = sqrt(powf((rays->hx - player->pos_xm), 2)
-					+ powf((rays->hy - player->pos_ym), 2));
+			rays->dis_h = dist(player, rays);
 			rays->dof = map->x;
 		}
 		else
@@ -115,7 +71,7 @@ void    hori_loop(t_map *map, t_player *player, t_rays *rays)
 	}
 }
 
-void    verti_check(t_map *map, t_player *player, t_rays *rays)
+void	verti_check(t_map *map, t_player *player, t_rays *rays)
 {
 	rays->vshift = 0;
 	if (rays->ra > M_PI / 2 && rays->ra < 3 * M_PI / 2)
@@ -142,15 +98,15 @@ void    verti_check(t_map *map, t_player *player, t_rays *rays)
 	}
 }
 
-void    verti_loop( t_map *map, t_player *player, t_rays *rays)
+void	verti_loop( t_map *map, t_player *player, t_rays *rays)
 {
 	rays->dof = 0;
-	rays->dis_v = 1000000;
 	rays->vx = player->pos_xm;
 	rays->vy = player->pos_ym;
+	rays->dis_v = 1000000;
 	rays->ntan = -tan(rays->ra);
 	verti_check(map, player, rays);
-	while (rays->dof < map->y)
+	while (rays->dof < map->y - 2)
 	{
 		rays->vmrx = ((int)rays->rx / MINI_TILE) + rays->vshift;
 		rays->vmry = ((int)rays->ry / MINI_TILE) + rays->vshift;
@@ -159,10 +115,10 @@ void    verti_loop( t_map *map, t_player *player, t_rays *rays)
 			&& map->scene[(int)rays->vmry]
 			[(int)rays->vmrx] == '1')
 		{
+			printf("VY: %d, VX: %d\n", (int)rays->vmry, (int)rays->vmrx);
 			rays->vx = rays->rx;
 			rays->vy = rays->ry;
-			rays->dis_v = sqrt(powf((rays->vx - player->pos_xm), 2)
-					+ powf((rays->vy - player->pos_ym), 2));
+			rays->dis_v = dist(player, rays);
 			rays->dof = map->y;
 		}
 		else
@@ -174,35 +130,40 @@ void    verti_loop( t_map *map, t_player *player, t_rays *rays)
 	}
 }
 
+void	rays_comp(t_game *game, t_rays *rays)
+{
+	if (rays->dis_v < rays->dis_h)
+	{
+		rays->rx = rays->vx;
+		rays->ry = rays->vy;
+		rays->dist = rays->dis_v;
+		rays->color = SIDE_WALL;
+	}
+	if (rays->dis_h < rays->dis_v)
+	{
+		rays->rx = rays->hx;
+		rays->ry = rays->hy;
+		rays->dist = rays->dis_h;
+		rays->color = FRONT_WALL;
+	}
+	draw_line(&game->screen.map, (t_dline){
+		game->player->pos_xm,
+		game->player->pos_ym,
+		game->player->rays.rx,
+		game->player->rays.ry,
+		0, 0, RED});
+}
+
 void	rays_fov(t_game *game, t_player *player, t_rays *rays)
 {
 	rays->r = -1;
-	rays->ra = player->angle - DR * 30;
+	rays->ra = player->angle - DR * (FOV/2);
 	reset_angle(rays);
-	while (++rays->r < 90)
+	while (++rays->r < FOV)
 	{
 		hori_loop(game->map, player, rays);
 		verti_loop(game->map, player, rays);
-		if (rays->dis_v < rays->dis_h)
-		{
-			rays->rx = rays->vx;
-			rays->ry = rays->vy;
-			rays->dist = rays->dis_v;
-			rays->color = SIDE_WALL;
-		}
-		if (rays->dis_h < rays->dis_v)
-		{
-			rays->rx = rays->hx;
-			rays->ry = rays->hy;
-			rays->dist = rays->dis_h;
-			rays->color = FRONT_WALL;
-		}
-		draw_line(&game->screen.map, (t_dline){
-			game->player->pos_xm,
-			game->player->pos_ym,
-			game->player->rays.rx,
-			game->player->rays.ry,
-			0, 0, RED});
+		rays_comp(game, rays);
 		draw_ceiling(game, rays, rays->r);
 		draw_floor(game, rays, rays->r);
 		draw_wall(game, rays, rays->r);
