@@ -16,6 +16,7 @@ int	esc_win(t_game *game)
 {
 	(void) game;
 	printf("\n\033[1mYou've quit the game!\033[0m\n\n");
+	//free_map(game);
 	exit(EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }

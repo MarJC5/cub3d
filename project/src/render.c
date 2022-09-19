@@ -87,14 +87,15 @@ void	render_map_view(t_game *game)
 
 int	render_view(t_game *game)
 {
+	game->is_started = 1;
 	mlx_clear_window(game->screen.mlx, game->screen.win);
-	if (game->is_started == 0)
+	/*if (game->is_started == 0)
 	{
 		start_view(game);
 		mlx_put_image_to_window(game->screen.mlx,
 			game->screen.win, game->screen.welcome.mlx_img, 0, 0);
 		return (game->is_started);
-	}
+	}*/
 	render_map_view(game);
 	mlx_put_image_to_window(game->screen.mlx,
 		game->screen.win, game->screen.map.mlx_img, 0, 0);
