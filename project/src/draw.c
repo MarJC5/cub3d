@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 07:32:38 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/19 07:33:02 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/19 17:34:51 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
 
 void	draw_floor(t_game *game, t_rays *ray, int r)
 {
@@ -37,6 +38,7 @@ void	draw_ceiling(t_game *game, t_rays *ray, int r)
 
 void	draw_wall(t_game *game, t_rays *ray, int r)
 {
+	(void)r;
 	ray->wall_height = (TILE_SIZE * WIN_HEIGHT) / (ray->dist *  4);
 	if (ray->wall_height > WIN_HEIGHT)
 		ray->wall_height = WIN_HEIGHT ;

@@ -40,6 +40,7 @@
 
 # define SPEED 5
 # define SCALE 4
+# define SPRITE_SIZE 64
 # define TILE_SIZE 32
 # define MINI_TILE 8
 # define MAPOS 8
