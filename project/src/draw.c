@@ -39,10 +39,11 @@ void	draw_ceiling(t_game *game, t_rays *ray, int r)
 void	draw_wall(t_game *game, t_rays *ray, int r)
 {
 	(void)r;
-	ray->wall_height = (TILE_SIZE * WIN_HEIGHT) / (ray->dist *  4);
+	ray->wall_height = (TILE_SIZE * WIN_HEIGHT) / (ray->dist * 4);
 	if (ray->wall_height > WIN_HEIGHT)
 		ray->wall_height = WIN_HEIGHT ;
 	ray->wall_offset = (WIN_HEIGHT / 2.0) - ray->wall_height / 2;
+	//printf("FILE : %p | %d | %d\n", game->text.img, game->text.h, game->text.w);
 	draw_rect(&game->screen.map, (t_rect){
 		r, ray->wall_offset,
 		1, ray->wall_height, ray->color});

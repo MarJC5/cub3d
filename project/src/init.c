@@ -12,6 +12,13 @@
 
 #include "../inc/cub3d.h"
 
+void	init_texture(t_game *game)
+{
+	
+	printf("TEXTURE : %s\n", game->map->assets[0]);
+	printf("FILE : %p | %d | %d\n", game->text.img, game->text.h, game->text.w);
+}
+
 int	init_map(t_game *game, char *file)
 {
 	if (check_map_name(game, file) == SUCCESS)
@@ -81,6 +88,7 @@ void	init_screen(t_game *game)
 	game->screen.toggle_minimap = 1;
 	game->screen.win = mlx_new_window(
 			game->screen.mlx, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
+	init_texture(game);
 	init_view(game);
 	mlx_hook(game->screen.win, 2, 1L << 0, key_event, game);
 	mlx_hook(game->screen.win, 6, 1L << 0, mouse_event, game);

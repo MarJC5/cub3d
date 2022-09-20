@@ -236,12 +236,20 @@ typedef struct s_col
 	int	py;
 }	t_col;
 
+typedef struct s_text
+{
+	void	*img;
+	int		h;
+	int		w;
+}	t_text;
+
 typedef struct s_game
 {
 	int			is_started;
 	t_screen	screen;
 	t_player	*player;
 	t_map		*map;
+	t_text		text;
 	t_col		col;
 }	t_game;
 
