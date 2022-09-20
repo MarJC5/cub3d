@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_art.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 10:52:57 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/09 11:23:34 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/20 08:02:04 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	bit_color(int ref)
 	return (BLACK);
 }
 
-void	render_art(t_art art, char **tab_art)
+void	render_art(t_art art)
 {
 	int	i;
 	int	j;
@@ -42,8 +42,8 @@ void	render_art(t_art art, char **tab_art)
 		j = 0;
 		while (j < art.x)
 		{
-			art.color = bit_color(tab_art[i][j]);
-			if (ft_isdigit(tab_art[i][j]))
+			art.color = bit_color(art.tab_art[i][j]);
+			if (art.tab_art[i] && ft_isdigit(art.tab_art[i][j]))
 				draw_rect(art.mlx_img, (t_rect){
 					(j * art.size) + art.posx, (i * art.size) + art.posy,
 					art.size, art.size, art.color});
@@ -53,7 +53,7 @@ void	render_art(t_art art, char **tab_art)
 	}
 }
 
-void	save_ascii_scene(t_art art, char **tab_art)
+void	save_ascii_scene(t_art art)
 {
 	int	i;
 	int	j;
@@ -72,34 +72,36 @@ void	save_ascii_scene(t_art art, char **tab_art)
 				break ;
 			}
 			if (!ft_isspace(art.save[i]) && art.save[i] != '\n')
-				tab_art[j][k] = art.save[i];
+				art.tab_art[j][k] = art.save[i];
 			k++;
 			i++;
 		}
 		j++;
 	}
-	render_art(art, tab_art);
+	render_art(art);
 }
 
 void	init_ascii_scene(t_art art)
 {
 	int		i;
-	char	**tab_art;
 
 	i = 0;
-	tab_art = ft_calloc(art.y, sizeof(char *));
-	if (!tab_art)
+	art.tab_art = ft_calloc(art.y, sizeof(char *));
+	if (!art.tab_art)
 		return ;
 	while (i < art.y)
 	{
-		tab_art[i] = ft_calloc(art.x, sizeof(char));
-		if (!tab_art[i])
+		art.tab_art[i] = ft_calloc(art.x, sizeof(char));
+		if (!art.tab_art[i])
 			return ;
-		ft_memset(tab_art[i], EMPTY_ZONE, art.x);
-		tab_art[i][art.x - 1] = '\0';
+		ft_memset(art.tab_art[i], EMPTY_ZONE, art.x);
+		art.tab_art[i][art.x - 1] = '\0';
 		i++;
 	}
-	save_ascii_scene(art, tab_art);
+	save_ascii_scene(art);
+	while (art.y-- > 0)
+		free(art.tab_art[art.y]);
+	free(art.tab_art);
 }
 
 void	init_ascii(t_art art)
@@ -116,10 +118,13 @@ void	init_ascii(t_art art)
 		art.tmp = ft_strjoin(art.save, art.line);
 		free(art.save);
 		art.save = ft_strdup(art.tmp);
+		free(art.tmp);
 		free(art.line);
 		art.line = get_next_line(art.fd);
 		art.y++;
 	}
-	close(art.fd);
 	init_ascii_scene(art);
+	free(art.save);
+	free(art.line);
+	close(art.fd);
 }

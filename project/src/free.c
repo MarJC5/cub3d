@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:37 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/30 09:12:10 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/20 07:58:20 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	ft_free_multitab(char **tab)
 	{
 		while (tab[i])
 			i++;
-		while (i >= 0)
-			free(tab[i--]);
+		while (i--)
+			free(tab[i]);
 		free(tab);
 		tab = NULL;
 	}

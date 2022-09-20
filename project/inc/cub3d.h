@@ -92,6 +92,7 @@ typedef struct s_art
 	char	*save;
 	char	*line;
 	char	*tab;
+	char	**tab_art;
 	void	*mlx_img;
 }	t_art;
 

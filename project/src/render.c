@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/19 17:36:15 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/19 22:22:57 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,19 +93,17 @@ void	init_tile(char *path, int x, int y, t_game *game)
 	img = mlx_xpm_file_to_image(game->screen.mlx, path, &w, &h);
 	mlx_put_image_to_window(game->screen.mlx, game->screen.win, img, x, y);
 }
+
 int	render_view(t_game *game)
 {
-	game->is_started = 1;
-	mlx_clear_window(game->screen.mlx, game->screen.win);
-	/*if (game->is_started == 0)
+	if (game->is_started == 0)
 	{
 		start_view(game);
 		mlx_put_image_to_window(game->screen.mlx,
 			game->screen.win, game->screen.welcome.mlx_img, 0, 0);
 		return (game->is_started);
-	}*/
+	}
 	render_map_view(game);
-	init_tile("./assets/textures/xpm/CRATE_2L.xpm", 1 * TILE_SIZE, 50, game);
 	mlx_put_image_to_window(game->screen.mlx,
 		game->screen.win, game->screen.map.mlx_img, 0, 0);
 	return (SUCCESS);

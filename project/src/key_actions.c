@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_actions.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:18:29 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/08 16:51:32 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/20 08:06:37 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 int	esc_win(t_game *game)
 {
-	(void) game;
 	printf("\n\033[1mYou've quit the game!\033[0m\n\n");
-	//free_map(game);
+	free_map(game);
 	exit(EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }
