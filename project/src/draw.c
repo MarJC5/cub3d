@@ -36,6 +36,21 @@ void	draw_ceiling(t_game *game, t_rays *ray, int r)
 		1, WIN_HEIGHT / 2, chartohex(game->map->colors[1], 0)});
 }
 
+void	draw_door(t_game *game, t_rays *ray, int r)
+{
+	int pos = (ray->wall_offset * 1 + r * (1 / 8));
+
+	printf("POS :  %d\n", pos);
+
+	char *mlx_data_addr = mlx_get_data_addr(game->text.img_n, &game->text.h, &game->text.w, &pos);
+
+	printf("%d pour %d et %d %d\n", *(unsigned int *)mlx_data_addr, pos, game->text.h, game->text.w);
+	
+	draw_rect(&game->screen.map, (t_rect){
+			r, ray->wall_offset,
+			1, ray->wall_height, *(unsigned int *)mlx_data_addr});
+}
+
 void	draw_wall(t_game *game, t_rays *ray, int r)
 {
 	(void)r;
@@ -44,7 +59,10 @@ void	draw_wall(t_game *game, t_rays *ray, int r)
 		ray->wall_height = WIN_HEIGHT ;
 	ray->wall_offset = (WIN_HEIGHT / 2.0) - ray->wall_height / 2;
 	//printf("FILE : %p | %d | %d\n", game->text.img, game->text.h, game->text.w);
-	draw_rect(&game->screen.map, (t_rect){
-		r, ray->wall_offset,
-		1, ray->wall_height, ray->color});
+	if (ray->door == 1)
+		draw_door(game, ray, r);
+	else
+		draw_rect(&game->screen.map, (t_rect){
+			r, ray->wall_offset,
+			1, ray->wall_height, ray->color});
 }

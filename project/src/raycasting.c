@@ -18,7 +18,6 @@ int	init_orientation(t_game *game, t_rays *ray)
 	if (ray->door == 1)
 	{
 		ray->color = YELLOW;
-		ray->door = 0;
 		return (0);
 	}
 	if (ray->ra < degtorad(180))
@@ -48,7 +47,6 @@ int	init_orientation_v(t_game *game, t_rays *ray)
 	if (ray->door == 1)
 	{
 		ray->color = YELLOW;
-		ray->door = 0;
 		return (0);
 	}
 	if (ray->ra < degtorad(180))
