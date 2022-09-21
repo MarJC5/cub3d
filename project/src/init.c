@@ -14,9 +14,15 @@
 
 void	init_texture(t_game *game)
 {
-	printf("le premier chara : %d\n", game->map->scene[0][0]);
-	printf("TEXTURE : %s\n", game->map->assets[0]);
-	printf("FILE : %p | %d | %d\n", game->text.img, game->text.h, game->text.w);
+	game->text.img_n = mlx_xpm_file_to_image(game->screen.mlx, game->map->assets[0], &game->text.h, &game->text.w);
+	game->text.img_s = mlx_xpm_file_to_image(game->screen.mlx, game->map->assets[1], &game->text.h, &game->text.w);
+	game->text.img_w = mlx_xpm_file_to_image(game->screen.mlx, game->map->assets[2], &game->text.h, &game->text.w);
+	game->text.img_e = mlx_xpm_file_to_image(game->screen.mlx, game->map->assets[3], &game->text.h, &game->text.w);
+
+	printf("FILE : %p | %d | %d\n", game->text.img_n, game->text.h, game->text.w);
+	printf("FILE : %p | %d | %d\n", game->text.img_s, game->text.h, game->text.w);
+	printf("FILE : %p | %d | %d\n", game->text.img_w, game->text.h, game->text.w);
+	printf("FILE : %p | %d | %d\n", game->text.img_e, game->text.h, game->text.w);
 }
 
 int	init_map(t_game *game, char *file)

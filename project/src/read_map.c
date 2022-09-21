@@ -65,6 +65,7 @@ int	save_map_textures(t_game *game, int i, int j, char *line)
 			len = ft_strlen(line) - ft_strlen(ft_strchr(line, ' '));
 			game->map->identifier[k++] = ft_substr(line, 0, len);
 			game->map->assets[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
+			game->map->assets[j - 1][strlen(game->map->assets[j - 1]) - 1] = '\0';
 			j = ligne_gain(i, j);
 		}
 		if (ft_strcmp(line, "\n") != 0 && i >= 4)

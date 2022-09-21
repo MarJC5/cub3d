@@ -241,7 +241,10 @@ typedef struct s_col
 
 typedef struct s_text
 {
-	void	*img;
+	void	*img_n;
+	void	*img_e;
+	void	*img_w;
+	void	*img_s;
 	int		h;
 	int		w;
 }	t_text;
