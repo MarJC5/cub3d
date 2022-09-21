@@ -26,6 +26,8 @@ int	collision(t_game *game)
 	game->col.py = game->player->pos_ym + game->col.y;
 	game->col.px = (game->col.px - MAPOS) / MINI_TILE;
 	game->col.py = (game->col.py - MAPOS) / MINI_TILE;
+	if (game->map->scene[game->col.py][game->col.px] == DOOR)
+		return (2);
 	if (game->map->scene[game->col.py][game->col.px] == '1')
 		return (1);
 	return (0);
@@ -45,7 +47,8 @@ int	collision_bck(t_game *game)
 	game->col.py = game->player->pos_ym - game->col.y;
 	game->col.px = (game->col.px - MAPOS) / MINI_TILE;
 	game->col.py = (game->col.py - MAPOS) / MINI_TILE;
-	if (game->map->scene[game->col.py][game->col.px] == '1')
+	if (game->map->scene[game->col.py][game->col.px] == '1'
+		|| game->map->scene[game->col.py][game->col.px] == DOOR)
 		return (1);
 	return (0);
 }

@@ -148,6 +148,9 @@ typedef struct s_rays
 	int		r;
 	int		color;
 	int		side;
+	int		doorh;
+	int		doorv;
+	int		door;
 	float	posx;
 	float	posy;
 	float	deltax;
@@ -294,6 +297,8 @@ void	move_left(t_game *game);
 void	move_right(t_game *game);
 void	move_up(t_game *game);
 void	move_down(t_game *game);
+
+void	open_door(t_game *game);
 
 /**
  * @brief

@@ -53,12 +53,17 @@ void	hori_loop(t_map *map, t_player *player, t_rays *rays)
 		rays->hmry = ((int)rays->ry / MINI_TILE) + rays->hshift;
 		if (rays->hmrx >= 0 && rays->hmrx < map->x
 			&& rays->hmry >= 0 && rays->hmry < map->y
-			&& map->scene[(int)rays->hmry]
-			[(int)rays->hmrx] == '1')
+			&& (map->scene[(int)rays->hmry][(int)rays->hmrx] == '1' 
+			|| map->scene[(int)rays->hmry][(int)rays->hmrx] == DOOR))
 		{
 			rays->hx = rays->rx;
 			rays->hy = rays->ry;
 			rays->dis_h = dist(player, rays);
+			if (map->scene[(int)rays->hmry][(int)rays->hmrx] == DOOR)
+			{
+				rays->doorh = 1;
+				rays->dis_h += 1;
+			}
 			rays->dof = map->x;
 		}
 		else
@@ -111,12 +116,17 @@ void	verti_loop( t_map *map, t_player *player, t_rays *rays)
 		rays->vmry = ((int)rays->ry / MINI_TILE) + rays->vshift;
 		if (rays->vmrx >= 0 && rays->vmrx < map->x
 			&& rays->vmry >= 0 && rays->vmry < map->y
-			&& map->scene[(int)rays->vmry]
-			[(int)rays->vmrx] == '1')
+			&& (map->scene[(int)rays->vmry][(int)rays->vmrx] == '1' 
+			|| map->scene[(int)rays->vmry][(int)rays->vmrx] == DOOR))
 		{
 			rays->vx = rays->rx;
 			rays->vy = rays->ry;
 			rays->dis_v = dist(player, rays);
+			if (map->scene[(int)rays->vmry][(int)rays->vmrx] == DOOR)
+			{
+				rays->doorv = 1;
+				rays->dis_v += 1;
+			}
 			rays->dof = map->y;
 		}
 		else
@@ -135,6 +145,7 @@ void	rays_comp(t_game *game, t_rays *rays)
 		rays->rx = rays->vx;
 		rays->ry = rays->vy;
 		rays->dist = rays->dis_v;
+		rays->door = rays->doorv;
 		init_orientation_v(game, rays);
 	}
 	if (rays->dis_h < rays->dis_v)
@@ -142,6 +153,7 @@ void	rays_comp(t_game *game, t_rays *rays)
 		rays->rx = rays->hx;
 		rays->ry = rays->hy;
 		rays->dist = rays->dis_h;
+		rays->door = rays->doorh;
 		init_orientation(game, rays);
 	}
 	if (game->screen.toggle_minimap == 1)

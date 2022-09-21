@@ -55,3 +55,11 @@ void	move_down(t_game *game)
 		game->player->pos_y = (int)game->player->pos_ym / MINI_TILE;
 	}
 }
+
+void	open_door(t_game *game)
+{
+	if (collision(game) == 2)
+	{
+		game->map->scene[game->col.py][game->col.px] = 3;
+	}
+}

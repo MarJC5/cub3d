@@ -33,6 +33,8 @@ int	fixang(int ang)
 
 void	reset_angle(t_rays *ray)
 {
+	ray->doorh = 0;
+	ray->doorv = 0;
 	if (ray->ra > 2 * M_PI)
 		ray->ra -= 2 * M_PI;
 	if (ray->ra < 0)

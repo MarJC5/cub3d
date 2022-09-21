@@ -64,6 +64,8 @@ int	key_event(int key, t_game *game)
 			move_up(game);
 		if (key == K_MAC_S || key == 115 || key == 65364 || key == 125)
 			move_down(game);
+		if (key == K_MAC_E || key == 101)
+			open_door(game);
 	}
 	return (key);
 }

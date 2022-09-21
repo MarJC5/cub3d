@@ -14,7 +14,7 @@
 
 void	init_texture(t_game *game)
 {
-	
+	printf("le premier chara : %d\n", game->map->scene[0][0]);
 	printf("TEXTURE : %s\n", game->map->assets[0]);
 	printf("FILE : %p | %d | %d\n", game->text.img, game->text.h, game->text.w);
 }
