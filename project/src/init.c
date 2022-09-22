@@ -18,6 +18,7 @@ void	init_texture(t_game *game)
 	game->text.img_s = mlx_xpm_file_to_image(game->screen.mlx, game->map->assets[1], &game->text.h, &game->text.w);
 	game->text.img_w = mlx_xpm_file_to_image(game->screen.mlx, game->map->assets[2], &game->text.h, &game->text.w);
 	game->text.img_e = mlx_xpm_file_to_image(game->screen.mlx, game->map->assets[3], &game->text.h, &game->text.w);
+	game->text.img_d = mlx_xpm_file_to_image(game->screen.mlx, "./assets/textures/xpm/DOOR_1A.xpm", &game->text.h, &game->text.w);
 
 	printf("FILE : %p | %d | %d\n", game->text.img_n, game->text.h, game->text.w);
 	printf("FILE : %p | %d | %d\n", game->text.img_s, game->text.h, game->text.w);
@@ -63,6 +64,8 @@ void	init_default(t_game *game)
 	game->map->fd = -1;
 	game->map->x = -1;
 	game->map->y = -1;
+	game->text.x = 0;
+	game->text.y = 0;
 	game->player = malloc(sizeof(t_player));
 	if (!game->player)
 		exit(EXIT_FAILURE);

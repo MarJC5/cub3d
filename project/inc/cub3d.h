@@ -245,8 +245,15 @@ typedef struct s_text
 	void	*img_e;
 	void	*img_w;
 	void	*img_s;
+	void	*img_d;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
 	int		h;
 	int		w;
+	int		x;
+	int		y;
 }	t_text;
 
 typedef struct s_game
