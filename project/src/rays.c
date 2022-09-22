@@ -62,7 +62,7 @@ void	hori_loop(t_map *map, t_player *player, t_rays *rays)
 			if (map->scene[(int)rays->hmry][(int)rays->hmrx] == DOOR)
 			{
 				rays->doorh = 1;
-				rays->dis_h += 1;
+				rays->dis_h += 0;
 			}
 			rays->dof = map->x;
 		}
@@ -125,7 +125,7 @@ void	verti_loop( t_map *map, t_player *player, t_rays *rays)
 			if (map->scene[(int)rays->vmry][(int)rays->vmrx] == DOOR)
 			{
 				rays->doorv = 1;
-				rays->dis_v += 1;
+				rays->dis_v += 0;
 			}
 			rays->dof = map->y;
 		}
