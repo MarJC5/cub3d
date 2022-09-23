@@ -44,36 +44,40 @@ void	draw_wall(t_game *game, t_rays *ray, int r)
 	if (ray->wall_height > WIN_HEIGHT)
 		ray->wall_height = WIN_HEIGHT;
 	ray->wall_offset = (WIN_HEIGHT / 2.0) - ray->wall_height / 2.0;
-	//printf("FILE : %p | %d | %d\n", game->text.img, game->text.h, game->text.w);
 	if (ray->door == 1)
 	{
-		int y = 0;
+		if (game->text.c == 0) //sauvegarde combien de pixel en largeur avec l'offset du premier rayon pour ceux d'après (jusqu'au dernier rayon)
+			game->text.c2 = (int)ray->wall_height % SPRITE_SIZE;
+		game->text.y = 0;
 		int c = ray->wall_height / SPRITE_SIZE;
 		int c2 = 0;
 
-		printf("%d\n", c);
+		printf("%d et %d\n", game->text.c2, game->text.c);
 		while (c2 < ray->wall_height)
 		{
-			game->text.addr = mlx_get_data_addr(game->text.img_w, &game->text.bpp,
+			game->text.addr = mlx_get_data_addr(game->text.img_d, &game->text.bpp,
 				&game->text.line_len, &game->text.endian);
-			pixel = game->text.addr + (y * game->text.line_len
+			pixel = game->text.addr + (game->text.y * game->text.line_len
 				+ game->text.x * (game->text.bpp / 8));
 			draw_rect(&game->screen.map, (t_rect){
-				r, ray->wall_offset,
+				r, (int)ray->wall_offset,
 				1, c, *(int *)pixel});
 			ray->wall_offset += c;
 			c2 += c;
-			y++;
-			if (y > SPRITE_SIZE)
-				y = 0;
+			game->text.y++;
 		}
-		// rajouter un if pour incrementer x que quand "largeur du mur / sprite_size" sera fait
-		game->text.x += 1;
-		if (game->text.x > SPRITE_SIZE)
-			game->text.x = 0;
+		game->text.c++;
+		if (game->text.c >= game->text.c2) // change de pixel en largeur + reset les valeurs pck fin du mur
+		{
+			game->text.c = 0;
+			game->text.c2 = 0;
+			game->text.x++;
+		}
 	}
 	else
 	{
+		game->text.c = 0;
+		game->text.c2 = 0;
 		game->text.x = 0;
 		draw_rect(&game->screen.map, (t_rect){
 			r, ray->wall_offset,

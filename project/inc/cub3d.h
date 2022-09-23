@@ -157,8 +157,8 @@ typedef struct s_rays
 	float	deltay;
 	float	dist;
 	float	angle;
-	float	wall_height;
-	float	wall_offset;
+	float		wall_height;
+	float		wall_offset;
 	float	horz_hit;
 	float	vert_hit;
 	float	horz_dist;
@@ -254,6 +254,8 @@ typedef struct s_text
 	int		w;
 	int		x;
 	int		y;
+	int		c;
+	int		c2;
 }	t_text;
 
 typedef struct s_game
