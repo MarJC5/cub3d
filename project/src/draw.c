@@ -36,8 +36,6 @@ void	draw_wall(t_game *game, t_rays *ray, int r)
 	if (ray->door == 1)
 		ray->text = 4;
 	ray->wall_height = (TILE_SIZE * WIN_HEIGHT) / (ray->dist * 4.0);
-	if (ray->wall_height > WIN_HEIGHT)
-		ray->wall_height = WIN_HEIGHT;
 	ray->wall_offset = (WIN_HEIGHT / 2.0) - ray->wall_height / 2.0;
 	if (r == 0)
 	{
@@ -77,6 +75,7 @@ void	draw_wall(t_game *game, t_rays *ray, int r)
 	if (game->text.reset != ray->text)
 	{
 		game->text.reset = ray->text;
+		game->text.c = 0;
 		game->text.c2 = 0;
 		game->text.x = 0;
 	}

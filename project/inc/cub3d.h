@@ -45,7 +45,7 @@
 # define MINI_TILE 8
 # define MAPOS 8
 # define FOV 90
-# define COLLISION 8
+# define COLLISION 10
 
 # define DR 0.0174533
 # define PI 3.1415926535

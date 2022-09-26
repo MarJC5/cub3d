@@ -36,13 +36,13 @@ int	collision(t_game *game)
 int	collision_bck(t_game *game)
 {
 	if (game->player->delta_xm > 0)
-		game->col.x = COLLISION / 2;
+		game->col.x = COLLISION / 3;
 	else
-		game->col.x = -COLLISION / 2;
+		game->col.x = -COLLISION / 3;
 	if (game->player->delta_ym > 0)
-		game->col.y = COLLISION / 2;
+		game->col.y = COLLISION / 3;
 	else
-		game->col.y = -COLLISION / 2;
+		game->col.y = -COLLISION / 3;
 	game->col.px = game->player->pos_xm - game->col.x;
 	game->col.py = game->player->pos_ym - game->col.y;
 	game->col.px = (game->col.px - MAPOS) / MINI_TILE;
