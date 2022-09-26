@@ -186,6 +186,7 @@ typedef struct s_rays
 	float	dis_v;
 	float	atan;
 	float	ntan;
+	int		text;
 }	t_rays;
 
 typedef struct s_player
@@ -241,11 +242,7 @@ typedef struct s_col
 
 typedef struct s_text
 {
-	void	*img_n;
-	void	*img_e;
-	void	*img_w;
-	void	*img_s;
-	void	*img_d;
+	void	**img;
 	char	*addr;
 	int		bpp;
 	int		line_len;
@@ -256,6 +253,11 @@ typedef struct s_text
 	int		y;
 	int		c;
 	int		c2;
+	int		no;
+	int		so;
+	int		we;
+	int		ea;
+	int		reset;
 }	t_text;
 
 typedef struct s_game

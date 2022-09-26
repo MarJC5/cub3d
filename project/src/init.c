@@ -12,18 +12,36 @@
 
 #include "../inc/cub3d.h"
 
+void	init_int_texture(t_game *game, int j, int i)
+{
+	if (ft_strcmp(game->map->identifier[j], "NO") == 0)
+		game->text.no = i;
+	else if (ft_strcmp(game->map->identifier[j], "EA") == 0)
+		game->text.ea = i;
+	else if (ft_strcmp(game->map->identifier[j], "SO") == 0)
+		game->text.so = i;
+	else if (ft_strcmp(game->map->identifier[j], "WE") == 0)
+		game->text.we = i;
+	else
+		return ;
+}
+
 void	init_texture(t_game *game)
 {
-	game->text.img_n = mlx_xpm_file_to_image(game->screen.mlx, game->map->assets[0], &game->text.h, &game->text.w);
-	game->text.img_s = mlx_xpm_file_to_image(game->screen.mlx, game->map->assets[1], &game->text.h, &game->text.w);
-	game->text.img_w = mlx_xpm_file_to_image(game->screen.mlx, game->map->assets[2], &game->text.h, &game->text.w);
-	game->text.img_e = mlx_xpm_file_to_image(game->screen.mlx, game->map->assets[3], &game->text.h, &game->text.w);
-	game->text.img_d = mlx_xpm_file_to_image(game->screen.mlx, "./assets/textures/xpm/DOOR_1A.xpm", &game->text.h, &game->text.w);
+	int i;
 
-	printf("FILE : %p | %d | %d\n", game->text.img_n, game->text.h, game->text.w);
-	printf("FILE : %p | %d | %d\n", game->text.img_s, game->text.h, game->text.w);
-	printf("FILE : %p | %d | %d\n", game->text.img_w, game->text.h, game->text.w);
-	printf("FILE : %p | %d | %d\n", game->text.img_e, game->text.h, game->text.w);
+	i = -1;
+	game->text.img = malloc(5);
+	game->text.img[0] = mlx_xpm_file_to_image(game->screen.mlx, game->map->assets[0], &game->text.h, &game->text.w);
+	init_int_texture(game, ++i, 0);
+	game->text.img[1] = mlx_xpm_file_to_image(game->screen.mlx, game->map->assets[1], &game->text.h, &game->text.w);
+	init_int_texture(game, ++i, 1);
+	game->text.img[2] = mlx_xpm_file_to_image(game->screen.mlx, game->map->assets[2], &game->text.h, &game->text.w);
+	init_int_texture(game, ++i, 2);
+	game->text.img[3] = mlx_xpm_file_to_image(game->screen.mlx, game->map->assets[3], &game->text.h, &game->text.w);
+	init_int_texture(game, ++i, 3);
+	game->text.img[4] = mlx_xpm_file_to_image(game->screen.mlx, "./assets/textures/xpm/DOOR_1A.xpm", &game->text.h, &game->text.w);
+	init_int_texture(game, ++i, 4);
 }
 
 int	init_map(t_game *game, char *file)
