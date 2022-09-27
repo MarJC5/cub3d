@@ -44,7 +44,7 @@ void	hori_loop(t_map *map, t_player *player, t_rays *rays)
 	rays->dof = 0;
 	rays->hx = player->pos_xm;
 	rays->hy = player->pos_ym;
-	rays->dis_h = 1000000;
+	rays->dis_h = 100000;
 	rays->atan = -1 / tan(rays->ra);
 	hori_check(map, player, rays);
 	while (rays->dof < map->x - 2)
@@ -58,7 +58,7 @@ void	hori_loop(t_map *map, t_player *player, t_rays *rays)
 		{
 			rays->hx = rays->rx;
 			rays->hy = rays->ry;
-			rays->dis_h = dist(player, rays);
+			rays->dis_h = cos(rays->ra) * (rays->rx - player->pos_xm) - sin(rays->ra) * (rays->ry - player->pos_ym);
 			if (map->scene[(int)rays->hmry][(int)rays->hmrx] == DOOR)
 			{
 				rays->doorh = 1;
@@ -107,7 +107,7 @@ void	verti_loop( t_map *map, t_player *player, t_rays *rays)
 	rays->dof = 0;
 	rays->vx = player->pos_xm;
 	rays->vy = player->pos_ym;
-	rays->dis_v = 1000000;
+	rays->dis_v = 100000;
 	rays->ntan = -tan(rays->ra);
 	verti_check(map, player, rays);
 	while (rays->dof < map->y - 2)
@@ -121,7 +121,7 @@ void	verti_loop( t_map *map, t_player *player, t_rays *rays)
 		{
 			rays->vx = rays->rx;
 			rays->vy = rays->ry;
-			rays->dis_v = dist(player, rays);
+			rays->dis_v = cos(rays->ra) * (rays->rx - player->pos_xm) - sin(rays->ra) * (rays->ry - player->pos_ym);
 			if (map->scene[(int)rays->vmry][(int)rays->vmrx] == DOOR)
 			{
 				rays->doorv = 1;

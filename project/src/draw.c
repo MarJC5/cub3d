@@ -44,30 +44,29 @@ void	fix_fisheye(t_game *game, t_rays *ray)
 void	draw_wall(t_game *game, t_rays *ray, int r)
 {
 	char	*pixel;
-	
+	int		c2 = 0;
+	int		offset;
+	game->text.x = 0;
+
 	fix_fisheye(game, ray);
 	if (ray->door == 1)
 		ray->text = 4;
-	ray->wall_height = (TILE_SIZE * WIN_HEIGHT) / (ray->dist * 4.0);
-	ray->wall_offset = (WIN_HEIGHT / 2.0) - ray->wall_height / 2.0;
-	if (r == 0)
-	{
-		game->text.c2 = 0;
-		game->text.x = 0;
-	}
-	int c2 = 0;
-	if (game->text.c == 0 && game->text.c2 == 0) //sauvegarde combien de pixel en largeur avec l'offset du premier rayon pour ceux d'après (jusqu'au dernier rayon)
-		game->text.c2 = ray->wall_height / SPRITE_SIZE;
-	game->text.y = 0;
-	printf("%d\n", ray->text);
+	ray->wall_height = (SPRITE_SIZE * 320) / (ray->dist);
+	if (ray->wall_height > 320)
+		ray->wall_height = 320;
+	ray->wall_offset = 160 - (ray->wall_height / 2);
+	game->text.c2 = ray->wall_height / SPRITE_SIZE;
+	offset = ray->wall_offset;
 	game->text.addr = mlx_get_data_addr(game->text.img[ray->text], &game->text.bpp,
 			&game->text.line_len, &game->text.endian);
+	game->text.y = 0;
+	printf("%f %f \n", ray->wall_height, ray->wall_offset);
 	while (c2 < ray->wall_height)
 	{
 		pixel = game->text.addr + (game->text.y * game->text.line_len
 			+ game->text.x * (game->text.bpp / 8));
 		draw_rect(&game->screen.map, (t_rect){
-			r, (int)ray->wall_offset,
+			r, ray->wall_offset,
 			1, game->text.c2, *(int *)pixel});
 		ray->wall_offset += game->text.c2;
 		c2 += game->text.c2;
@@ -75,25 +74,6 @@ void	draw_wall(t_game *game, t_rays *ray, int r)
 		if (game->text.y > SPRITE_SIZE)
 			break ;
 	}
-	game->text.c++;
-	if (game->text.c > game->text.c2 - 1) // change de pixel en largeur + reset les valeurs pck fin du mur
-	{
-		game->text.x++;
-		game->text.c = 0;
-	}
-	if (game->text.x > SPRITE_SIZE)
-	{
-		game->text.c2 = 0;
-		game->text.x = 0;
-	}
-	if (game->text.reset != ray->text)
-	{
-		game->text.reset = ray->text;
-		game->text.c = 0;
-		game->text.c2 = 0;
-		game->text.x = 0;
-	}
-	printf("%d | %d | %d\n", game->text.y, game->text.x, game->text.c);
 }
 /*
 if (r == 0)
