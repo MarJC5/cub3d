@@ -22,7 +22,7 @@ void	free_stuff(char *tofree)
 }
 
 void	ft_free_multitab(char **tab)
-{
+{ 
 	int	i;
 
 	i = 0;
@@ -44,6 +44,7 @@ void	free_map(t_game *game)
 	ft_free_multitab(game->map->identifier);
 	ft_free_multitab(game->map->scene);
 	close(game->map->fd);
+	free(game->text.img);
 	free(game->map->map);
 	free(game->map);
 	free(game->player);
