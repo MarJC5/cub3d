@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 07:32:38 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/19 17:34:51 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/09/27 11:12:03 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,23 @@ void	draw_ceiling(t_game *game, t_rays *ray, int r)
 		1, WIN_HEIGHT / 2, chartohex(game->map->colors[1], 0)});
 }
 
+void	fix_fisheye(t_game *game, t_rays *ray)
+{
+	float	ca;
+
+	ca = game->player->angle - ray->ra;
+	if (ca < 0)
+		ca += 2 * M_PI;
+	if (ca > 2 * M_PI)
+		ca -= 2 * M_PI;
+	ray->dist = ray->dist * cos(ca);
+}
+
 void	draw_wall(t_game *game, t_rays *ray, int r)
 {
-	char *pixel;
-
+	char	*pixel;
+	
+	fix_fisheye(game, ray);
 	if (ray->door == 1)
 		ray->text = 4;
 	ray->wall_height = (TILE_SIZE * WIN_HEIGHT) / (ray->dist * 4.0);
