@@ -65,6 +65,7 @@ void	hori_loop(t_map *map, t_player *player, t_rays *rays)
 				rays->dis_h += 0;
 			}
 			rays->dof = map->x;
+			break ;
 		}
 		else
 		{
@@ -128,6 +129,7 @@ void	verti_loop( t_map *map, t_player *player, t_rays *rays)
 				rays->dis_v += 0;
 			}
 			rays->dof = map->y;
+			break ;
 		}
 		else
 		{
@@ -142,6 +144,10 @@ void	rays_comp(t_game *game, t_rays *rays)
 {
 	if (rays->dis_v < rays->dis_h)
 	{
+		if (rays->voldx != rays->vmrx || rays->voldy != rays->vmry)
+			rays->rettest = 1;
+		rays->voldx = rays->vmrx;
+		rays->voldy = rays->vmry;
 		rays->rx = rays->vx;
 		rays->ry = rays->vy;
 		rays->dist = rays->dis_v;
@@ -150,6 +156,10 @@ void	rays_comp(t_game *game, t_rays *rays)
 	}
 	if (rays->dis_h < rays->dis_v)
 	{
+		if (rays->oldx != rays->hmrx || rays->oldy != rays->hmry)
+			rays->rettest = 1;
+		rays->oldx = rays->hmrx;
+		rays->oldy = rays->hmry;
 		rays->rx = rays->hx;
 		rays->ry = rays->hy;
 		rays->dist = rays->dis_h;
@@ -169,6 +179,8 @@ void	rays_comp(t_game *game, t_rays *rays)
 
 void	rays_fov(t_game *game, t_player *player, t_rays *rays)
 {
+	rays->rettest = 0;
+
 	rays->r = -1;
 	rays->ra = player->angle - (float)degtorad(FOV) / 2.0;
 	while (++rays->r < WIN_WIDTH)

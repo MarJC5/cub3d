@@ -31,7 +31,7 @@ void	init_texture(t_game *game)
 	int i;
 
 	i = -1;
-	game->text.img = malloc(5);
+	game->text.img = ft_calloc(5, sizeof(char));
 	game->text.img[0] = mlx_xpm_file_to_image(game->screen.mlx, game->map->assets[0], &game->text.h, &game->text.w);
 	init_int_texture(game, ++i, 0);
 	game->text.img[1] = mlx_xpm_file_to_image(game->screen.mlx, game->map->assets[1], &game->text.h, &game->text.w);
@@ -41,7 +41,6 @@ void	init_texture(t_game *game)
 	game->text.img[3] = mlx_xpm_file_to_image(game->screen.mlx, game->map->assets[3], &game->text.h, &game->text.w);
 	init_int_texture(game, ++i, 3);
 	game->text.img[4] = mlx_xpm_file_to_image(game->screen.mlx, "./assets/textures/xpm/DOOR_1A.xpm", &game->text.h, &game->text.w);
-	init_int_texture(game, ++i, 4);
 }
 
 int	init_map(t_game *game, char *file)

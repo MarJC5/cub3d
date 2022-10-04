@@ -1,7 +1,7 @@
-NO ./assets/normal_north.xpm
-SO ./assets/normal_south.xpm
-WE ./assets/normal_west.xpm
-EA ./assets/normal_east.xpm
+NO ./assets/textures/xpm/CRATE_2L.xpm
+SO ./assets/textures/xpm/BRICK_1A.xpm
+WE ./assets/textures/xpm/BRICK_2A.xpm
+EA ./assets/textures/xpm/CONCRETE_1A.xpm
 
 F 189,195,199
 C 236,240,241

@@ -46,27 +46,30 @@ void	draw_wall(t_game *game, t_rays *ray, int r)
 	char	*pixel;
 	
 	fix_fisheye(game, ray);
-	if (r == 0)
-	{
-		game->text.c2 = 0;
-		game->text.x = 0;
-	}
 	if (ray->door == 1)
 		ray->text = 4;
 	ray->wall_height = MINI_TILE / ray->dist * 640;
+	if (r == 0 || ray->rettest == 1 || game->text.x > SPRITE_SIZE)
+	{
+		game->text.x = 0;
+		ray->rettest = 0;
+		game->text.c = 0;
+		game->text.c3 = ray->wall_height / SPRITE_SIZE;
+	}
 	int y = SPRITE_SIZE / 2;
 	int c2 = 0;
 	game->text.c2 = ray->wall_height/ SPRITE_SIZE;
 	game->text.y = SPRITE_SIZE / 2;
 	game->text.addr = mlx_get_data_addr(game->text.img[ray->text], &game->text.bpp,
 		&game->text.line_len, &game->text.endian);
-	while (game->text.y > 0 || y < SPRITE_SIZE)
+	while (game->text.y >= 0 || y <= SPRITE_SIZE)
 	{
-		pixel = game->text.addr + (game->text.y * game->text.line_len
+		pixel = game->text.addr + (y * game->text.line_len
 			+ game->text.x * (game->text.bpp / 8));
-		draw_rect(&game->screen.map, (t_rect){
-			r, WIN_HEIGHT / 2 + c2,
-			1, game->text.c2 + 1, *(int *)pixel});
+		if (y < SPRITE_SIZE)
+			draw_rect(&game->screen.map, (t_rect){
+				r, WIN_HEIGHT / 2 + c2,
+				1, game->text.c2 + 1, *(int *)pixel});
 		pixel = game->text.addr + (game->text.y * game->text.line_len
 			+ game->text.x * (game->text.bpp / 8));
 		draw_rect(&game->screen.map, (t_rect){
@@ -77,22 +80,11 @@ void	draw_wall(t_game *game, t_rays *ray, int r)
 		c2 = ((ray->wall_height / 1.0) / SPRITE_SIZE) * (y - SPRITE_SIZE / 2);
 	}
 	game->text.c++;
-	if (game->text.c > game->text.c2 - 1) // change de pixel en largeur + reset les valeurs pck fin du mur
+	if (game->text.c > game->text.c3 - 1)
 	{
 		game->text.x++;
 		game->text.c = 0;
-	}
-	if (game->text.x > SPRITE_SIZE)
-	{
-		game->text.c2 = 0;
-		game->text.x = 0;
-	}
-	if (game->text.reset != ray->text)
-	{
-		game->text.reset = ray->text;
-		game->text.c = 0;
-		game->text.c2 = 0;
-		game->text.x = 0;
+		game->text.c3 = ((ray->wall_height / 1.0) / (SPRITE_SIZE - game->text.x)) * 1;
 	}
 }
 /*

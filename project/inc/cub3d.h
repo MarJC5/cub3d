@@ -187,6 +187,11 @@ typedef struct s_rays
 	float	atan;
 	float	ntan;
 	int		text;
+	int 	oldy;
+	int 	oldx;
+	int 	voldy;
+	int 	voldx;
+	int		rettest;
 }	t_rays;
 
 typedef struct s_player
@@ -253,6 +258,7 @@ typedef struct s_text
 	int		y;
 	int		c;
 	int		c2;
+	int		c3;
 	int		no;
 	int		so;
 	int		we;
