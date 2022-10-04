@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/19 22:22:57 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/04 14:42:07 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	render_map_view(t_game *game)
 			MINI_TILE / (SCALE / 1.5), RED});
 	}
 }
+
 void	init_tile(char *path, int x, int y, t_game *game)
 {
 	int		w;
@@ -106,5 +107,8 @@ int	render_view(t_game *game)
 	render_map_view(game);
 	mlx_put_image_to_window(game->screen.mlx,
 		game->screen.win, game->screen.map.mlx_img, 0, 0);
+	mlx_put_image_to_window(game->screen.mlx,
+		game->screen.win, game->player->weapon.inuse,
+		(WIN_WIDTH / 2 - 128), (WIN_HEIGHT - 256));
 	return (SUCCESS);
 }

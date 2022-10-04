@@ -1,7 +1,7 @@
-NO ./assets/normal_north.xpm
-SO ./assets/normal_south.xpm
-WE ./assets/normal_west.xpm
-EA ./assets/normal_east.xpm
+NO ./assets/textures/default/xpm/0.xpm
+SO ./assets/textures/default/xpm/1.xpm
+WE ./assets/textures/default/xpm/2.xpm
+EA ./assets/textures/default/xpm/3.xpm
 
 F 189,195,199
 C 236,240,241
@@ -9,7 +9,7 @@ C 236,240,241
 11111111
 10000001
 10000001
-10000001
+10001001
 1000W001
 10000001
 10000001

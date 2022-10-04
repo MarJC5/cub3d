@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:23 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/13 08:18:07 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/04 13:45:07 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	print_map_details(t_game *game)
 		(int)radtodeg(game->player->angle));
 	ft_printf("\n\033[1;33mASSETS\033[0;37m:\n");
 	while (i < 4)
-		ft_printf("%s", game->map->assets[i++]);
+		ft_printf("%s\n", game->map->assets[i++]);
 	i = 0;
 	ft_printf("\n\033[1;31mCOLORS\033[0;37m:\n");
 	while (i < 2)

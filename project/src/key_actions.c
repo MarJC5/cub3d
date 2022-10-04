@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_actions.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:18:29 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/20 08:06:37 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/04 14:40:12 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	esc_win(t_game *game)
 {
-	(void)game;
+	ft_free_multitab_void(game->text.img);
+	ft_free_multitab_void(game->player->weapon.knife);
+	ft_free_multitab_void(game->player->weapon.pistol);
 	printf("\n\033[1mYou've quit the game!\033[0m\n\n");
 	exit(EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
@@ -32,18 +34,34 @@ int	show_minimap(t_game *game)
 int	mouse_event(int x, int y, t_game *game)
 {
 	(void) y;
-
-	if (x < game->screen.oldx)
+	if (x < game->screen.oldx && x > 0)
 	{
 		game->screen.oldx = x;
 		move_left(game);
 	}
-	else if (x > game->screen.oldx)
+	else if (x > game->screen.oldx && x < WIN_WIDTH)
 	{
 		game->screen.oldx = x;
 		move_right(game);
 	}
 	return (x);
+}
+
+int	weapon_change(t_game *game)
+{	
+	if (game->player->weapon.current == 0)
+	{
+		printf("current weapon is: %s\n", "Knife");
+		game->player->weapon.inuse = game->player->weapon.pistol[0];
+		game->player->weapon.current++;
+	}
+	else if (game->player->weapon.current == 1)
+	{
+		printf("current weapon is: %s\n", "Pistol");
+		game->player->weapon.current = 0;
+		game->player->weapon.inuse = game->player->weapon.knife[0];
+	}
+	return (game->player->weapon.current);
 }
 
 int	key_event(int key, t_game *game)
@@ -66,6 +84,8 @@ int	key_event(int key, t_game *game)
 			move_down(game);
 		if (key == K_MAC_E || key == 101)
 			open_door(game);
+		if (key == K_MAC_Q)
+			weapon_change(game);
 	}
 	return (key);
 }

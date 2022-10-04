@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 01:24:48 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/15 13:14:20 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/04 14:40:36 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ float	draw_ray(t_map *map, t_img *img, t_line line, int active)
 
 	pixel_x = line.posx;
 	pixel_y = line.posy;
+	if (pixel_x < 0 || pixel_y < 0)
+		return (0.0);
 	while (map->scene[(int)((pixel_y - MINI_TILE) / MINI_TILE)]
 		[(int)((pixel_x - MINI_TILE) / MINI_TILE)] != '1')
 	{

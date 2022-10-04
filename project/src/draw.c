@@ -6,32 +6,31 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 07:32:38 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/27 11:12:03 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/04 13:43:01 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-
-void	draw_floor(t_game *game, t_rays *ray, int r)
+void draw_floor(t_game *game, t_rays *ray, int r)
 {
-	(void) ray;
+	(void)ray;
 	draw_rect(&game->screen.map, (t_rect){
 		r, WIN_HEIGHT / 2,
 		1, WIN_HEIGHT / 2, chartohex(game->map->colors[0], 0)});
 }
 
-void	draw_ceiling(t_game *game, t_rays *ray, int r)
+void draw_ceiling(t_game *game, t_rays *ray, int r)
 {
-	(void) ray;
+	(void)ray;
 	draw_rect(&game->screen.map, (t_rect){
 		r, 0,
 		1, WIN_HEIGHT / 2, chartohex(game->map->colors[1], 0)});
 }
 
-void	fix_fisheye(t_game *game, t_rays *ray)
+void fix_fisheye(t_game *game, t_rays *ray)
 {
-	float	ca;
+	float ca;
 
 	ca = game->player->angle - ray->ra;
 	if (ca < 0)
@@ -41,10 +40,10 @@ void	fix_fisheye(t_game *game, t_rays *ray)
 	ray->dist = ray->dist * cos(ca);
 }
 
-void	draw_wall(t_game *game, t_rays *ray, int r)
+void draw_wall(t_game *game, t_rays *ray, int r)
 {
-	char	*pixel;
-	
+	char *pixel;
+
 	fix_fisheye(game, ray);
 	if (r == 0)
 	{
@@ -56,19 +55,17 @@ void	draw_wall(t_game *game, t_rays *ray, int r)
 	ray->wall_height = MINI_TILE / ray->dist * 640;
 	int y = SPRITE_SIZE / 2;
 	int c2 = 0;
-	game->text.c2 = ray->wall_height/ SPRITE_SIZE;
+	game->text.c2 = ray->wall_height / SPRITE_SIZE;
 	game->text.y = SPRITE_SIZE / 2;
 	game->text.addr = mlx_get_data_addr(game->text.img[ray->text], &game->text.bpp,
 		&game->text.line_len, &game->text.endian);
 	while (game->text.y > 0 || y < SPRITE_SIZE)
 	{
-		pixel = game->text.addr + (game->text.y * game->text.line_len
-			+ game->text.x * (game->text.bpp / 8));
+		pixel = game->text.addr + (game->text.y * game->text.line_len + game->text.x * (game->text.bpp / 8));
 		draw_rect(&game->screen.map, (t_rect){
 			r, WIN_HEIGHT / 2 + c2,
 			1, game->text.c2 + 1, *(int *)pixel});
-		pixel = game->text.addr + (game->text.y * game->text.line_len
-			+ game->text.x * (game->text.bpp / 8));
+		pixel = game->text.addr + (game->text.y * game->text.line_len + game->text.x * (game->text.bpp / 8));
 		draw_rect(&game->screen.map, (t_rect){
 			r, WIN_HEIGHT / 2 - c2,
 			1, game->text.c2 + 1, *(int *)pixel});

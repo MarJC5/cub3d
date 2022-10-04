@@ -189,6 +189,16 @@ typedef struct s_rays
 	int		text;
 }	t_rays;
 
+typedef	struct s_weapon
+{
+	void	**knife;
+	void	**pistol;
+	void	*inuse;
+	int		current;
+	int		h;
+	int		w;
+} t_weapon;
+
 typedef struct s_player
 {
 	int			is_ready;
@@ -204,6 +214,7 @@ typedef struct s_player
 	float		delta_xm;
 	float		delta_ym;
 	t_rays		rays;
+	t_weapon	weapon;
 }	t_player;
 
 typedef struct s_screen
@@ -365,6 +376,7 @@ float	draw_ray(t_map *map, t_img *img, t_line line, int active);
  */
 void	free_map(t_game *game);
 void	ft_free_multitab(char **tab);
+void	ft_free_multitab_void(void **tab);
 void	free_stuff(char *tofree);
 
 /**
@@ -379,5 +391,14 @@ int		check_map(t_game *game);
  */
 int		collision(t_game *game);
 int		collision_bck(t_game *game);
+
+/**
+ * @brief
+ * Textures
+ */
+void	init_int_texture(t_game *game, int j, int i);
+void	init_texture(t_game *game);
+void	init_weapon_knife(t_game *game);
+void	init_weapon_pistole(t_game *game);
 
 #endif
