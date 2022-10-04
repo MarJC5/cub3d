@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/04 14:42:07 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/04 17:45:48 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,10 @@ int	render_view(t_game *game)
 	mlx_put_image_to_window(game->screen.mlx,
 		game->screen.win, game->player->weapon.inuse,
 		(WIN_WIDTH / 2 - 128), (WIN_HEIGHT - 256));
+
+	if (game->screen.toggle_minimap == 1)
+	{
+		print_fps(game);
+	}
 	return (SUCCESS);
 }

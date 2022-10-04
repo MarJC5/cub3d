@@ -73,6 +73,7 @@
 # include <math.h>
 # include <string.h>
 # include <mlx.h>
+# include <sys/time.h>
 
 /**
  * Struct
@@ -157,8 +158,8 @@ typedef struct s_rays
 	float	deltay;
 	float	dist;
 	float	angle;
-	float		wall_height;
-	float		wall_offset;
+	float	wall_height;
+	float	wall_offset;
 	float	horz_hit;
 	float	vert_hit;
 	float	horz_dist;
@@ -189,15 +190,16 @@ typedef struct s_rays
 	int		text;
 }	t_rays;
 
-typedef	struct s_weapon
+typedef struct s_weapon
 {
 	void	**knife;
 	void	**pistol;
 	void	*inuse;
 	int		current;
+	int		frame;
 	int		h;
 	int		w;
-} t_weapon;
+}	t_weapon;
 
 typedef struct s_player
 {
@@ -223,6 +225,9 @@ typedef struct s_screen
 	void		*win;
 	int			toggle_minimap;
 	int			oldx;
+	double		time;
+	double		oldtime;
+	double		frametime;
 	t_img		welcome;
 	t_img		map;
 }	t_screen;
@@ -396,6 +401,11 @@ int		collision_bck(t_game *game);
  * @brief
  * Textures
  */
+int		weapon_action(t_game *game, int i);
+void	fps(t_game *game);
+void	print_fps(t_game *game);
+void	set_old_time(t_game *game);
+void	current_timestamp(t_game *game);
 void	init_int_texture(t_game *game, int j, int i);
 void	init_texture(t_game *game);
 void	init_weapon_knife(t_game *game);

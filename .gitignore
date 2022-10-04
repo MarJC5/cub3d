@@ -1,8 +1,6 @@
 # Others
 .DS_Store
-.vscode
-../.vscode/
-../.idea
+.idea
 ./cube3D
 
 # Prerequisites
@@ -57,3 +55,4 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+project/cub3D
