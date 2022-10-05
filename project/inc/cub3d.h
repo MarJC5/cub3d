@@ -33,6 +33,8 @@
 # define WIN_WIDTH 1080
 # define WIN_HEIGHT 720
 
+# define FRAME_TIME 50.0
+
 # define WALL '1'
 # define FLOOR '0'
 # define EMPTY_ZONE '.'
@@ -148,7 +150,6 @@ typedef struct s_rays
 {
 	int		r;
 	int		color;
-	int		side;
 	int		doorh;
 	int		doorv;
 	int		door;
@@ -160,10 +161,6 @@ typedef struct s_rays
 	float	angle;
 	float	wall_height;
 	float	wall_offset;
-	float	horz_hit;
-	float	vert_hit;
-	float	horz_dist;
-	float	vert_dist;
 	int		mx;
 	int		my;
 	int		mp;
@@ -401,14 +398,19 @@ int		collision_bck(t_game *game);
  * @brief
  * Textures
  */
-int		weapon_action(t_game *game, int i);
+double	time_now(void);
+
 void	fps(t_game *game);
 void	print_fps(t_game *game);
-void	set_old_time(t_game *game);
 void	current_timestamp(t_game *game);
 void	init_int_texture(t_game *game, int j, int i);
 void	init_texture(t_game *game);
 void	init_weapon_knife(t_game *game);
 void	init_weapon_pistole(t_game *game);
+
+int		weapon_action(t_game *game, int i);
+int		weapon_change(t_game *game);
+int		weapon_release(t_game *game);
+int		weapon_use(t_game *game);
 
 #endif

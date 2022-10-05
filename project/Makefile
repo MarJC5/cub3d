@@ -31,7 +31,8 @@ SRCS_FILES	+= 	key_actions.c \
 				start.c \
 				draw.c \
 				init_textures.c \
-				animation.c
+				animation.c \
+				weapon.c
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 

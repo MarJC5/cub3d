@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   key_actions.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:18:29 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/04 18:01:17 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/05 07:45:20 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+#define FRAME_TIME 50.0
 
 int	esc_win(t_game *game)
 {
@@ -47,51 +48,6 @@ int	mouse_event(int x, int y, t_game *game)
 	return (x);
 }
 
-int	weapon_change(t_game *game)
-{	
-	if (game->player->weapon.current == 0)
-	{
-		printf("current weapon is: %s\n", "Knife");
-		game->player->weapon.inuse = game->player->weapon.pistol[0];
-		game->player->weapon.current++;
-	}
-	else if (game->player->weapon.current == 1)
-	{
-		printf("current weapon is: %s\n", "Pistol");
-		game->player->weapon.current = 0;
-		game->player->weapon.inuse = game->player->weapon.knife[0];
-	}
-	return (game->player->weapon.current);
-}
-
-int	weapon_action(t_game *game, int i)
-{	
-	if (game->player->weapon.current == 1)
-		game->player->weapon.inuse = game->player->weapon.pistol[i];
-	else if (game->player->weapon.current == 0)
-		game->player->weapon.inuse = game->player->weapon.knife[i];
-	return (game->player->weapon.current);
-}
-
-int	weapon_use(t_game *game)
-{
-	double	now;
-
-	game->player->weapon.frame = 0;
-	now = game->screen.time;
-	while (game->player->weapon.frame < 4)
-	{
-		current_timestamp(game);
-		if (game->screen.time - now > 3.0)
-		{
-			now = game->screen.time;
-			weapon_action(game, game->player->weapon.frame++);
-		}
-
-	}
-	return (game->player->weapon.frame);
-}
-
 int	key_event(int key, t_game *game)
 {
 	fps(game);
@@ -113,9 +69,9 @@ int	key_event(int key, t_game *game)
 			move_down(game);
 		if (key == K_MAC_E || key == 101)
 			open_door(game);
-		if (key == K_MAC_Q)
+		if (key == K_MAC_Q || key == 113)
 			weapon_change(game);
-		if (key == K_MAC_F)
+		if (key == K_MAC_F || key == 102)
 			weapon_use(game);
 	}
 	return (key);

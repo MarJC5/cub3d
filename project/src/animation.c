@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   animation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 14:48:21 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/04 17:39:03 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/05 07:33:44 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+double	time_now(void)
+{
+	struct timeval	tv;
+	double			time;
+
+	gettimeofday(&tv, NULL);
+	time = (tv.tv_sec * 1000.0) + (tv.tv_usec / 1000.0);
+	return (time);
+}
 
 void	current_timestamp(t_game *game)
 {
@@ -35,7 +45,7 @@ void	print_fps(t_game *game)
 }
 
 void	fps(t_game *game)
-{	
+{
 	game->screen.oldtime = game->screen.time;
 	current_timestamp(game);
 	game->screen.frametime = (game->screen.time - game->screen.oldtime);
