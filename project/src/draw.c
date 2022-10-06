@@ -6,12 +6,11 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 07:32:38 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/04 13:43:01 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 12:25:32 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
 
 void	draw_floor(t_game *game, t_rays *ray, int r)
 {
@@ -21,7 +20,7 @@ void	draw_floor(t_game *game, t_rays *ray, int r)
 		1, WIN_HEIGHT / 2, chartohex(game->map->colors[0], 0)});
 }
 
-void draw_ceiling(t_game *game, t_rays *ray, int r)
+void	draw_ceiling(t_game *game, t_rays *ray, int r)
 {
 	(void)ray;
 	draw_rect(&game->screen.map, (t_rect){
@@ -29,9 +28,9 @@ void draw_ceiling(t_game *game, t_rays *ray, int r)
 		1, WIN_HEIGHT / 2, chartohex(game->map->colors[1], 0)});
 }
 
-void fix_fisheye(t_game *game, t_rays *ray)
+void	fix_fisheye(t_game *game, t_rays *ray)
 {
-	float ca;
+	float	ca;
 
 	ca = game->player->angle - ray->ra;
 	if (ca < 0)
