@@ -38,8 +38,11 @@ void	move_fleft(t_game *game)
 {
 	if (collision(game) == 0)
 	{
-		game->player->pos_xm += game->player->delta_xm;
-		game->player->pos_ym += game->player->delta_ym;
+		game->player->dir = game->player->angle + degtorad(90);
+		game->player->delta_x = cos(game->player->dir) * SPEED;
+		game->player->delta_y = sin(game->player->dir) * SPEED;
+		game->player->pos_xm += cos(game->player->dir) * (SPEED / 2);
+		game->player->pos_ym += sin(game->player->dir) * (SPEED / 2);
 		game->player->pos_x = (int)game->player->pos_xm / MINI_TILE;
 		game->player->pos_y = (int)game->player->pos_ym / MINI_TILE;
 	}
@@ -49,8 +52,11 @@ void	move_fright(t_game *game)
 {
 	if (collision(game) == 0)
 	{
-		game->player->pos_xm += game->player->delta_xm;
-		game->player->pos_ym += game->player->delta_ym;
+		game->player->dir = game->player->angle + degtorad(90);
+		game->player->delta_x = cos(game->player->dir) * SPEED;
+		game->player->delta_y = sin(game->player->dir) * SPEED;
+		game->player->pos_xm -= cos(game->player->dir) * (SPEED / 2);
+		game->player->pos_ym -= sin(game->player->dir) * (SPEED / 2);
 		game->player->pos_x = (int)game->player->pos_xm / MINI_TILE;
 		game->player->pos_y = (int)game->player->pos_ym / MINI_TILE;
 	}
@@ -58,7 +64,7 @@ void	move_fright(t_game *game)
 
 void	move_up(t_game *game)
 {
-	if (collision(game) == 0)
+	if (collision(game) == 0 || collision(game) == 3)
 	{
 		game->player->pos_xm += game->player->delta_xm;
 		game->player->pos_ym += game->player->delta_ym;
@@ -69,7 +75,7 @@ void	move_up(t_game *game)
 
 void	move_down(t_game *game)
 {
-	if (collision_bck(game) == 0)
+	if (collision_bck(game) == 0 || collision_bck(game) == 3)
 	{
 		game->player->pos_xm -= game->player->delta_xm;
 		game->player->pos_ym -= game->player->delta_ym;
@@ -80,9 +86,15 @@ void	move_down(t_game *game)
 
 void	open_door(t_game *game)
 {
-	if (collision(game) == 2)
+	int door = collision(game);
+	if (door == 2)
 	{
 		play_sounds(SOUND_DOOR);
-		game->map->scene[game->col.py][game->col.px] = 3;
+		game->map->scene[game->col.py][game->col.px] = DOOR_OPEN;
+	}
+	if (door == 3)
+	{
+		play_sounds(SOUND_DOOR);
+		game->map->scene[game->col.py][game->col.px] = DOOR;
 	}
 }

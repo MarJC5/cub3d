@@ -44,6 +44,7 @@
 # define FLOOR '0'
 # define EMPTY_ZONE '.'
 # define DOOR 'D'
+# define DOOR_OPEN '3'
 
 # define SPEED 5
 # define SPEED_MOUSE 25
@@ -53,7 +54,7 @@
 # define MINI_TILE 8
 # define MAPOS 8
 # define FOV 90
-# define COLLISION 10
+# define COLLISION 8
 
 # define DR 0.0174533
 # define PI 3.1415926535
@@ -224,6 +225,7 @@ typedef struct s_player
 	int			is_ready;
 	int			pos;
 	char		skin;
+	float		dir;
 	float		angle;
 	float		pos_x;
 	float		pos_y;

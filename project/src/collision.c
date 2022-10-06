@@ -28,6 +28,8 @@ int	collision(t_game *game)
 	game->col.py = (game->col.py - MAPOS) / MINI_TILE;
 	if (game->map->scene[game->col.py][game->col.px] == DOOR)
 		return (2);
+	if (game->map->scene[game->col.py][game->col.px] == DOOR_OPEN)
+		return (3);
 	if (game->map->scene[game->col.py][game->col.px] == '1')
 		return (1);
 	return (0);
