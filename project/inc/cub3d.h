@@ -256,14 +256,13 @@ typedef struct s_text
 	int		w;
 	int		x;
 	int		y;
-	int		c;
-	int		c2;
-	int		c3;
+	int		y2;
+	int		pixel;
 	int		no;
 	int		so;
 	int		we;
 	int		ea;
-	int		reset;
+	int		count;
 }	t_text;
 
 typedef struct s_game
@@ -385,5 +384,12 @@ int		check_map(t_game *game);
  */
 int		collision(t_game *game);
 int		collision_bck(t_game *game);
+
+/**
+ * @brief
+ * RAY
+ */
+void	verti_loop( t_map *map, t_player *player, t_rays *rays);
+void	hori_loop(t_map *map, t_player *player, t_rays *rays);
 
 #endif
