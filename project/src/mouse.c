@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:05:36 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 15:24:20 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 16:27:26 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	mouse_event(int x, int y, t_game *game)
 {
 	(void) y;
-	mlx_mouse_hide();
 	if (x < game->screen.oldx && x > 0)
 	{
 		game->screen.oldx = x;
@@ -28,7 +27,8 @@ int	mouse_event(int x, int y, t_game *game)
 	}
 	else
 	{
-		mlx_mouse_move(game->screen.win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+		mlx_mouse_move(game->screen.mlx, game->screen.win,
+			(WIN_WIDTH / 2), (WIN_HEIGHT / 2));
 		game->screen.oldx = WIN_WIDTH / 2;
 	}
 	return (x);

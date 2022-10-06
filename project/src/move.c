@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 00:57:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 15:25:00 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 16:58:04 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	move_fleft(t_game *game)
 		game->player->dir = game->player->angle + degtorad(90);
 		game->player->delta_x = cos(game->player->dir) * SPEED;
 		game->player->delta_y = sin(game->player->dir) * SPEED;
-		game->player->pos_xm += cos(game->player->dir) * (SPEED / 2);
-		game->player->pos_ym += sin(game->player->dir) * (SPEED / 2);
+		game->player->pos_xm -= cos(game->player->dir) * (SPEED / 2);
+		game->player->pos_ym -= sin(game->player->dir) * (SPEED / 2);
 		game->player->pos_x = (int)game->player->pos_xm / MINI_TILE;
 		game->player->pos_y = (int)game->player->pos_ym / MINI_TILE;
 	}
@@ -55,8 +55,8 @@ void	move_fright(t_game *game)
 		game->player->dir = game->player->angle + degtorad(90);
 		game->player->delta_x = cos(game->player->dir) * SPEED;
 		game->player->delta_y = sin(game->player->dir) * SPEED;
-		game->player->pos_xm -= cos(game->player->dir) * (SPEED / 2);
-		game->player->pos_ym -= sin(game->player->dir) * (SPEED / 2);
+		game->player->pos_xm += cos(game->player->dir) * (SPEED / 2);
+		game->player->pos_ym += sin(game->player->dir) * (SPEED / 2);
 		game->player->pos_x = (int)game->player->pos_xm / MINI_TILE;
 		game->player->pos_y = (int)game->player->pos_ym / MINI_TILE;
 	}

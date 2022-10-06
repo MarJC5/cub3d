@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:49 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 11:23:00 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 16:55:11 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	init_default(t_game *game)
 		exit(EXIT_FAILURE);
 	game->player->is_ready = 0;
 	game->player->weapon.current = 0;
+	game->player->weapon.frame = 0;
 }
 
 void	init_view(t_game *game)
@@ -100,7 +101,9 @@ void	init_screen(t_game *game)
 	init_texture(game);
 	init_weapon_knife(game);
 	init_weapon_pistole(game);
+	weapon_action(game, game->player->weapon.frame);
 	init_view(game);
+	mlx_mouse_hide(game->screen.mlx, game->screen.win);
 	mlx_hook(game->screen.win, 2, 1L << 0, key_event, game);
 	mlx_hook(game->screen.win, 6, 1L << 0, mouse_event, game);
 	mlx_hook(game->screen.win, 17, 0L << 0, esc_win, game);

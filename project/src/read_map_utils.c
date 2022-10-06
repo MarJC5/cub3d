@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 07:01:48 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 12:23:45 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 16:49:09 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@ int	ligne_gain(int i, int j)
 	return (j);
 }
 
-void	free_new_read(t_game *game, char **line)
+void	free_new_read(t_game *game, char **line, int i)
 {
 	free_stuff(*line);
-	*line = get_next_line(game->map->fd);
+	if (i < 6)
+		*line = get_next_line(game->map->fd);
+	if (i == 5)
+		free_stuff(*line);
 }

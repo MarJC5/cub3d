@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   weapon.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 07:44:48 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 10:56:00 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 16:39:15 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ int	weapon_change(t_game *game)
 {
 	if (game->player->weapon.current == 0)
 	{
-		printf("current weapon is: %s\n", "Pistol");
+		printf("Current weapon: %s\n", "Pistol");
 		game->player->weapon.inuse = game->player->weapon.pistol[0];
 		game->player->weapon.current++;
 	}
 	else if (game->player->weapon.current == 1)
 	{
-		printf("current weapon is: %s\n", "Knife");
+		printf("Current weapon: %s\n", "Knife");
 		game->player->weapon.current = 0;
 		game->player->weapon.inuse = game->player->weapon.knife[0];
 	}

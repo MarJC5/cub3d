@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_actions.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:18:29 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 11:24:31 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 16:59:25 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ static void	key_check(int key, t_game *game)
 {
 	if (key == K_MAC_M || key == 109)
 		show_minimap(game);
-	if (key == 123)
+	if (key == 123 || key == 65361)
 		move_left(game);
-	if (key == 124)
+	if (key == 124 || key == 65363)
 		move_right(game);
-	if (key == K_MAC_D)
-		move_fleft(game);
-	if (key == K_MAC_A)
+	if (key == K_MAC_D || key == 100)
 		move_fright(game);
+	if (key == K_MAC_A || key == 97)
+		move_fleft(game);
 	if (key == K_MAC_W || key == 119 || key == 65362 || key == 126)
 		move_up(game);
 	if (key == K_MAC_S || key == 115 || key == 65364 || key == 125)

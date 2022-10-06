@@ -331,7 +331,7 @@ int		save_map(t_game *game, char *save, char *line, int y);
 int		save_map_textures(t_game *game, int i, int j, char *line);
 int		ligne_gain(int i, int j);
 
-void	free_new_read(t_game *game, char **line);
+void	free_new_read(t_game *game, char **line, int i);
 void	save_map_scene(t_game *game, int i, int j, int k);
 void	print_map_details(t_game *game);
 void	whilebn(t_game *game, char **line);

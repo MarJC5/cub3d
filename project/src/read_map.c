@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:28 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 12:23:48 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 16:47:06 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	save_map_textures(t_game *game, int i, int j, char *line)
 			game->map->identifier[k++] = ft_substr(line, 0, len);
 			game->map->colors[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
 		}
-		free_new_read(game, &line);
+		free_new_read(game, &line, i);
 	}
 	return (printinvalid(check_map_textures(game->map->identifier)));
 }
