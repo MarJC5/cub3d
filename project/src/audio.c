@@ -62,14 +62,17 @@ static void	cut_sound(void)
 
 void	play_sounds(int sound_id)
 {
-	if (sound_id == SOUND_CUT)
-		cut_sound();
-	else if (sound_id == SOUND_SHOT)
-		shot_sound();
-	else if (sound_id == SOUND_DOOR)
-		door_sound();
-	else if (sound_id == SOUND_THEME)
-		theme_sound();
-	else if (sound_id == SOUND_MENU)
-		menu_sound();
+	if (SOUND_ON == 1)
+	{
+		if (sound_id == SOUND_CUT)
+			cut_sound();
+		else if (sound_id == SOUND_SHOT)
+			shot_sound();
+		else if (sound_id == SOUND_DOOR)
+			door_sound();
+		else if (sound_id == SOUND_THEME)
+			theme_sound();
+		else if (sound_id == SOUND_MENU)
+			menu_sound();
+	}
 }

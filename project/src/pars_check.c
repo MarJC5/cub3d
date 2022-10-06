@@ -29,7 +29,7 @@ float	init_player_angle(char angle)
 	if (angle == 'E')
 		return (degtorad(360));
 	if (angle == 'S')
-		return (degtorad(90));
+		return (degtorad(90.1));
 	if (angle == 'W')
 		return (degtorad(180));
 	return (0);

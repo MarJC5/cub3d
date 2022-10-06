@@ -62,7 +62,7 @@ void	verti_loop( t_map *map, t_player *player, t_rays *rays)
 {
 	set_value_v(map, player, rays);
 	verti_check(map, player, rays);
-	while (rays->dof < map->y - 2)
+	while (rays->dof < map->y + map->size)
 	{
 		rays->vmrx = ((int)rays->rx / MINI_TILE) + rays->vshift;
 		rays->vmry = ((int)rays->ry / MINI_TILE) + rays->vshift;

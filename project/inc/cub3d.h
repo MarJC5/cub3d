@@ -39,11 +39,13 @@
 # define SOUND_THEME 2
 # define SOUND_DOOR 3
 # define SOUND_MENU 4
+# define SOUND_ON 0
 
 # define WALL '1'
 # define FLOOR '0'
 # define EMPTY_ZONE '.'
 # define DOOR 'D'
+# define DOOR_OPEN '3'
 
 # define SPEED 5
 # define SPEED_MOUSE 25
@@ -53,7 +55,7 @@
 # define MINI_TILE 8
 # define MAPOS 8
 # define FOV 90
-# define COLLISION 10
+# define COLLISION 8
 
 # define DR 0.0174533
 # define PI 3.1415926535
@@ -224,6 +226,7 @@ typedef struct s_player
 	int			is_ready;
 	int			pos;
 	char		skin;
+	float		dir;
 	float		angle;
 	float		pos_x;
 	float		pos_y;
@@ -349,6 +352,8 @@ void	move_right(t_game *game);
 void	move_up(t_game *game);
 void	move_down(t_game *game);
 void	open_door(t_game *game);
+void	move_fleft(t_game *game);
+void	move_fright(t_game *game);
 
 /**
  * @brief

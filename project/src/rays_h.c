@@ -62,7 +62,7 @@ void	hori_loop(t_map *map, t_player *player, t_rays *rays)
 {
 	set_value_h(map, player, rays);
 	hori_check(map, player, rays);
-	while (rays->dof < map->x - 2)
+	while (rays->dof < map->x + map->size)
 	{
 		rays->hmrx = ((int)rays->rx / MINI_TILE) + rays->hshift;
 		rays->hmry = ((int)rays->ry / MINI_TILE) + rays->hshift;
