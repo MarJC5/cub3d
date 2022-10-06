@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 15:38:16 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 07:44:38 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 11:20:57 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+void	menu_sound(void)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		execlp("afplay", "afplay", "-v", "0.2",
+			"./assets/sounds/menu.wav", NULL);
+	}
+}
 
 static void	draw_control(t_game *game)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   audio.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:55:36 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 07:39:02 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 11:19:58 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,14 @@ static void	cut_sound(void)
 
 void	play_sounds(int sound_id)
 {
-	if (sound_id == 0)
+	if (sound_id == SOUND_CUT)
 		cut_sound();
-	else if (sound_id == 1)
+	else if (sound_id == SOUND_SHOT)
 		shot_sound();
-	else if (sound_id == 2)
+	else if (sound_id == SOUND_DOOR)
 		door_sound();
-	else if (sound_id == 3)
+	else if (sound_id == SOUND_THEME)
 		theme_sound();
+	else if (sound_id == SOUND_MENU)
+		menu_sound();
 }

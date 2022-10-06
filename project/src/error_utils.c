@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:31 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 07:40:13 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 09:30:19 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static int	printerr(char *err)
 
 int	printinvalid(int errno)
 {
-	if (errno > SUCCESS)
-		printerr(ERROR);
 	if (errno == ERR_PRESET)
 		printerr(WRONG_PRESET);
 	if (errno == ERR_CHAR)
@@ -32,5 +30,7 @@ int	printinvalid(int errno)
 		printerr(WRONG_NAME);
 	if (errno == ERR_UNCLOSED)
 		printerr(MAP_UNCLOSED);
+	if (errno > SUCCESS)
+		printerr(ERROR);
 	return (errno);
 }

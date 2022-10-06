@@ -12,6 +12,7 @@ SRCS_DIR	= ./src/
 SRCS_FILES	=  main.c
 SRCS_FILES	+= 	key_actions.c \
 				move.c \
+				mouse.c \
 				pars_check.c \
 				pars_utils.c \
 				read_map_utils.c \
@@ -34,7 +35,7 @@ SRCS_FILES	+= 	key_actions.c \
 				init_textures.c \
 				animation.c \
 				weapon.c \
-				audio.c
+				audio.c \
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 

@@ -34,6 +34,11 @@
 # define WIN_HEIGHT 720
 
 # define FRAME_TIME 50.0
+# define SOUND_CUT 0
+# define SOUND_SHOT 1
+# define SOUND_THEME 2
+# define SOUND_DOOR 3
+# define SOUND_MENU 4
 
 # define WALL '1'
 # define FLOOR '0'
@@ -41,6 +46,7 @@
 # define DOOR 'D'
 
 # define SPEED 5
+# define SPEED_MOUSE 25
 # define SCALE 4
 # define SPRITE_SIZE 64
 # define TILE_SIZE 32
@@ -419,6 +425,7 @@ void	init_texture(t_game *game);
 void	init_weapon_knife(t_game *game);
 void	init_weapon_pistole(t_game *game);
 
+int		weapon_action(t_game *game, int i);
 int		weapon_change(t_game *game);
 int		weapon_use(t_game *game);
 
@@ -426,7 +433,8 @@ int		weapon_use(t_game *game);
  * @brief
  * Audio
  */
-void	weapon_sounds(int sound_id);
+void	play_sounds(int sound_id);
 void	sound_kill(void);
+void	menu_sound(void);
 
 #endif
