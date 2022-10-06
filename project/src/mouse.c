@@ -15,6 +15,7 @@
 int	mouse_event(int x, int y, t_game *game)
 {
 	(void) y;
+	mlx_mouse_hide();
 	if (x < game->screen.oldx && x > 0)
 	{
 		game->screen.oldx = x;
@@ -24,6 +25,10 @@ int	mouse_event(int x, int y, t_game *game)
 	{
 		game->screen.oldx = x;
 		move_right(game);
+	}
+	else {
+		mlx_mouse_move(game->screen.win, WIN_WIDTH / 2,  WIN_HEIGHT / 2);
+		game->screen.oldx = WIN_WIDTH / 2;
 	}
 	return (x);
 }

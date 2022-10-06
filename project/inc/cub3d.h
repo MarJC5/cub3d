@@ -39,6 +39,7 @@
 # define SOUND_THEME 2
 # define SOUND_DOOR 3
 # define SOUND_MENU 4
+# define SOUND_ON 0
 
 # define WALL '1'
 # define FLOOR '0'
