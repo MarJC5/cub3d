@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 14:28:57 by jmartin          ###   ########.fr       */
+/*   Created: 2022/08/28 16:09:28 by jmartin           #+#    #+#             */
+/*   Updated: 2022/10/06 12:23:48 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 int	save_map(t_game *game, char *save, char *line, int y)
 {
 	save = ft_strdup("");
-	game->map->x = ft_strlen(line);
+	game->map->x = (int)ft_strlen(line);
+	whilebn(game, &line);
 	while (line != NULL)
 	{
 		if (game->map->map != NULL)
@@ -40,26 +41,26 @@ int	save_map_textures(t_game *game, int i, int j, char *line)
 	int		k;
 
 	k = 0;
-	while (++i < 7)
+	while (++i < 6)
 	{
+		whilebn(game, &line);
 		if (ft_strcmp(line, "\n") != 0 && i < 4)
 		{
 			len = ft_strlen(line) - ft_strlen(ft_strchr(line, ' '));
 			game->map->identifier[k++] = ft_substr(line, 0, len);
 			game->map->assets[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
-			if (i == 3)
-				j = 0;
+			game->map->assets[j - 1]
+			[strlen(game->map->assets[j - 1]) - 1] = '\0';
+			j = ligne_gain(i, j);
 		}
-		if (ft_strcmp(line, "\n") != 0 && i > 4)
+		if (ft_strcmp(line, "\n") != 0 && i >= 4)
 		{
 			len = ft_strlen(line) - ft_strlen(ft_strchr(line, ' '));
 			game->map->identifier[k++] = ft_substr(line, 0, len);
 			game->map->colors[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
 		}
-		free_stuff(line);
-		line = get_next_line(game->map->fd);
+		free_new_read(game, &line);
 	}
-	free_stuff(line);
 	return (printinvalid(check_map_textures(game->map->identifier)));
 }
 
@@ -84,24 +85,6 @@ void	save_map_scene(t_game *game, int i, int j, int k)
 				i++;
 			}
 			j++;
-		}
-	}
-}
-
-void	init_map(t_game *game, char *file)
-{
-	if (check_map_name(game, file) == SUCCESS)
-	{
-		if (save_map_textures(game, -1, 0,
-				get_next_line(game->map->fd)) == SUCCESS)
-		{
-			if (save_map(game, NULL,
-					get_next_line(game->map->fd), 0) == SUCCESS)
-			{
-				save_map_scene(game, 0, 0, 0);
-				print_map_details(game);
-				init_screen(game);
-			}
 		}
 	}
 }

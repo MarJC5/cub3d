@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 09:19:28 by jmartin          ###   ########.fr       */
+/*   Created: 2022/08/28 16:08:31 by jmartin           #+#    #+#             */
+/*   Updated: 2022/10/06 09:30:19 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	printerr(char *err)
+static int	printerr(char *err)
 {
 	ft_putendl_fd(err, 2);
 	return (EXIT_FAILURE);
@@ -20,8 +20,6 @@ int	printerr(char *err)
 
 int	printinvalid(int errno)
 {
-	if (errno > SUCCESS)
-		printerr(ERROR);
 	if (errno == ERR_PRESET)
 		printerr(WRONG_PRESET);
 	if (errno == ERR_CHAR)
@@ -30,5 +28,9 @@ int	printinvalid(int errno)
 		printerr(WRONG_MAP);
 	if (errno == ERR_NAME)
 		printerr(WRONG_NAME);
+	if (errno == ERR_UNCLOSED)
+		printerr(MAP_UNCLOSED);
+	if (errno > SUCCESS)
+		printerr(ERROR);
 	return (errno);
 }

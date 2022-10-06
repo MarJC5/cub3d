@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/25 15:21:44 by jmartin          ###   ########.fr       */
+/*   Created: 2022/08/28 16:08:59 by jmartin           #+#    #+#             */
+/*   Updated: 2022/10/04 11:29:26 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (argc == 2)
 	{
-		init_map_var(game);
-		init_map(game, argv[argc - 1]);
+		init_default(game);
+		if (init_map(game, argv[argc - 1]) == FAILURE)
+			return (EXIT_FAILURE);
 	}
 	else if (argc == 1 || argc > 2)
 		printinvalid(ERR_NAME);

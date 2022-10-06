@@ -10,26 +10,46 @@ RESET	= \033[0m
 ##################################################
 SRCS_DIR	= ./src/
 SRCS_FILES	=  main.c
-SRCS_FILES	+= 	pars_utils.c \
+SRCS_FILES	+= 	key_actions.c \
+				move.c \
+				mouse.c \
 				pars_check.c \
+				pars_utils.c \
+				read_map_utils.c \
 				read_map.c \
 				error_utils.c \
 				free.c \
+				minilibft.c \
+				shape.c \
+				ray.c \
+				rays.c \
+				rays_h.c \
+				rays_v.c \
+				raycasting.c \
+				render.c \
+				check_map.c \
 				init.c \
-				key_actions.c \
-				minilibft.c
+				collision.c \
+				utils.c \
+				pixel_art.c \
+				start.c \
+				draw.c \
+				init_textures.c \
+				animation.c \
+				weapon.c \
+				audio.c \
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 
-UNAME_S 	:= $(shell uname)
+UNAME_S 	:= $(shell uname -s)
 
 LIBFT		= ./libft
 MAKELIB		= ${MAKE} -C ${LIBFT}
 
-ifeq (${UNAME_S},Darwin)
-LIBX		= ./mlx/
+ifeq (${UNAME_S}, Darwin)
+	LIBX		= ./mlx
 else
-LIBX		= ./mlx-linux/
+	LIBX		= ./mlx-linux
 endif
 MAKELIBX	= ${MAKE} -C ${LIBX}
 
@@ -47,7 +67,11 @@ DEBUGS		+= ${LIBX}/libmlx.a
 
 HEADS		= -I./inc/ -I${LIBFT} -I${LIBX}
 
-LIBS		= -framework OpenGL -framework AppKit
+ifeq ($(UNAME_S), Darwin)
+	LIBS		= -Lmlx -lmlx -lz -framework OpenGL -framework AppKit
+else
+	LIBS		= -lm -lbsd -lX11 -lXext
+endif
 
 NAME		= cub3D
 ifeq (${OS},Windows_NT)
@@ -62,7 +86,7 @@ RM			= rm -f
 
 CFLAGS		= -Wall -Wextra -Werror
 # Add this for debug
-# CFLAGS		+= -g3
+CFLAGS		+= -g3
 
 all:	${NAME}
 
@@ -74,19 +98,22 @@ ${NAME}: ${O_DIR} ${OBJS}
 
 #Create objects directory
 ${O_DIR}:
-	${MKDIR} ${O_DIR}
+	@${MKDIR} ${O_DIR}
 
 #Compile normals objects
 ${O_DIR}%.o: ${SRCS_DIR}%.c
-	${CC} ${CFLAGS} ${HEADS} -o $@ -c $<
+	@${CC} ${CFLAGS} ${HEADS} -o $@ -c $<
 
 #Compile libft
 ${LIBFT}/libft.a:
-	${MAKELIB} all
+	@${MAKELIB} all
 
 #Compile minilibx
 ${LIBX}/libmlx.a:
-	${MAKELIBX} all
+	@${MAKELIBX} all
+
+run: all
+	./$(NAME) ./maps/lab.cub
 
 #Compile and use valgrind
 valgrind:
@@ -94,9 +121,10 @@ valgrind:
 
 #Compile a debug executable with -g and fsanitize
 debug: ${D_DIR} ${DEBUGS}
-	${MAKELIB} all
-	${MAKELIBX} all
-	${CC} ${CFLAGS} -fsanitize=address -o ${NAME} ${DEBUGS} ${LIBS}
+	@${MAKELIB} all
+	@${MAKELIBX} all
+	@${CC} ${CFLAGS} -fsanitize=address -o ${NAME} ${DEBUGS} ${LIBS}
+	@./$(NAME) ./maps/lab.cub
 
 #Create debug directory
 ${D_DIR}:
@@ -104,7 +132,7 @@ ${D_DIR}:
 
 #Compile debug objects
 ${D_DIR}%.o: ${SRCS_DIR}%.c
-	${CC} ${CFLAGS} -g ${HEADS} -o $@ -c $<
+	@${CC} ${CFLAGS} -g ${HEADS} -o $@ -c $<
 
 clean:
 	@${RM} ${OBJS} ${OBJSB} ${DEBUGS}
@@ -124,8 +152,13 @@ fclean:	clean
 	@echo "[\033[1;32msuccess$(RESET)]: $(NAME) has been clean up"
 
 leaks:
-	leaks -atExit -- ./$(NAME) ./maps/demo.cub
+	leaks -atExit -- ./$(NAME) ./maps/lab.cub
+
+maze: all
+	@${RM} -r ./maps/maze.cub
+	python ./maze/maze_map.py
+	./$(NAME) ./maps/maze.cub
 
 re:			fclean all
 
-.PHONY:		all clean fclean re debug valgrind leaks
+.PHONY:		all clean fclean re debug valgrind leaks maze run
