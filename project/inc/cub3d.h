@@ -349,6 +349,8 @@ void	move_right(t_game *game);
 void	move_up(t_game *game);
 void	move_down(t_game *game);
 void	open_door(t_game *game);
+void	move_fleft(t_game *game);
+void	move_fright(t_game *game);
 
 /**
  * @brief

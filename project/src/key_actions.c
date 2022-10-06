@@ -36,10 +36,14 @@ static void	key_check(int key, t_game *game)
 {
 	if (key == K_MAC_M || key == 109)
 		show_minimap(game);
-	if (key == K_MAC_A || key == 97 || key == 65361 || key == 123)
+	if (key == 123)
 		move_left(game);
-	if (key == K_MAC_D || key == 100 || key == 65363 || key == 124)
+	if (key == 124)
 		move_right(game);
+	if (key == K_MAC_D)
+		move_fleft(game);
+	if (key == K_MAC_A)
+		move_fright(game);
 	if (key == K_MAC_W || key == 119 || key == 65362 || key == 126)
 		move_up(game);
 	if (key == K_MAC_S || key == 115 || key == 65364 || key == 125)

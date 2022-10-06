@@ -34,6 +34,28 @@ void	move_right(t_game *game)
 	game->player->delta_y = sin(game->player->angle) * SPEED;
 }
 
+void	move_fleft(t_game *game)
+{
+	if (collision(game) == 0)
+	{
+		game->player->pos_xm += game->player->delta_xm;
+		game->player->pos_ym += game->player->delta_ym;
+		game->player->pos_x = (int)game->player->pos_xm / MINI_TILE;
+		game->player->pos_y = (int)game->player->pos_ym / MINI_TILE;
+	}
+}
+
+void	move_fright(t_game *game)
+{
+	if (collision(game) == 0)
+	{
+		game->player->pos_xm += game->player->delta_xm;
+		game->player->pos_ym += game->player->delta_ym;
+		game->player->pos_x = (int)game->player->pos_xm / MINI_TILE;
+		game->player->pos_y = (int)game->player->pos_ym / MINI_TILE;
+	}
+}
+
 void	move_up(t_game *game)
 {
 	if (collision(game) == 0)
