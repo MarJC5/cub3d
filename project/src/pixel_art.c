@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_art.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 10:52:57 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/04 13:15:11 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 07:42:36 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	bit_color(int ref)
+static int	bit_color(int ref)
 {
 	if (ref == '0')
 		return (WHITE);
@@ -31,7 +31,7 @@ int	bit_color(int ref)
 	return (BLACK);
 }
 
-void	render_art(t_art art)
+static void	render_art(t_art art)
 {
 	int	i;
 	int	j;
@@ -53,7 +53,7 @@ void	render_art(t_art art)
 	}
 }
 
-void	save_ascii_scene(t_art art)
+static void	save_ascii_scene(t_art art)
 {
 	int	i;
 	int	j;
@@ -81,7 +81,7 @@ void	save_ascii_scene(t_art art)
 	render_art(art);
 }
 
-void	init_ascii_scene(t_art art)
+static void	init_ascii_scene(t_art art)
 {
 	int		i;
 

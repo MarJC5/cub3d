@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 06:57:24 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 07:44:00 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	render_background(t_img *img, int floor, int ceilling)
 	}
 }
 
-void	render_minimap_tile(t_game *game, char tile, int color)
+static void	render_minimap_tile(t_game *game, char tile, int color)
 {
 	int	i;
 	int	j;
@@ -53,7 +53,7 @@ void	render_minimap_tile(t_game *game, char tile, int color)
 	}
 }
 
-void	setup_minimap(t_game *game)
+static void	setup_minimap(t_game *game)
 {
 	draw_ray(game->map, &game->screen.map, (t_line){
 		game->player->pos_xm, game->player->pos_ym,

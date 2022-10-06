@@ -345,7 +345,6 @@ void	open_door(t_game *game);
  */
 
 int		printinvalid(int errno);
-int		printerr(char *err);
 int		ft_isspace(char c);
 int		ft_strcmp(char *s1, char *s2);
 int		encode_rgb(uint8_t alpha, uint8_t red, uint8_t green, uint8_t blue);
@@ -373,7 +372,6 @@ void	draw_floor(t_game *game, t_rays *ray, int r);
 void	draw_ceiling(t_game *game, t_rays *ray, int r);
 void	draw_wall(t_game *game, t_rays *ray, int r);
 void	render_minimap(t_game *game);
-void	render_minimap_tile(t_game *game, char tile, int color);
 void	render_background(t_img *img, int floor, int ceilling);
 void	img_pix_put(t_img *img, int x, int y, int color);
 void	check_player_pos(t_game *game, int i, int j);
@@ -421,9 +419,7 @@ void	init_texture(t_game *game);
 void	init_weapon_knife(t_game *game);
 void	init_weapon_pistole(t_game *game);
 
-int		weapon_action(t_game *game, int i);
 int		weapon_change(t_game *game);
-int		weapon_release(t_game *game);
 int		weapon_use(t_game *game);
 
 /**

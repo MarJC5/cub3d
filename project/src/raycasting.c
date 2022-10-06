@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 02:37:08 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/04 14:40:49 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 07:43:00 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	init_orientation(t_game *game, t_rays *ray)
 {
-	(void)game;
 	if (ray->door == 1)
 	{
 		ray->color = YELLOW;
@@ -43,7 +42,6 @@ int	init_orientation(t_game *game, t_rays *ray)
 
 int	init_orientation_v(t_game *game, t_rays *ray)
 {
-	(void)game;
 	if (ray->door == 1)
 	{
 		ray->color = YELLOW;

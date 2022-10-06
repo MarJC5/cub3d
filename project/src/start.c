@@ -6,13 +6,13 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 15:38:16 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/20 08:02:48 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 07:44:38 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	draw_control(t_game *game)
+static void	draw_control(t_game *game)
 {
 	init_ascii((t_art){
 		0, 0, -1, (WIN_WIDTH - (25 * MINI_TILE)) / 2,

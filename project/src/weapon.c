@@ -6,30 +6,13 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 07:44:48 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/05 18:46:20 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 07:45:43 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	weapon_change(t_game *game)
-{
-	if (game->player->weapon.current == 0)
-	{
-		printf("current weapon is: %s\n", "Knife");
-		game->player->weapon.inuse = game->player->weapon.pistol[0];
-		game->player->weapon.current++;
-	}
-	else if (game->player->weapon.current == 1)
-	{
-		printf("current weapon is: %s\n", "Pistol");
-		game->player->weapon.current = 0;
-		game->player->weapon.inuse = game->player->weapon.knife[0];
-	}
-	return (game->player->weapon.current);
-}
-
-int	weapon_action(t_game *game, int i)
+static int	weapon_action(t_game *game, int i)
 {
 	if (game->player->weapon.current == 1)
 		game->player->weapon.inuse = game->player->weapon.pistol[i];
@@ -44,7 +27,7 @@ int	weapon_action(t_game *game, int i)
 	return (game->player->weapon.current);
 }
 
-int	weapon_release(t_game *game)
+static int	weapon_release(t_game *game)
 {
 	double	now;
 	double	compare;
@@ -62,6 +45,23 @@ int	weapon_release(t_game *game)
 		}
 	}
 	return (game->player->weapon.frame);
+}
+
+int	weapon_change(t_game *game)
+{
+	if (game->player->weapon.current == 0)
+	{
+		printf("current weapon is: %s\n", "Knife");
+		game->player->weapon.inuse = game->player->weapon.pistol[0];
+		game->player->weapon.current++;
+	}
+	else if (game->player->weapon.current == 1)
+	{
+		printf("current weapon is: %s\n", "Pistol");
+		game->player->weapon.current = 0;
+		game->player->weapon.inuse = game->player->weapon.knife[0];
+	}
+	return (game->player->weapon.current);
 }
 
 int	weapon_use(t_game *game)

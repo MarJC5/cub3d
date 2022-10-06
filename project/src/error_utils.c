@@ -6,13 +6,13 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:31 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/28 16:08:32 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 07:40:13 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	printerr(char *err)
+static int	printerr(char *err)
 {
 	ft_putendl_fd(err, 2);
 	return (EXIT_FAILURE);
