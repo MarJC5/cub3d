@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:49 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 16:55:11 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 17:00:47 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ void	init_screen(t_game *game)
 	init_texture(game);
 	init_weapon_knife(game);
 	init_weapon_pistole(game);
-	weapon_action(game, game->player->weapon.frame);
 	init_view(game);
 	mlx_mouse_hide(game->screen.mlx, game->screen.win);
 	mlx_hook(game->screen.win, 2, 1L << 0, key_event, game);
