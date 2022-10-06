@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:05:36 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 11:41:40 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 15:24:20 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	mouse_event(int x, int y, t_game *game)
 		game->screen.oldx = x;
 		move_right(game);
 	}
-	else 
+	else
 	{
-		mlx_mouse_move(game->screen.win, WIN_WIDTH / 2,  WIN_HEIGHT / 2);
+		mlx_mouse_move(game->screen.win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 		game->screen.oldx = WIN_WIDTH / 2;
 	}
 	return (x);

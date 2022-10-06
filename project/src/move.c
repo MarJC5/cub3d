@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 00:57:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 11:04:11 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 15:25:00 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,9 @@ void	move_down(t_game *game)
 
 void	open_door(t_game *game)
 {
-	int door = collision(game);
+	int	door;
+
+	door = collision(game);
 	if (door == 2)
 	{
 		play_sounds(SOUND_DOOR);
