@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:28 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/04 14:41:22 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 07:33:32 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-static void	whilebn(t_game *game, char **line)
-{
-	while (*line[0] == '\n')
-	{
-		free_stuff(*line);
-		*line = get_next_line(game->map->fd);
-	}
-}
 
 int	save_map(t_game *game, char *save, char *line, int y)
 {
@@ -42,13 +33,6 @@ int	save_map(t_game *game, char *save, char *line, int y)
 	free_stuff(save);
 	game->map->y = y;
 	return (printinvalid(check_map_char(game->map->map)));
-}
-
-static int	ligne_gain(int i, int j)
-{
-	if (i == 3)
-		return (0);
-	return (j);
 }
 
 int	save_map_textures(t_game *game, int i, int j, char *line)
@@ -75,10 +59,8 @@ int	save_map_textures(t_game *game, int i, int j, char *line)
 			game->map->identifier[k++] = ft_substr(line, 0, len);
 			game->map->colors[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
 		}
-		free_stuff(line);
-		line = get_next_line(game->map->fd);
+		free_new_read(game, &line);
 	}
-	free_stuff(line);
 	return (printinvalid(check_map_textures(game->map->identifier)));
 }
 

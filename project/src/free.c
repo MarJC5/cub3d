@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:37 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/04 11:15:26 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 06:53:19 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_stuff(char *tofree)
 }
 
 void	ft_free_multitab(char **tab)
-{ 
+{
 	int	i;
 
 	i = 0;
@@ -38,7 +38,7 @@ void	ft_free_multitab(char **tab)
 }
 
 void	ft_free_multitab_void(void **tab)
-{ 
+{
 	int	i;
 
 	i = 0;
@@ -54,7 +54,7 @@ void	ft_free_multitab_void(void **tab)
 }
 
 void	free_map(t_game *game)
-{	
+{
 	ft_free_multitab_void(game->text.img);
 	ft_free_multitab_void(game->player->weapon.knife);
 	ft_free_multitab_void(game->player->weapon.pistol);
@@ -66,4 +66,14 @@ void	free_map(t_game *game)
 	free(game->map->map);
 	free(game->map);
 	free(game->player);
+}
+
+void	sound_kill(void)
+{
+	const char	*command;
+	int			res;
+
+	command = "pkill afplay";
+	res = system(command);
+	res += 0;
 }

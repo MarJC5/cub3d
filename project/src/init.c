@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:49 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/04 16:28:53 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 07:29:40 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+void	init_tile(char *path, int x, int y, t_game *game)
+{
+	int		w;
+	int		h;
+	char	*img;
+
+	img = mlx_xpm_file_to_image(game->screen.mlx, path, &w, &h);
+	mlx_put_image_to_window(game->screen.mlx, game->screen.win, img, x, y);
+}
 
 int	init_map(t_game *game, char *file)
 {

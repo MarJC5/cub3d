@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/05 07:41:40 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 06:57:24 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,6 @@ void	render_map_view(t_game *game)
 			game->player->pos_ym,
 			MINI_TILE / (SCALE / 1.5), RED});
 	}
-}
-
-void	init_tile(char *path, int x, int y, t_game *game)
-{
-	int		w;
-	int		h;
-	char	*img;
-
-	img = mlx_xpm_file_to_image(game->screen.mlx, path, &w, &h);
-	mlx_put_image_to_window(game->screen.mlx, game->screen.win, img, x, y);
 }
 
 int	render_view(t_game *game)

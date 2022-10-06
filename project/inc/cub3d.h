@@ -76,10 +76,20 @@
 # include <string.h>
 # include <mlx.h>
 # include <sys/time.h>
+# include <fcntl.h>
 
 /**
  * Struct
  */
+
+typedef struct s_pars_map
+{
+	char	*line;
+	int		i;
+	int		j;
+	int		k;
+	size_t	len;
+}	t_pars_map;
 
 typedef struct s_art
 {
@@ -305,9 +315,12 @@ int		check_map_char(char *map);
 int		check_map_name(t_game *game, char *file);
 int		save_map(t_game *game, char *save, char *line, int y);
 int		save_map_textures(t_game *game, int i, int j, char *line);
+int		ligne_gain(int i, int j);
 
+void	free_new_read(t_game *game, char **line);
 void	save_map_scene(t_game *game, int i, int j, int k);
 void	print_map_details(t_game *game);
+void	whilebn(t_game *game, char **line);
 
 char	*replace_char(char *str, char find, char replace);
 
@@ -324,7 +337,6 @@ void	move_left(t_game *game);
 void	move_right(t_game *game);
 void	move_up(t_game *game);
 void	move_down(t_game *game);
-
 void	open_door(t_game *game);
 
 /**
@@ -403,6 +415,7 @@ double	time_now(void);
 void	fps(t_game *game);
 void	print_fps(t_game *game);
 void	current_timestamp(t_game *game);
+void	init_tile(char *path, int x, int y, t_game *game);
 void	init_int_texture(t_game *game, int j, int i);
 void	init_texture(t_game *game);
 void	init_weapon_knife(t_game *game);
@@ -412,5 +425,12 @@ int		weapon_action(t_game *game, int i);
 int		weapon_change(t_game *game);
 int		weapon_release(t_game *game);
 int		weapon_use(t_game *game);
+
+/**
+ * @brief
+ * Audio
+ */
+void	weapon_sounds(int sound_id);
+void	sound_kill(void);
 
 #endif
