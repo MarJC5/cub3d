@@ -201,6 +201,11 @@ typedef struct s_rays
 	float	atan;
 	float	ntan;
 	int		text;
+	int 	oldy;
+	int 	oldx;
+	int 	voldy;
+	int 	voldx;
+	int		rettest;
 }	t_rays;
 
 typedef struct s_weapon
@@ -280,13 +285,13 @@ typedef struct s_text
 	int		w;
 	int		x;
 	int		y;
-	int		c;
-	int		c2;
+	int		y2;
+	int		pixel;
 	int		no;
 	int		so;
 	int		we;
 	int		ea;
-	int		reset;
+	int		count;
 }	t_text;
 
 typedef struct s_game
@@ -412,6 +417,11 @@ int		collision_bck(t_game *game);
 
 /**
  * @brief
+ * RAY
+ */
+void	verti_loop( t_map *map, t_player *player, t_rays *rays);
+void	hori_loop(t_map *map, t_player *player, t_rays *rays);
+
  * Textures
  */
 double	time_now(void);
