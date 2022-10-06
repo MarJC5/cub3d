@@ -26,7 +26,8 @@ int	mouse_event(int x, int y, t_game *game)
 		game->screen.oldx = x;
 		move_right(game);
 	}
-	else {
+	else 
+	{
 		mlx_mouse_move(game->screen.win, WIN_WIDTH / 2,  WIN_HEIGHT / 2);
 		game->screen.oldx = WIN_WIDTH / 2;
 	}
