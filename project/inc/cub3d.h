@@ -421,9 +421,6 @@ int		collision_bck(t_game *game);
  */
 void	verti_loop( t_map *map, t_player *player, t_rays *rays);
 void	hori_loop(t_map *map, t_player *player, t_rays *rays);
-
- * Textures
- */
 double	time_now(void);
 
 void	fps(t_game *game);
