@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 02:37:08 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/27 11:04:31 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 07:43:00 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,22 @@
 
 int	init_orientation(t_game *game, t_rays *ray)
 {
-	(void)game;
 	if (ray->ra < degtorad(180))
 	{
 		if (ray->ra > degtorad(90)
-		&& ray->ra < degtorad(270))
+			&& ray->ra < degtorad(270))
 			ray->text = game->text.no;
 		else if (ray->ra < degtorad(90)
-		|| ray->ra > degtorad(270))
+			|| ray->ra > degtorad(270))
 			ray->text = game->text.no;
 	}
 	else if (ray->ra > degtorad(180))
 	{
 		if (ray->ra > degtorad(90)
-		&& ray->ra < degtorad(270))
+			&& ray->ra < degtorad(270))
 			ray->text = game->text.so;
 		else if (ray->ra < degtorad(90)
-		|| ray->ra > degtorad(270))
+			|| ray->ra > degtorad(270))
 			ray->text = game->text.so;
 	}
 	return (radtodeg(ray->ra));
@@ -38,23 +37,23 @@ int	init_orientation(t_game *game, t_rays *ray)
 
 int	init_orientation_v(t_game *game, t_rays *ray)
 {
-	(void)game;
+
 	if (ray->ra < degtorad(180))
 	{
 		if (ray->ra > degtorad(90)
-		&& ray->ra < degtorad(270))
+			&& ray->ra < degtorad(270))
 			ray->text = game->text.ea;
 		else if (ray->ra < degtorad(90)
-		|| ray->ra > degtorad(270))
+			|| ray->ra > degtorad(270))
 			ray->text = game->text.we;
 	}
 	else if (ray->ra > degtorad(180))
 	{
 		if (ray->ra > degtorad(90)
-		&& ray->ra < degtorad(270))
+			&& ray->ra < degtorad(270))
 			ray->text = game->text.ea;
 		else if (ray->ra < degtorad(90)
-		|| ray->ra > degtorad(270))
+			|| ray->ra > degtorad(270))
 			ray->text = game->text.we;
 	}
 	return (radtodeg(ray->ra));

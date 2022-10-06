@@ -6,13 +6,13 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 10:52:57 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/20 08:02:04 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 07:42:36 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	bit_color(int ref)
+static int	bit_color(int ref)
 {
 	if (ref == '0')
 		return (WHITE);
@@ -31,7 +31,7 @@ int	bit_color(int ref)
 	return (BLACK);
 }
 
-void	render_art(t_art art)
+static void	render_art(t_art art)
 {
 	int	i;
 	int	j;
@@ -53,7 +53,7 @@ void	render_art(t_art art)
 	}
 }
 
-void	save_ascii_scene(t_art art)
+static void	save_ascii_scene(t_art art)
 {
 	int	i;
 	int	j;
@@ -81,12 +81,12 @@ void	save_ascii_scene(t_art art)
 	render_art(art);
 }
 
-void	init_ascii_scene(t_art art)
+static void	init_ascii_scene(t_art art)
 {
 	int		i;
 
 	i = 0;
-	art.tab_art = ft_calloc(art.y, sizeof(char *));
+	art.tab_art = ft_calloc(art.y + 1, sizeof(char *));
 	if (!art.tab_art)
 		return ;
 	while (i < art.y)
@@ -99,9 +99,7 @@ void	init_ascii_scene(t_art art)
 		i++;
 	}
 	save_ascii_scene(art);
-	while (art.y-- > 0)
-		free(art.tab_art[art.y]);
-	free(art.tab_art);
+	ft_free_multitab(art.tab_art);
 }
 
 void	init_ascii(t_art art)
@@ -109,22 +107,26 @@ void	init_ascii(t_art art)
 	art.fd = open(art.file, O_RDONLY);
 	art.save = ft_strdup("");
 	art.line = get_next_line(art.fd);
-	art.x = (int)ft_strlen(art.line);
-	art.y = 0;
-	while (art.line != NULL)
+	art.tab_art = NULL;
+	if (art.line)
 	{
-		if (art.x < (int)ft_strlen(art.line))
-			art.x = (int)ft_strlen(art.line);
-		art.tmp = ft_strjoin(art.save, art.line);
-		free(art.save);
-		art.save = ft_strdup(art.tmp);
-		free(art.tmp);
-		free(art.line);
-		art.line = get_next_line(art.fd);
-		art.y++;
+		art.x = (int)ft_strlen(art.line);
+		art.y = 0;
+		while (art.line != NULL)
+		{
+			if (art.x < (int)ft_strlen(art.line))
+				art.x = (int)ft_strlen(art.line);
+			art.tmp = ft_strjoin(art.save, art.line);
+			free(art.save);
+			art.save = ft_strdup(art.tmp);
+			free(art.tmp);
+			free(art.line);
+			art.line = get_next_line(art.fd);
+			art.y++;
+		}
+		init_ascii_scene(art);
 	}
-	init_ascii_scene(art);
-	free(art.save);
-	free(art.line);
+	free_stuff(art.line);
+	free_stuff(art.save);
 	close(art.fd);
 }

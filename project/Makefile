@@ -12,8 +12,10 @@ SRCS_DIR	= ./src/
 SRCS_FILES	=  main.c
 SRCS_FILES	+= 	key_actions.c \
 				move.c \
+				mouse.c \
 				pars_check.c \
 				pars_utils.c \
+				read_map_utils.c \
 				read_map.c \
 				error_utils.c \
 				free.c \
@@ -31,8 +33,11 @@ SRCS_FILES	+= 	key_actions.c \
 				utils.c \
 				pixel_art.c \
 				start.c \
-				draw.c
-
+				draw.c \
+				init_textures.c \
+				animation.c \
+				weapon.c \
+				audio.c \
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 
@@ -108,7 +113,7 @@ ${LIBX}/libmlx.a:
 	@${MAKELIBX} all
 
 run: all
-	./$(NAME) ./maps/demo.cub
+	./$(NAME) ./maps/lab.cub
 
 #Compile and use valgrind
 valgrind:
@@ -119,7 +124,7 @@ debug: ${D_DIR} ${DEBUGS}
 	@${MAKELIB} all
 	@${MAKELIBX} all
 	@${CC} ${CFLAGS} -fsanitize=address -o ${NAME} ${DEBUGS} ${LIBS}
-	@./$(NAME) ./maps/demo.cub
+	@./$(NAME) ./maps/lab.cub
 
 #Create debug directory
 ${D_DIR}:
@@ -147,7 +152,7 @@ fclean:	clean
 	@echo "[\033[1;32msuccess$(RESET)]: $(NAME) has been clean up"
 
 leaks:
-	leaks -atExit -- ./$(NAME) ./maps/demo.cub
+	leaks -atExit -- ./$(NAME) ./maps/lab.cub
 
 maze: all
 	@${RM} -r ./maps/maze.cub

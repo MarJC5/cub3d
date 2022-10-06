@@ -1,7 +1,7 @@
-NO ./assets/textures/xpm/CRATE_2L.xpm
-SO ./assets/textures/xpm/BRICK_1A.xpm
-WE ./assets/textures/xpm/BRICK_2A.xpm
-EA ./assets/textures/xpm/CONCRETE_1A.xpm
+NO ./assets/textures/default/xpm/0.xpm
+SO ./assets/textures/default/xpm/1.xpm
+WE ./assets/textures/default/xpm/2.xpm
+EA ./assets/textures/default/xpm/3.xpm
 
 F 189,195,199
 C 236,240,241

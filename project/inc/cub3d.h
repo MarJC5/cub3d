@@ -33,12 +33,20 @@
 # define WIN_WIDTH 1080
 # define WIN_HEIGHT 720
 
+# define FRAME_TIME 50.0
+# define SOUND_CUT 0
+# define SOUND_SHOT 1
+# define SOUND_THEME 2
+# define SOUND_DOOR 3
+# define SOUND_MENU 4
+
 # define WALL '1'
 # define FLOOR '0'
 # define EMPTY_ZONE '.'
 # define DOOR 'D'
 
 # define SPEED 5
+# define SPEED_MOUSE 25
 # define SCALE 4
 # define SPRITE_SIZE 64
 # define TILE_SIZE 32
@@ -73,10 +81,21 @@
 # include <math.h>
 # include <string.h>
 # include <mlx.h>
+# include <sys/time.h>
+# include <fcntl.h>
 
 /**
  * Struct
  */
+
+typedef struct s_pars_map
+{
+	char	*line;
+	int		i;
+	int		j;
+	int		k;
+	size_t	len;
+}	t_pars_map;
 
 typedef struct s_art
 {
@@ -147,7 +166,6 @@ typedef struct s_rays
 {
 	int		r;
 	int		color;
-	int		side;
 	int		doorh;
 	int		doorv;
 	int		door;
@@ -157,12 +175,8 @@ typedef struct s_rays
 	float	deltay;
 	float	dist;
 	float	angle;
-	float		wall_height;
-	float		wall_offset;
-	float	horz_hit;
-	float	vert_hit;
-	float	horz_dist;
-	float	vert_dist;
+	float	wall_height;
+	float	wall_offset;
 	int		mx;
 	int		my;
 	int		mp;
@@ -194,6 +208,17 @@ typedef struct s_rays
 	int		rettest;
 }	t_rays;
 
+typedef struct s_weapon
+{
+	void	**knife;
+	void	**pistol;
+	void	*inuse;
+	int		current;
+	int		frame;
+	int		h;
+	int		w;
+}	t_weapon;
+
 typedef struct s_player
 {
 	int			is_ready;
@@ -209,6 +234,7 @@ typedef struct s_player
 	float		delta_xm;
 	float		delta_ym;
 	t_rays		rays;
+	t_weapon	weapon;
 }	t_player;
 
 typedef struct s_screen
@@ -217,6 +243,9 @@ typedef struct s_screen
 	void		*win;
 	int			toggle_minimap;
 	int			oldx;
+	double		time;
+	double		oldtime;
+	double		frametime;
 	t_img		welcome;
 	t_img		map;
 }	t_screen;
@@ -297,9 +326,12 @@ int		check_map_char(char *map);
 int		check_map_name(t_game *game, char *file);
 int		save_map(t_game *game, char *save, char *line, int y);
 int		save_map_textures(t_game *game, int i, int j, char *line);
+int		ligne_gain(int i, int j);
 
+void	free_new_read(t_game *game, char **line);
 void	save_map_scene(t_game *game, int i, int j, int k);
 void	print_map_details(t_game *game);
+void	whilebn(t_game *game, char **line);
 
 char	*replace_char(char *str, char find, char replace);
 
@@ -316,7 +348,6 @@ void	move_left(t_game *game);
 void	move_right(t_game *game);
 void	move_up(t_game *game);
 void	move_down(t_game *game);
-
 void	open_door(t_game *game);
 
 /**
@@ -325,7 +356,6 @@ void	open_door(t_game *game);
  */
 
 int		printinvalid(int errno);
-int		printerr(char *err);
 int		ft_isspace(char c);
 int		ft_strcmp(char *s1, char *s2);
 int		encode_rgb(uint8_t alpha, uint8_t red, uint8_t green, uint8_t blue);
@@ -353,7 +383,6 @@ void	draw_floor(t_game *game, t_rays *ray, int r);
 void	draw_ceiling(t_game *game, t_rays *ray, int r);
 void	draw_wall(t_game *game, t_rays *ray, int r);
 void	render_minimap(t_game *game);
-void	render_minimap_tile(t_game *game, char tile, int color);
 void	render_background(t_img *img, int floor, int ceilling);
 void	img_pix_put(t_img *img, int x, int y, int color);
 void	check_player_pos(t_game *game, int i, int j);
@@ -370,6 +399,7 @@ float	draw_ray(t_map *map, t_img *img, t_line line, int active);
  */
 void	free_map(t_game *game);
 void	ft_free_multitab(char **tab);
+void	ft_free_multitab_void(void **tab);
 void	free_stuff(char *tofree);
 
 /**
@@ -391,5 +421,30 @@ int		collision_bck(t_game *game);
  */
 void	verti_loop( t_map *map, t_player *player, t_rays *rays);
 void	hori_loop(t_map *map, t_player *player, t_rays *rays);
+
+ * Textures
+ */
+double	time_now(void);
+
+void	fps(t_game *game);
+void	print_fps(t_game *game);
+void	current_timestamp(t_game *game);
+void	init_tile(char *path, int x, int y, t_game *game);
+void	init_int_texture(t_game *game, int j, int i);
+void	init_texture(t_game *game);
+void	init_weapon_knife(t_game *game);
+void	init_weapon_pistole(t_game *game);
+
+int		weapon_action(t_game *game, int i);
+int		weapon_change(t_game *game);
+int		weapon_use(t_game *game);
+
+/**
+ * @brief
+ * Audio
+ */
+void	play_sounds(int sound_id);
+void	sound_kill(void);
+void	menu_sound(void);
 
 #endif

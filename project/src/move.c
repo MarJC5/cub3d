@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 00:57:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/06 10:39:34 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 11:04:11 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	open_door(t_game *game)
 {
 	if (collision(game) == 2)
 	{
+		play_sounds(SOUND_DOOR);
 		game->map->scene[game->col.py][game->col.px] = 3;
 	}
 }

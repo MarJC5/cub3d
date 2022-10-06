@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/19 08:01:38 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/04 17:34:36 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ void	rays_fov(t_game *game, t_player *player, t_rays *rays)
 		draw_floor(game, rays, rays->r);
 		draw_wall(game, rays, rays->r);
 		rays->ra += (float)degtorad(FOV) / (float)WIN_WIDTH;
+		fps(game);
 	}
 }

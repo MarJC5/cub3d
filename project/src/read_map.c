@@ -6,20 +6,11 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:28 by jmartin           #+#    #+#             */
-/*   Updated: 2022/08/30 09:11:55 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/06 07:33:32 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-static void	whilebn(t_game *game, char **line)
-{
-	while (*line[0] == '\n')
-	{
-		free_stuff(*line);
-		*line = get_next_line(game->map->fd);
-	}
-}
 
 int	save_map(t_game *game, char *save, char *line, int y)
 {
@@ -44,13 +35,6 @@ int	save_map(t_game *game, char *save, char *line, int y)
 	return (printinvalid(check_map_char(game->map->map)));
 }
 
-static int	ligne_gain(int i, int j)
-{
-	if (i == 3)
-		return (0);
-	return (j);
-}
-
 int	save_map_textures(t_game *game, int i, int j, char *line)
 {
 	size_t	len;
@@ -65,7 +49,8 @@ int	save_map_textures(t_game *game, int i, int j, char *line)
 			len = ft_strlen(line) - ft_strlen(ft_strchr(line, ' '));
 			game->map->identifier[k++] = ft_substr(line, 0, len);
 			game->map->assets[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
-			game->map->assets[j - 1][strlen(game->map->assets[j - 1]) - 1] = '\0';
+			game->map->assets[j - 1]
+			[strlen(game->map->assets[j - 1]) - 1] = '\0';
 			j = ligne_gain(i, j);
 		}
 		if (ft_strcmp(line, "\n") != 0 && i >= 4)
@@ -74,10 +59,8 @@ int	save_map_textures(t_game *game, int i, int j, char *line)
 			game->map->identifier[k++] = ft_substr(line, 0, len);
 			game->map->colors[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
 		}
-		free_stuff(line);
-		line = get_next_line(game->map->fd);
+		free_new_read(game, &line);
 	}
-	free_stuff(line);
 	return (printinvalid(check_map_textures(game->map->identifier)));
 }
 
