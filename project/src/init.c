@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:49 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 17:00:47 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/07 11:37:51 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	init_default(t_game *game)
 	if (!game->player)
 		exit(EXIT_FAILURE);
 	game->player->is_ready = 0;
-	game->player->weapon.current = 0;
+	game->player->weapon.current = 1;
 	game->player->weapon.frame = 0;
 }
 
@@ -79,7 +79,7 @@ void	init_view(t_game *game)
 			&game->screen.map.line_len, &game->screen.map.endian);
 	mlx_loop_hook(game->screen.mlx, &render_view, game);
 	game->is_started = 0;
-	play_sounds(SOUND_MENU);
+	play_sounds(game, SOUND_MENU);
 	game->screen.welcome.mlx_img = mlx_new_image(game->screen.mlx,
 			WIN_WIDTH, WIN_HEIGHT);
 	game->screen.welcome.addr = mlx_get_data_addr(game->screen.welcome.mlx_img,
@@ -96,13 +96,14 @@ void	init_screen(t_game *game)
 	game->screen.oldtime = 0;
 	game->screen.oldx = WIN_WIDTH / 2;
 	game->screen.toggle_minimap = 1;
+	game->screen.toggle_audio = 0;
+	game->screen.toggle_mouse = 0;
 	game->screen.win = mlx_new_window(
 			game->screen.mlx, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
 	init_texture(game);
 	init_weapon_knife(game);
 	init_weapon_pistole(game);
 	init_view(game);
-	mlx_mouse_hide(game->screen.mlx, game->screen.win);
 	mlx_hook(game->screen.win, 2, 1L << 0, key_event, game);
 	mlx_hook(game->screen.win, 6, 1L << 0, mouse_event, game);
 	mlx_hook(game->screen.win, 17, 0L << 0, esc_win, game);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 14:48:21 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/05 07:33:44 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/07 12:32:41 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,6 @@ void	current_timestamp(t_game *game)
 
 	gettimeofday(&tv, NULL);
 	game->screen.time = (tv.tv_sec * 1000.0) + (tv.tv_usec / 1000.0);
-}
-
-void	print_fps(t_game *game)
-{
-	double	frame;
-	char	*fps;
-
-	frame = 1.0 / game->screen.frametime;
-	fps = ft_itoa(frame);
-	mlx_string_put(game->screen.mlx, game->screen.win,
-		((game->map->x * MINI_TILE) + MINI_TILE), 20, YELLOW, "fps: ");
-	mlx_string_put(game->screen.mlx, game->screen.win,
-		((game->map->x * MINI_TILE) + 40), 20, YELLOW, fps);
-	free(fps);
 }
 
 void	fps(t_game *game)

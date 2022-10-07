@@ -6,6 +6,13 @@
     </h4>
 </h1>
 
+<a href="https://little-martian.itch.io/retro-texture-pack">
+  <p align="center">
+    <img src="./doc/img/screenshot.png" alt="sprites: https://little-martian.itch.io/ - @little-martian"/>
+  </p`>
+  <p align="center">sprites: https://little-martian.itch.io/retro-texture-pack/p>
+</a>
+
 ## Goals
 
 - The program must take as a first argument a scene description file with the .cub

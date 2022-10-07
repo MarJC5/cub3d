@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:55:36 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 11:19:58 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/07 10:47:04 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ static void	cut_sound(void)
 	}
 }
 
-void	play_sounds(int sound_id)
+void	play_sounds(t_game *game, int sound_id)
 {
-	if (SOUND_ON == 1)
+	if (game->screen.toggle_audio == 1)
 	{
 		if (sound_id == SOUND_CUT)
 			cut_sound();
