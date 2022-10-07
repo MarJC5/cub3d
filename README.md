@@ -55,7 +55,26 @@
   - Minimap
   - Mouse movement
   - Collision
+
+## How to play
+
+- Move: ``w a s d``
+- Camera angle: ``left/right arrow key`` or ``mouse``
+- on/off mouse pointer: ``p``
+- on/off sound: ``v``
+- Show/hide minimap: ``m``
+- Show/hide weapon: ``k``
+
+## Run the project
+
+```bash
+git clone https://github.com/MarJC5/cub3d
+cd cub3d
+make run
+```
+
+Enjoy :^)
   
-  ## Ressources
+## Ressources
   - [3DSage](https://www.youtube.com/c/3DSage/featured)
   - [lodev](https://lodev.org/cgtutor/raycasting.html)

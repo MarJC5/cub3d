@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 10:40:06 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/07 11:38:33 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/07 18:56:38 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,17 @@ void	open_door(t_game *game)
 	{
 		play_sounds(game, SOUND_DOOR);
 		game->map->scene[game->col.py][game->col.px] = DOOR;
+	}
+}
+
+void	toggle_weapon(t_game *game)
+{
+	if (game->screen.toggle_weapon == 1)
+	{
+		game->screen.toggle_weapon = 0;
+	}
+	else if (game->screen.toggle_weapon == 0)
+	{
+		game->screen.toggle_weapon = 1;
 	}
 }

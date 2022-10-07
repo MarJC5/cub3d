@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:49 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/07 12:57:42 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/07 18:51:13 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,10 @@ void	init_screen(t_game *game)
 	game->screen.time = 0;
 	game->screen.oldtime = 0;
 	game->screen.oldx = WIN_WIDTH / 2;
-	game->screen.toggle_minimap = 1;
+	game->screen.toggle_minimap = 0;
 	game->screen.toggle_audio = 0;
 	game->screen.toggle_mouse = 0;
+	game->screen.toggle_weapon = 0;
 	game->screen.win = mlx_new_window(
 			game->screen.mlx, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
 	init_texture(game);

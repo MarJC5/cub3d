@@ -248,6 +248,7 @@ typedef struct s_screen
 	int			toggle_minimap;
 	int			toggle_audio;
 	int			toggle_mouse;
+	int			toggle_weapon;
 	int			oldx;
 	double		time;
 	double		oldtime;
@@ -350,6 +351,7 @@ int		mouse_event(int x, int y, t_game *game);
 int		key_event(int key, t_game *game);
 int		esc_win(t_game *game);
 
+void	toggle_weapon(t_game *game);
 void	toggle_audio(t_game *game);
 void	toggle_mouse_visibility(t_game *game);
 void	open_door(t_game *game);

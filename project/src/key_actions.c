@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:18:29 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/07 11:13:53 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/07 18:50:17 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,16 @@ int	show_minimap(t_game *game)
 	return (game->screen.toggle_minimap);
 }
 
+static void	toggle_stuff(int key, t_game *game)
+{
+	if (key == K_MAC_P)
+		toggle_mouse_visibility(game);
+	if (key == K_MAC_V)
+		toggle_audio(game);
+	if (key == K_MAC_K)
+		toggle_weapon(game);
+}
+
 static void	key_check(int key, t_game *game)
 {
 	if (key == K_MAC_M || key == 109)
@@ -54,10 +64,7 @@ static void	key_check(int key, t_game *game)
 		weapon_change(game);
 	if (key == K_MAC_F || key == 102)
 		weapon_use(game);
-	if (key == K_MAC_P)
-		toggle_mouse_visibility(game);
-	if (key == K_MAC_V)
-		toggle_audio(game);
+	toggle_stuff(key, game);
 }
 
 int	key_event(int key, t_game *game)
