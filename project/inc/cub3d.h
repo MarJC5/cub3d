@@ -55,7 +55,7 @@
 # define MINI_TILE 8
 # define MAPOS 8
 # define FOV 90
-# define COLLISION 8
+# define COLLISION 2
 
 # define DR 0.0174533
 # define PI 3.1415926535
@@ -419,6 +419,7 @@ int		check_map(t_game *game);
  */
 int		collision(t_game *game);
 int		collision_bck(t_game *game);
+int		collision_right(t_game *game);
 
 /**
  * @brief
