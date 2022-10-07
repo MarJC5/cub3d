@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:25:10 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 17:01:24 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/07 12:36:21 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,10 @@ int	render_view(t_game *game)
 	render_map_view(game);
 	mlx_put_image_to_window(game->screen.mlx,
 		game->screen.win, game->screen.map.mlx_img, 0, 0);
-	weapon_action(game, game->player->weapon.frame);
 	if (game->screen.toggle_minimap == 1)
-		print_fps(game);
+	{
+		weapon_action(game, game->player->weapon.frame);
+		print_info(game);
+	}
 	return (SUCCESS);
 }

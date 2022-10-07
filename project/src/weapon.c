@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   weapon.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 07:44:48 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 16:39:15 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/07 11:40:30 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	weapon_use(t_game *game)
 
 	game->player->weapon.frame = 0;
 	now = time_now();
-	play_sounds(game->player->weapon.current);
+	play_sounds(game, game->player->weapon.current);
 	while (game->player->weapon.frame < 4)
 	{
 		compare = time_now();
