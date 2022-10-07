@@ -36,24 +36,25 @@
     - Textures
     - Floor & Ceilling color
   - Fill all the empty space by a ``1`` to fix the map shape and avoid issue for wall creation.
-  - [x] Add a minimap:
-    - Draw a minimap to the window (Wall, Ground, Empty space, Door && player) (BONUS)
-    - Add player move && update position within the minimap scale
-    - Create wall collision detection (BONUS)
-    - Catch Horizontal && Vertical rays from player position with [raycasting](https://en.wikipedia.org/wiki/Ray_casting) concept
-        - Detect wall and save the shortest distance from the player position
-   - [x] Draw 3D World:
-    - Scale up the rays peviously catch and draw wall
-    - Add side wall detection regarding player angle (N,S,E,W)
-    - Draw floor && ceilling
-    - Fix fisheye effect
-   - [x] Display sprites:
-    - Put sprites to wall pixel by pixel
-   - [x] Player interaction (BONUS):
-    - Open/close door
-    - Use weapon
-    - Minimap
-    - Mouse movement
+- [x] Use a minimap as reference:
+  - Draw a minimap to the window (Wall, Ground, Empty space, Door && player) (BONUS)
+  - Add player move && update position within the minimap scale
+  - Catch Horizontal && Vertical rays from player position with [raycasting](https://en.wikipedia.org/wiki/Ray_casting) concept
+  - Detect wall and save the shortest distance from the player position
+  - Create wall collision detection (BONUS)
+- [x] Draw 3D World:
+  - Scale up the rays peviously catch and draw wall
+  - Add side wall detection regarding player angle (N,S,E,W)
+  - Draw floor && ceilling
+  - Fix fisheye effect
+- [x] Display sprites:
+  - Put sprites to wall pixel by pixel
+- [x] Player interaction (BONUS):
+  - Open/close door
+  - Use weapon
+  - Minimap
+  - Mouse movement
+  - Collision
   
   ## Ressources
   - [3DSage](https://www.youtube.com/c/3DSage/featured)
