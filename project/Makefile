@@ -11,7 +11,9 @@ RESET	= \033[0m
 SRCS_DIR	= ./src/
 SRCS_FILES	=  main.c
 SRCS_FILES	+= 	key_actions.c \
+				info.c \
 				move.c \
+				move_2.c \
 				mouse.c \
 				pars_check.c \
 				pars_utils.c \
@@ -38,6 +40,7 @@ SRCS_FILES	+= 	key_actions.c \
 				animation.c \
 				weapon.c \
 				audio.c \
+				action.c \
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 

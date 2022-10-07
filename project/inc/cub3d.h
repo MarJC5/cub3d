@@ -29,11 +29,25 @@
 # define ERR_NAME 5
 # define ERR_UNCLOSED 6
 
+# define ORANGE 0xfeca57
+# define FRONT_WALL 0x43424a
+# define SIDE_WALL 0x1f1e23
+
+# define WHITE 0xffffff
+# define BLACK 0x1f1e23
+# define GREY 0x8b8b8b
+# define BROWN 0x73493c
+# define RED 0x871a1a
+# define YELLOW 0xdcac6c
+# define GREEN 0x6a9254
+# define BLUE 0x524ba3
+
 # define WIN_NAME "cub3D"
 # define WIN_WIDTH 1080
 # define WIN_HEIGHT 720
 
 # define FRAME_TIME 50.0
+
 # define SOUND_CUT 0
 # define SOUND_SHOT 1
 # define SOUND_THEME 2
@@ -59,19 +73,6 @@
 
 # define DR 0.0174533
 # define PI 3.1415926535
-
-# define ORANGE 0xfeca57
-# define FRONT_WALL 0x43424a
-# define SIDE_WALL 0x1f1e23
-
-# define WHITE 0xffffff
-# define BLACK 0x1f1e23
-# define GREY 0x8b8b8b
-# define BROWN 0x73493c
-# define RED 0x871a1a
-# define YELLOW 0xdcac6c
-# define GREEN 0x6a9254
-# define BLUE 0x524ba3
 
 # include "key_macos.h"
 # include "libft.h"
@@ -203,10 +204,10 @@ typedef struct s_rays
 	float	atan;
 	float	ntan;
 	int		text;
-	int 	oldy;
-	int 	oldx;
-	int 	voldy;
-	int 	voldx;
+	int		oldy;
+	int		oldx;
+	int		voldy;
+	int		voldx;
 	int		rettest;
 }	t_rays;
 
@@ -245,6 +246,8 @@ typedef struct s_screen
 	void		*mlx;
 	void		*win;
 	int			toggle_minimap;
+	int			toggle_audio;
+	int			toggle_mouse;
 	int			oldx;
 	double		time;
 	double		oldtime;
@@ -347,11 +350,13 @@ int		mouse_event(int x, int y, t_game *game);
 int		key_event(int key, t_game *game);
 int		esc_win(t_game *game);
 
+void	toggle_audio(t_game *game);
+void	toggle_mouse_visibility(t_game *game);
+void	open_door(t_game *game);
 void	move_left(t_game *game);
 void	move_right(t_game *game);
 void	move_up(t_game *game);
 void	move_down(t_game *game);
-void	open_door(t_game *game);
 void	move_fleft(t_game *game);
 void	move_fright(t_game *game);
 
@@ -413,6 +418,8 @@ void	free_stuff(char *tofree);
  */
 int		check_map(t_game *game);
 
+void	draw_board(t_img *img);
+
 /**
  * @brief
  * Collision
@@ -442,11 +449,12 @@ int		weapon_action(t_game *game, int i);
 int		weapon_change(t_game *game);
 int		weapon_use(t_game *game);
 
+void	print_info(t_game *game);
 /**
  * @brief
  * Audio
  */
-void	play_sounds(int sound_id);
+void	play_sounds(t_game *game, int sound_id);
 void	sound_kill(void);
 void	menu_sound(void);
 

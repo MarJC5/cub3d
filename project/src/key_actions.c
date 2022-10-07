@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_actions.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:18:29 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 16:59:25 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/07 11:13:53 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ static void	key_check(int key, t_game *game)
 		weapon_change(game);
 	if (key == K_MAC_F || key == 102)
 		weapon_use(game);
+	if (key == K_MAC_P)
+		toggle_mouse_visibility(game);
+	if (key == K_MAC_V)
+		toggle_audio(game);
 }
 
 int	key_event(int key, t_game *game)
@@ -61,9 +65,12 @@ int	key_event(int key, t_game *game)
 	fps(game);
 	if (key == K_MAC_SP || key == 32)
 	{
-		sound_kill();
+		if (game->is_started == 0)
+		{
+			sound_kill();
+			play_sounds(game, SOUND_THEME);
+		}
 		game->is_started = 1;
-		play_sounds(SOUND_THEME);
 	}
 	if (key == K_MAC_ESCAPE || key == 65307)
 		esc_win(game);
