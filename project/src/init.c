@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:49 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/07 11:37:51 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/07 12:57:42 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	init_screen(t_game *game)
 	init_weapon_pistole(game);
 	init_view(game);
 	mlx_hook(game->screen.win, 2, 1L << 0, key_event, game);
-	//mlx_hook(game->screen.win, 6, 1L << 0, mouse_event, game);
+	mlx_hook(game->screen.win, 6, 1L << 0, mouse_event, game);
 	mlx_hook(game->screen.win, 17, 0L << 0, esc_win, game);
 	mlx_loop(game->screen.mlx);
 }

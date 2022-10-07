@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:05:36 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/07 12:02:09 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/07 12:56:45 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ void	toggle_mouse_visibility(t_game *game)
 int	mouse_event(int x, int y, t_game *game)
 {
 	(void) y;
-	(void)game;
-	/*if (x < game->screen.oldx && x > 0)
+	if (x < game->screen.oldx && x > 0)
 	{
 		game->screen.oldx = x;
 		move_left(game);
