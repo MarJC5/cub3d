@@ -64,6 +64,7 @@
 - on/off sound: ``v``
 - Show/hide minimap: ``m``
 - Show/hide weapon: ``k``
+    - Use weapon: ``f``
 
 ## Run the project
 
