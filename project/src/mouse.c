@@ -29,7 +29,8 @@ void	toggle_mouse_visibility(t_game *game)
 int	mouse_event(int x, int y, t_game *game)
 {
 	(void) y;
-	if (x < game->screen.oldx && x > 0)
+	(void)game;
+	/*if (x < game->screen.oldx && x > 0)
 	{
 		game->screen.oldx = x;
 		move_left(game);

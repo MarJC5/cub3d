@@ -105,7 +105,7 @@ void	init_screen(t_game *game)
 	init_weapon_pistole(game);
 	init_view(game);
 	mlx_hook(game->screen.win, 2, 1L << 0, key_event, game);
-	mlx_hook(game->screen.win, 6, 1L << 0, mouse_event, game);
+	//mlx_hook(game->screen.win, 6, 1L << 0, mouse_event, game);
 	mlx_hook(game->screen.win, 17, 0L << 0, esc_win, game);
 	mlx_loop(game->screen.mlx);
 }
