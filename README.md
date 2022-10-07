@@ -2,7 +2,7 @@
     <img alt="42Lausanne" title="42Lausanne" src="https://github.com/MarJC5/42/blob/main/42_logo.svg" width="140"> </br>
     Project n°9 - cub3d
     <h4 align="center" style="width: 50%; margin: 2rem auto; font-weight: normal; text-align: center"> 
-     This project is inspired by the world-famous eponymous 90's game, which was the first FPS ever. It will enable you to explore ray-casting. Your goal will be to make a dynamic view inside a maze, in which you'll have to find your way. 
+     This project is inspired by the world-famous eponymous 90's game, which was the first FPS ever. It will enable you to explore ray-casting. Your goal will be to make a dynamic view inside a maze, in which you'll have to find your way.
     </h4>
 </h1>
 
@@ -10,7 +10,7 @@
   <p align="center">
     <img src="./doc/img/screenshot.png" alt="sprites: https://little-martian.itch.io/ - @little-martian"/>
   </p`>
-  <p align="center">sprites: https://little-martian.itch.io/retro-texture-pack/p>
+  <p align="center">sprites: https://little-martian.itch.io/retro-texture-pack</p>
 </a>
 
 ## Goals
@@ -42,16 +42,18 @@
     - Create wall collision detection (BONUS)
     - Catch Horizontal && Vertical rays from player position with [raycasting](https://en.wikipedia.org/wiki/Ray_casting) concept
         - Detect wall and save the shortest distance from the player position
-   - [ ] Draw 3D World:
+   - [x] Draw 3D World:
     - Scale up the rays peviously catch and draw wall
     - Add side wall detection regarding player angle (N,S,E,W)
     - Draw floor && ceilling
     - Fix fisheye effect
-   - [ ] Display sprites:
+   - [x] Display sprites:
     - Put sprites to wall pixel by pixel
-   - [ ] Player interaction (BONUS):
-    - Open door
+   - [x] Player interaction (BONUS):
+    - Open/close door
     - Use weapon
+    - Minimap
+    - Mouse movement
   
   ## Ressources
   - [3DSage](https://www.youtube.com/c/3DSage/featured)
