@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:37 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 06:53:19 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/08 09:58:40 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,7 @@ void	free_map(t_game *game)
 void	sound_kill(void)
 {
 	const char	*command;
-	int			res;
 
 	command = "pkill afplay";
-	res = system(command);
-	res += 0;
+	system(command);
 }
