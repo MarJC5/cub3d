@@ -70,7 +70,7 @@
 
 ```bash
 git clone https://github.com/MarJC5/cub3d
-cd cub3d
+cd cub3d/project
 make run
 ```
 
