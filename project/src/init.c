@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:49 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/07 18:51:13 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/11 12:16:00 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	init_map(t_game *game, char *file)
 {
 	if (check_map_name(game, file) == SUCCESS)
 	{
-		if (save_map_textures(game, -1, 0,
+		if (save_map_textures(game, -1, -1,
 				get_next_line(game->map->fd)) == SUCCESS)
 		{
 			if (save_map(game, NULL,

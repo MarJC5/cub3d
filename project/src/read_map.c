@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:28 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/06 16:47:06 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/11 12:27:48 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,29 @@ int	save_map(t_game *game, char *save, char *line, int y)
 	return (printinvalid(check_map_char(game->map->map)));
 }
 
+static void	save_textures_check_color(t_game *game, int g, int len, char *line)
+{
+	game->map->temp = ft_substr(line, 0, len);
+	if (game->map->temp[0] == 'F' && g <= 5)
+	{
+		game->map->identifier[g] = ft_strdup(game->map->temp);
+		game->map->colors[0] = ft_strdup(ft_strchr(line, ' ') + 1);
+	}
+	else if (game->map->temp[0] == 'C' && g <= 5)
+	{
+		game->map->identifier[g] = ft_strdup(game->map->temp);
+		game->map->colors[1] = ft_strdup(ft_strchr(line, ' ') + 1);
+	}
+	free(game->map->temp);
+}
+
+static void	save_textures_check_img(t_game *game, char *line, int j)
+{
+	game->map->assets[j] = ft_strdup(ft_strchr(line, ' ') + 1);
+	game->map->assets[j]
+	[ft_strlen(game->map->assets[j]) - 1] = '\0';
+}
+
 int	save_map_textures(t_game *game, int i, int j, char *line)
 {
 	size_t	len;
@@ -42,7 +65,7 @@ int	save_map_textures(t_game *game, int i, int j, char *line)
 	int		g;
 
 	k = 0;
-	g = 4;
+	g = 3;
 	while (++i < 6)
 	{
 		whilebn(game, &line);
@@ -54,26 +77,10 @@ int	save_map_textures(t_game *game, int i, int j, char *line)
 			if (len >= 2)
 			{
 				game->map->identifier[k++] = ft_substr(line, 0, len);
-				printf("j : %d\n", j);
-				game->map->assets[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
-				game->map->assets[j - 1]
-				[strlen(game->map->assets[j - 1]) - 1] = '\0';
+				save_textures_check_img(game, line, ++j);
 			}
 			else
-			{
-				game->map->temp = ft_substr(line, 0, len);
-				if (game->map->temp[0] == 'F' && g <= 5)
-				{
-					game->map->identifier[g++] = ft_strdup(game->map->temp);
-					game->map->colors[0] = ft_strdup(ft_strchr(line, ' ') + 1);
-				}
-				else if (game->map->temp[0] == 'C' && g <= 5)
-				{
-					game->map->identifier[g++] = ft_strdup(game->map->temp);
-					game->map->colors[1] = ft_strdup(ft_strchr(line, ' ') + 1);
-				}
-				free(game->map->temp);
-			}
+				save_textures_check_color(game, ++g, len, line);
 		}
 		free_new_read(game, &line, i);
 	}

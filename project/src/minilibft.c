@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:06 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/06 10:04:31 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/11 12:05:50 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	ret_doublon(char *j, int count)
 	i = 0;
 	while (i < count)
 	{
-		printf("%c\n", j[i]);
 		if (j[i] != '1')
 		{
 			free(j);
