@@ -105,7 +105,7 @@ ${O_DIR}:
 	@${MKDIR} ${O_DIR}
 
 #Compile normals objects
-${O_DIR}%.o: ${SRCS_DIR}%.c
+${O_DIR}%.o: ${SRCS_DIR}%.c inc/cub3d.h
 	@${CC} ${CFLAGS} ${HEADS} -o $@ -c $<
 
 #Compile libft
@@ -134,8 +134,8 @@ debug: ${D_DIR} ${DEBUGS}
 ${D_DIR}:
 	${MKDIR} ${D_DIR}
 
-#Compile debug objects
-${D_DIR}%.o: ${SRCS_DIR}%.c
+#Compile debug objects 
+${D_DIR}%.o: ${SRCS_DIR}%.c inc/cub3d.h
 	@${CC} ${CFLAGS} -g ${HEADS} -o $@ -c $<
 
 clean:
@@ -158,7 +158,7 @@ fclean:	clean
 	@echo "[\033[1;32msuccess$(RESET)]: $(NAME) has been clean up"
 
 leaks:
-	leaks -atExit -- ./$(NAME) ./maps/face.cub
+	leaks -atExit -- ./$(NAME) ./maps/demo.cub
 
 maze: all
 	@${RM} -r ./maps/maze.cub
