@@ -41,7 +41,7 @@ SRCS_FILES	+= 	key_actions.c \
 				animation.c \
 				weapon.c \
 				audio.c \
-				action.c \
+				action.c
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 
@@ -143,6 +143,7 @@ clean:
 	@${RM} -r ${O_DIR}
 	@${RM} -r ${D_DIR}
 	@${MAKELIB} clean
+	@${MAKELIBX} clean
 	@echo "[$(ORANGE)libft$(RESET)] clean *.o files : $(GREEN)OK$(RESET)"
 	@echo "[$(ORANGE)$(NAME)$(RESET)] clean *.o files : $(GREEN)OK$(RESET)"
 
@@ -150,13 +151,14 @@ fclean:	clean
 	@${RM} ${NAME}
 	@${RM} -r ${NAME}.dSYM
 	@${MAKELIB} fclean
+	@${MAKELIBX} clean
 	@${RM} -r ${NAME}.dSYM
 	@echo "[$(ORANGE)libft$(RESET)] fclean : $(GREEN)OK$(RESET)"
 	@echo "[$(ORANGE)$(NAME)$(RESET)] fclean: $(GREEN)OK$(RESET)"
 	@echo "[\033[1;32msuccess$(RESET)]: $(NAME) has been clean up"
 
 leaks:
-	leaks -atExit -- ./$(NAME) ./maps/lab.cub
+	leaks -atExit -- ./$(NAME) ./maps/face.cub
 
 maze: all
 	@${RM} -r ./maps/maze.cub

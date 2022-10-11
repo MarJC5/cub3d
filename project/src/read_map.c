@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:28 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/11 15:05:15 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/11 17:38:32 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	save_textures_check_color(t_game *game, int g, int len, char *line)
 		game->map->colors[1] = ft_strdup(ft_strchr(line, ' ') + 1);
 		game->c = chartohex(game->map->colors[1], 0);
 	}
-	free(game->map->temp);
+	free_stuff(game->map->temp);
 }
 
 static int	save_textures_check_img(t_game *game, char *line, int j)
@@ -63,10 +63,14 @@ static int	save_textures_check_img(t_game *game, char *line, int j)
 	while (split[i])
 		i++;
 	if (i > 2)
+	{
+		ft_free_multitab(split);
 		return (1);
+	}
 	game->map->assets[j] = ft_strdup(ft_strchr(line, ' ') + 1);
 	game->map->assets[j]
 	[ft_strlen(game->map->assets[j]) - 1] = '\0';
+	ft_free_multitab(split);
 	return (0);
 }
 
@@ -82,7 +86,7 @@ int	save_map_textures(t_game *game, int i, int j, char *line)
 		if (ft_strcmp(line, "\n") != 0)
 		{
 			if (ft_strchr(line, ' ') == NULL || game->s == 1 || game->c == 1)
-				return (printinvalid(ERR_TEXT));
+				return (free_error(game, &line, 0));
 			len = ft_strlen(line) - ft_strlen(ft_strchr(line, ' '));
 			if (len >= 2)
 			{
@@ -96,7 +100,7 @@ int	save_map_textures(t_game *game, int i, int j, char *line)
 	}
 	if (game->s == 1 || game->c == 1)
 		return (printinvalid(ERR_TEXT));
-	return (printinvalid(check_map_textures(game->map->identifier, 0)));
+	return (printinvalid(check_map_textures(game->map->identifier, 0, NULL)));
 }
 
 void	save_map_scene(t_game *game, int i, int j, int k)

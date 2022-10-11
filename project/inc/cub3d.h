@@ -340,9 +340,11 @@ int		check_fd(t_game *game);
  * @brief
  * Parsing
  */
+int		free_hex(char **tab);
+int		free_error(t_game *game, char **line, int i);
 int		printerr(char *err);
 int		setup_scene_arr(t_game *game);
-int		check_map_textures(char **identifier, int i);
+int		check_map_textures(char **identifier, int i, char *j);
 int		check_map_char(char *map);
 int		check_map_name(t_game *game, char *file);
 int		save_map(t_game *game, char *save, char *line, int y);

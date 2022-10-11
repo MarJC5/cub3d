@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:15 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/11 15:37:38 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/11 16:49:59 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,8 @@ int	check_map_char(char *map)
 	return (SUCCESS);
 }
 
-int	check_map_textures(char **identifier, int i)
+int	check_map_textures(char **identifier, int i, char *j)
 {
-	char	*j;
-
 	j = ft_calloc(6, sizeof(char));
 	while (i < 6)
 		j[i++] = '0';
@@ -111,7 +109,10 @@ int	check_map_textures(char **identifier, int i)
 		else if (ft_strcmp(identifier[i], "C") == 0)
 			j[5]++;
 		else
+		{
+			free_stuff(j);
 			return (ERR_PRESET);
+		}
 	}
 	return (ret_doublon(j, 6));
 }

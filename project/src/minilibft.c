@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:06 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/11 15:30:08 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/11 17:44:53 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	chartohex(char *tab, int opacity)
 	split = ft_split(tab, ',');
 	while (split[i])
 		i++;
-	if (i > 3)
+	if (i > 3 || ft_strchr(tab, ' ') != NULL)
 	{
 		ft_free_multitab(split);
 		return (FAILURE);
@@ -61,8 +61,8 @@ int	chartohex(char *tab, int opacity)
 	i = -1;
 	while (split[++i])
 	{
-		if (ft_atoi(split[i]) > 255)
-			return (FAILURE);
+		if (ft_atoi(split[i]) < 0 || ft_atoi(split[i]) > 255)
+			return (free_hex(split));
 	}
 	hexret = encode_rgb(opacity,
 			ft_atoi(split[0]),
@@ -81,11 +81,11 @@ int	ret_doublon(char *j, int count)
 	{
 		if (j[i] != '1')
 		{
-			free(j);
+			free_stuff(j);
 			return (ERR_PRESET);
 		}
 		i++;
 	}
-	free(j);
+	free_stuff(j);
 	return (SUCCESS);
 }
