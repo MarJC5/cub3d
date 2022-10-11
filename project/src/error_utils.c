@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:31 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/11 14:28:48 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/11 15:35:26 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ int	printinvalid(int errno)
 		printerr(MAP_CHAR);
 	if (errno == ERR_PLAYER)
 		printerr(WRONG_PLAY);
+	if (errno == ERR_FD)
+		printerr(WRONG_FILE);
 	return (errno);
 }

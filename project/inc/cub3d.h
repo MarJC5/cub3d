@@ -18,6 +18,7 @@
 # define WRONG_PLAY "Wrong SPAWNER POSTION in map."
 # define WRONG_PRESET "Wrong identifier."
 # define WRONG_MAP "Map is not enclosed by 1."
+# define WRONG_FILE "Wrong asset path"
 # define WRONG_NAME "Wrong map name, please give a *.cub file"
 # define MAP_UNCLOSED "The map is not closed by the char '1'"
 # define MAP_CHAR "The texture/color of the map is false"
@@ -25,13 +26,14 @@
 # define SUCCESS 0
 # define FAILURE 1
 
-# define ERR_PLAYER 8
 # define ERR_PRESET 2
 # define ERR_CHAR 3
 # define ERR_MAP 4
 # define ERR_NAME 5
 # define ERR_UNCLOSED 6
 # define ERR_TEXT 7
+# define ERR_PLAYER 8
+# define ERR_FD 9
 
 # define ORANGE 0xfeca57
 # define FRONT_WALL 0x43424a
@@ -269,7 +271,6 @@ typedef struct s_map
 	int		x;
 	int		y;
 	int		size;
-	int		s;
 	int		map_x;
 	int		map_y;
 	char	*temp;
@@ -312,6 +313,8 @@ typedef struct s_text
 typedef struct s_game
 {
 	int			is_started;
+	int			s;
+	int			c;
 	t_screen	screen;
 	t_player	*player;
 	t_map		*map;
@@ -328,7 +331,9 @@ void	init_ascii(t_art art);
 void	init_screen(t_game *game);
 void	init_view(t_game *game);
 void	init_default(t_game *game);
+void	spawn_cheker(t_game *game, int i, int j);
 int		init_map(t_game *game, char *file);
+int		check_fd(t_game *game);
 
 /**
  * @brief

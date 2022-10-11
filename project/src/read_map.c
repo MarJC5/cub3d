@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:28 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/11 12:27:48 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/11 15:05:15 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ static void	save_textures_check_color(t_game *game, int g, int len, char *line)
 	{
 		game->map->identifier[g] = ft_strdup(game->map->temp);
 		game->map->colors[0] = ft_strdup(ft_strchr(line, ' ') + 1);
+		game->c = chartohex(game->map->colors[0], 0);
 	}
 	else if (game->map->temp[0] == 'C' && g <= 5)
 	{
 		game->map->identifier[g] = ft_strdup(game->map->temp);
 		game->map->colors[1] = ft_strdup(ft_strchr(line, ' ') + 1);
+		game->c = chartohex(game->map->colors[1], 0);
 	}
 	free(game->map->temp);
 }
@@ -81,13 +83,13 @@ int	save_map_textures(t_game *game, int i, int j, char *line)
 		whilebn(game, &line);
 		if (ft_strcmp(line, "\n") != 0)
 		{
-			if (ft_strchr(line, ' ') == NULL || game->map->s == 1)
+			if (ft_strchr(line, ' ') == NULL || game->s == 1 || game->c == 1)
 				return (printinvalid(ERR_TEXT));
 			len = ft_strlen(line) - ft_strlen(ft_strchr(line, ' '));
 			if (len >= 2)
 			{
 				game->map->identifier[k++] = ft_substr(line, 0, len);
-				game->map->s = save_textures_check_img(game, line, ++j);
+				game->s = save_textures_check_img(game, line, ++j);
 			}
 			else
 				save_textures_check_color(game, ++g, len, line);

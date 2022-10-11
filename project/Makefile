@@ -31,6 +31,7 @@ SRCS_FILES	+= 	key_actions.c \
 				render.c \
 				check_map.c \
 				init.c \
+				init_utils.c \
 				collision.c \
 				utils.c \
 				pixel_art.c \

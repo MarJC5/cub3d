@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:15 by jmartin           #+#    #+#             */
-/*   Updated: 2022/09/15 16:36:55 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/11 15:37:38 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,9 @@ float	init_player_angle(char angle)
 	return (0);
 }
 
-void	spawn_cheker(t_game *game, int i, int j)
-{
-	game->player->save += 1;
-	game->map->scene[i][j] = '0';
-}
-
 void	check_player_pos(t_game *game, int i, int j)
 {
-	while (i < game->map->y)
+	while (++i < game->map->y)
 	{
 		j = -1;
 		while (++j < game->map->x)
@@ -62,12 +56,12 @@ void	check_player_pos(t_game *game, int i, int j)
 				game->player->delta_y = sin(game->player->angle) * SPEED;
 				game->player->delta_xm = cos(game->player->angle) * (SPEED / 2);
 				game->player->delta_ym = sin(game->player->angle) * (SPEED / 2);
-				game->player->is_ready = 1;
 				spawn_cheker(game, i, j);
 			}
 		}
-		i++;
 	}
+	if (game->player->save == 0)
+		printinvalid(ERR_PLAYER);
 }
 
 int	check_map_char(char *map)

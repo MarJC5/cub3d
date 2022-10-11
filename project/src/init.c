@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:49 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/11 14:50:55 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/11 15:36:56 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,9 @@ int	init_map(t_game *game, char *file)
 					get_next_line(game->map->fd), 0) == SUCCESS)
 			{
 				save_map_scene(game, 0, 0, 0);
-				check_player_pos(game, 0, -1);
-				if (game->player->save != 1)
-				{
-					printinvalid(ERR_PLAYER);
+				check_player_pos(game, -1, -1);
+				if (game->player->save != 1 || check_fd(game) == 1)
 					return (FAILURE);
-				}
 				if (printinvalid(check_map(game)) == ERR_UNCLOSED)
 					return (FAILURE);
 				print_map_details(game);
@@ -71,8 +68,8 @@ void	init_default(t_game *game)
 	game->player = malloc(sizeof(t_player));
 	if (!game->player)
 		exit(EXIT_FAILURE);
-	game->player->save = 0;
-	game->player->is_ready = 0;
+	game->s = 0;
+	game->c = 0;
 	game->player->weapon.current = 1;
 	game->player->weapon.frame = 0;
 	game->player->weapon.has_weapon = 0;
