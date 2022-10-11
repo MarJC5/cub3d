@@ -19,6 +19,7 @@
 # define WRONG_MAP "Map is not enclosed by 1."
 # define WRONG_NAME "Wrong map name, please give a *.cub file"
 # define MAP_UNCLOSED "The map is not closed by the char '1'"
+# define MAP_CHAR "The texture/color of the map is false"
 
 # define SUCCESS 0
 # define FAILURE 1
@@ -28,6 +29,7 @@
 # define ERR_MAP 4
 # define ERR_NAME 5
 # define ERR_UNCLOSED 6
+# define ERR_TEXT 7
 
 # define ORANGE 0xfeca57
 # define FRONT_WALL 0x43424a
@@ -265,6 +267,7 @@ typedef struct s_map
 	int		size;
 	int		map_x;
 	int		map_y;
+	char	*temp;
 	char	*map;
 	char	**identifier;
 	char	**colors;
@@ -328,7 +331,7 @@ int		init_map(t_game *game, char *file);
  */
 
 int		setup_scene_arr(t_game *game);
-int		check_map_textures(char **identifier);
+int		check_map_textures(char **identifier, int i);
 int		check_map_char(char *map);
 int		check_map_name(t_game *game, char *file);
 int		save_map(t_game *game, char *save, char *line, int y);
@@ -379,6 +382,7 @@ float	degtorad(float ang);
 float	dist(t_player *player, t_rays *rays);
 
 void	reset_angle(t_rays *ray);
+int		ret_doublon(char *j, int count);
 
 /**
  * @brief

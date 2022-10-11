@@ -59,3 +59,22 @@ int	chartohex(char *tab, int opacity)
 	free(split);
 	return (hexret);
 }
+
+int	ret_doublon(char *j, int count)
+{
+	int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		printf("%c\n", j[i]);
+		if (j[i] != '1')
+		{
+			free(j);
+			return (ERR_PRESET);
+		}
+		i++;
+	}
+	free(j);
+	return (SUCCESS);
+}

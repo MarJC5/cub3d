@@ -56,8 +56,6 @@ void	ft_free_multitab_void(void **tab)
 void	free_map(t_game *game)
 {
 	ft_free_multitab_void(game->text.img);
-	ft_free_multitab_void(game->player->weapon.knife);
-	ft_free_multitab_void(game->player->weapon.pistol);
 	ft_free_multitab(game->map->assets);
 	ft_free_multitab(game->map->colors);
 	ft_free_multitab(game->map->identifier);

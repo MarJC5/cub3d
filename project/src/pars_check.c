@@ -88,16 +88,30 @@ int	check_map_char(char *map)
 	return (SUCCESS);
 }
 
-int	check_map_textures(char **identifier)
+int	check_map_textures(char **identifier, int i)
 {
-	(void)identifier;
-	/*if (ft_strcmp(identifier[0], "NO") == 0
-		&& ft_strcmp(identifier[1], "SO") == 0
-		&& ft_strcmp(identifier[2], "WE") == 0
-		&& ft_strcmp(identifier[3], "EA") == 0
-		&& ft_strcmp(identifier[4], "F") == 0
-		&& ft_strcmp(identifier[5], "C") == 0)
-		return (SUCCESS);
-	return (ERR_PRESET);*/
-	return (SUCCESS);
+	char	*j;
+
+	j = ft_calloc(6, sizeof(char));
+	while (i < 6)
+		j[i++] = '0';
+	i = -1;
+	while (identifier[++i])
+	{
+		if (ft_strcmp(identifier[i], "NO") == 0)
+			j[0]++;
+		else if (ft_strcmp(identifier[i], "SO") == 0)
+			j[1]++;
+		else if (ft_strcmp(identifier[i], "WE") == 0)
+			j[2]++;
+		else if (ft_strcmp(identifier[i], "EA") == 0)
+			j[3]++;
+		else if (ft_strcmp(identifier[i], "F") == 0)
+			j[4]++;
+		else if (ft_strcmp(identifier[i], "C") == 0)
+			j[5]++;
+		else
+			return (ERR_PRESET);
+	}
+	return (ret_doublon(j, 6));
 }

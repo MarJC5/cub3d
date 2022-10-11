@@ -39,29 +39,45 @@ int	save_map_textures(t_game *game, int i, int j, char *line)
 {
 	size_t	len;
 	int		k;
+	int		g;
 
 	k = 0;
+	g = 4;
 	while (++i < 6)
 	{
 		whilebn(game, &line);
-		if (ft_strcmp(line, "\n") != 0 && i < 4)
+		if (ft_strcmp(line, "\n") != 0)
 		{
+			if (ft_strchr(line, ' ') == NULL)
+				return (printinvalid(ERR_TEXT));
 			len = ft_strlen(line) - ft_strlen(ft_strchr(line, ' '));
-			game->map->identifier[k++] = ft_substr(line, 0, len);
-			game->map->assets[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
-			game->map->assets[j - 1]
-			[strlen(game->map->assets[j - 1]) - 1] = '\0';
-			j = ligne_gain(i, j);
-		}
-		if (ft_strcmp(line, "\n") != 0 && i >= 4)
-		{
-			len = ft_strlen(line) - ft_strlen(ft_strchr(line, ' '));
-			game->map->identifier[k++] = ft_substr(line, 0, len);
-			game->map->colors[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
+			if (len >= 2)
+			{
+				game->map->identifier[k++] = ft_substr(line, 0, len);
+				printf("j : %d\n", j);
+				game->map->assets[j++] = ft_strdup(ft_strchr(line, ' ') + 1);
+				game->map->assets[j - 1]
+				[strlen(game->map->assets[j - 1]) - 1] = '\0';
+			}
+			else
+			{
+				game->map->temp = ft_substr(line, 0, len);
+				if (game->map->temp[0] == 'F' && g <= 5)
+				{
+					game->map->identifier[g++] = ft_strdup(game->map->temp);
+					game->map->colors[0] = ft_strdup(ft_strchr(line, ' ') + 1);
+				}
+				else if (game->map->temp[0] == 'C' && g <= 5)
+				{
+					game->map->identifier[g++] = ft_strdup(game->map->temp);
+					game->map->colors[1] = ft_strdup(ft_strchr(line, ' ') + 1);
+				}
+				free(game->map->temp);
+			}
 		}
 		free_new_read(game, &line, i);
 	}
-	return (printinvalid(check_map_textures(game->map->identifier)));
+	return (printinvalid(check_map_textures(game->map->identifier, 0)));
 }
 
 void	save_map_scene(t_game *game, int i, int j, int k)

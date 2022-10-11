@@ -40,6 +40,7 @@ int	collision_left(t_game *game)
 	float	dir;
 	float	delta_x;
 	float	delta_y;
+
 	dir = game->player->angle + degtorad(90);
 	delta_x = cos(dir) * SPEED;
 	delta_y = sin(dir) * SPEED;

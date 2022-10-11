@@ -62,6 +62,7 @@ void	init_default(t_game *game)
 	game->map->y = -1;
 	game->text.x = 0;
 	game->text.y = 0;
+	game->text.img = NULL;
 	game->player = malloc(sizeof(t_player));
 	if (!game->player)
 		exit(EXIT_FAILURE);

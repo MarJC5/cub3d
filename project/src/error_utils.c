@@ -20,6 +20,8 @@ static int	printerr(char *err)
 
 int	printinvalid(int errno)
 {
+	if (errno > SUCCESS)
+		printerr(ERROR);
 	if (errno == ERR_PRESET)
 		printerr(WRONG_PRESET);
 	if (errno == ERR_CHAR)
@@ -30,7 +32,7 @@ int	printinvalid(int errno)
 		printerr(WRONG_NAME);
 	if (errno == ERR_UNCLOSED)
 		printerr(MAP_UNCLOSED);
-	if (errno > SUCCESS)
-		printerr(ERROR);
+	if (errno == ERR_TEXT)
+		printerr(MAP_CHAR);
 	return (errno);
 }

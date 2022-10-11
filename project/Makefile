@@ -127,7 +127,7 @@ debug: ${D_DIR} ${DEBUGS}
 	@${MAKELIB} all
 	@${MAKELIBX} all
 	@${CC} ${CFLAGS} -fsanitize=address -o ${NAME} ${DEBUGS} ${LIBS}
-	@./$(NAME) ./maps/lab.cub
+	@./$(NAME) ./maps/demo.cub
 
 #Create debug directory
 ${D_DIR}:
