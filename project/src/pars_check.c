@@ -25,19 +25,25 @@ int	check_map_name(t_game *game, char *file)
 float	init_player_angle(char angle)
 {
 	if (angle == 'N')
-		return (degtorad(270));
+		return (degtorad(270.1));
 	if (angle == 'E')
-		return (degtorad(360));
+		return (degtorad(360.1));
 	if (angle == 'S')
 		return (degtorad(90.1));
 	if (angle == 'W')
-		return (degtorad(180));
+		return (degtorad(180.1));
 	return (0);
+}
+
+void	spawn_cheker(t_game *game, int i, int j)
+{
+	game->player->save += 1;
+	game->map->scene[i][j] = '0';
 }
 
 void	check_player_pos(t_game *game, int i, int j)
 {
-	while (i < game->map->y && game->player->is_ready == 0)
+	while (i < game->map->y)
 	{
 		j = -1;
 		while (++j < game->map->x)
@@ -57,7 +63,7 @@ void	check_player_pos(t_game *game, int i, int j)
 				game->player->delta_xm = cos(game->player->angle) * (SPEED / 2);
 				game->player->delta_ym = sin(game->player->angle) * (SPEED / 2);
 				game->player->is_ready = 1;
-				break ;
+				spawn_cheker(game, i, j);
 			}
 		}
 		i++;
