@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:15 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/11 16:49:59 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/11 21:09:39 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	check_map_name(t_game *game, char *file)
 {
+	if (ft_strrchr(file, '.') == NULL)
+		return (printinvalid(ERR_NAME));
 	if (ft_strcmp(ft_strrchr(file, '.'), ".cub") != 0)
 		return (printinvalid(ERR_NAME));
 	game->map->fd = open(file, O_RDONLY);
