@@ -15,6 +15,7 @@
 
 # define ERROR "Error"
 # define WRONG_CHAR "Wrong characters in map."
+# define WRONG_PLAY "Wrong SPAWNER POSTION in map."
 # define WRONG_PRESET "Wrong identifier."
 # define WRONG_MAP "Map is not enclosed by 1."
 # define WRONG_NAME "Wrong map name, please give a *.cub file"
@@ -24,6 +25,7 @@
 # define SUCCESS 0
 # define FAILURE 1
 
+# define ERR_PLAYER 8
 # define ERR_PRESET 2
 # define ERR_CHAR 3
 # define ERR_MAP 4
@@ -229,6 +231,7 @@ typedef struct s_player
 {
 	int			is_ready;
 	int			pos;
+	int			save;
 	char		skin;
 	float		dir;
 	float		angle;
@@ -266,6 +269,7 @@ typedef struct s_map
 	int		x;
 	int		y;
 	int		size;
+	int		s;
 	int		map_x;
 	int		map_y;
 	char	*temp;

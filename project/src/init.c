@@ -33,9 +33,14 @@ int	init_map(t_game *game, char *file)
 					get_next_line(game->map->fd), 0) == SUCCESS)
 			{
 				save_map_scene(game, 0, 0, 0);
+				check_player_pos(game, 0, -1);
+				if (game->player->save != 1)
+				{
+					printinvalid(ERR_PLAYER);
+					return (FAILURE);
+				}
 				if (printinvalid(check_map(game)) == ERR_UNCLOSED)
 					return (FAILURE);
-				check_player_pos(game, 0, -1);
 				print_map_details(game);
 				init_screen(game);
 				return (SUCCESS);
@@ -66,6 +71,7 @@ void	init_default(t_game *game)
 	game->player = malloc(sizeof(t_player));
 	if (!game->player)
 		exit(EXIT_FAILURE);
+	game->player->save = 0;
 	game->player->is_ready = 0;
 	game->player->weapon.current = 1;
 	game->player->weapon.frame = 0;
