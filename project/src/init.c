@@ -70,6 +70,7 @@ void	init_default(t_game *game)
 		exit(EXIT_FAILURE);
 	game->s = 0;
 	game->c = 0;
+	game->k = 0;
 	game->player->weapon.current = 1;
 	game->player->weapon.frame = 0;
 	game->player->weapon.has_weapon = 0;

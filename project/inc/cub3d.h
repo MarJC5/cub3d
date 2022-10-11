@@ -315,6 +315,7 @@ typedef struct s_game
 	int			is_started;
 	int			s;
 	int			c;
+	int			k;
 	t_screen	screen;
 	t_player	*player;
 	t_map		*map;

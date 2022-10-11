@@ -73,10 +73,8 @@ static int	save_textures_check_img(t_game *game, char *line, int j)
 int	save_map_textures(t_game *game, int i, int j, char *line)
 {
 	size_t	len;
-	int		k;
 	int		g;
 
-	k = 0;
 	g = 3;
 	while (++i < 6)
 	{
@@ -88,7 +86,7 @@ int	save_map_textures(t_game *game, int i, int j, char *line)
 			len = ft_strlen(line) - ft_strlen(ft_strchr(line, ' '));
 			if (len >= 2)
 			{
-				game->map->identifier[k++] = ft_substr(line, 0, len);
+				game->map->identifier[game->k++] = ft_substr(line, 0, len);
 				game->s = save_textures_check_img(game, line, ++j);
 			}
 			else
@@ -96,6 +94,8 @@ int	save_map_textures(t_game *game, int i, int j, char *line)
 		}
 		free_new_read(game, &line, i);
 	}
+	if (game->s == 1 || game->c == 1)
+		return (printinvalid(ERR_TEXT));
 	return (printinvalid(check_map_textures(game->map->identifier, 0)));
 }
 
