@@ -15,10 +15,13 @@
 
 # define ERROR "Error"
 # define WRONG_CHAR "Wrong characters in map."
+# define WRONG_PLAY "Wrong SPAWNER POSTION in map."
 # define WRONG_PRESET "Wrong identifier."
 # define WRONG_MAP "Map is not enclosed by 1."
+# define WRONG_FILE "Wrong asset path"
 # define WRONG_NAME "Wrong map name, please give a *.cub file"
 # define MAP_UNCLOSED "The map is not closed by the char '1'"
+# define MAP_CHAR "The texture/color of the map is false"
 
 # define SUCCESS 0
 # define FAILURE 1
@@ -28,6 +31,9 @@
 # define ERR_MAP 4
 # define ERR_NAME 5
 # define ERR_UNCLOSED 6
+# define ERR_TEXT 7
+# define ERR_PLAYER 8
+# define ERR_FD 9
 
 # define ORANGE 0xfeca57
 # define FRONT_WALL 0x43424a
@@ -68,8 +74,8 @@
 # define TILE_SIZE 32
 # define MINI_TILE 8
 # define MAPOS 8
-# define FOV 90
-# define COLLISION 2
+# define FOV 60
+# define COLLISION 3
 
 # define DR 0.0174533
 # define PI 3.1415926535
@@ -217,6 +223,7 @@ typedef struct s_weapon
 	void	**pistol;
 	void	*inuse;
 	int		current;
+	int		has_weapon;
 	int		frame;
 	int		h;
 	int		w;
@@ -226,6 +233,7 @@ typedef struct s_player
 {
 	int			is_ready;
 	int			pos;
+	int			save;
 	char		skin;
 	float		dir;
 	float		angle;
@@ -265,6 +273,7 @@ typedef struct s_map
 	int		size;
 	int		map_x;
 	int		map_y;
+	char	*temp;
 	char	*map;
 	char	**identifier;
 	char	**colors;
@@ -304,6 +313,9 @@ typedef struct s_text
 typedef struct s_game
 {
 	int			is_started;
+	int			s;
+	int			c;
+	int			k;
 	t_screen	screen;
 	t_player	*player;
 	t_map		*map;
@@ -320,15 +332,19 @@ void	init_ascii(t_art art);
 void	init_screen(t_game *game);
 void	init_view(t_game *game);
 void	init_default(t_game *game);
+void	spawn_cheker(t_game *game, int i, int j);
 int		init_map(t_game *game, char *file);
+int		check_fd(t_game *game);
 
 /**
  * @brief
  * Parsing
  */
-
+int		free_hex(char **tab);
+int		free_error(t_game *game, char **line, int i);
+int		printerr(char *err);
 int		setup_scene_arr(t_game *game);
-int		check_map_textures(char **identifier);
+int		check_map_textures(char **identifier, int i, char *j);
 int		check_map_char(char *map);
 int		check_map_name(t_game *game, char *file);
 int		save_map(t_game *game, char *save, char *line, int y);
@@ -379,6 +395,7 @@ float	degtorad(float ang);
 float	dist(t_player *player, t_rays *rays);
 
 void	reset_angle(t_rays *ray);
+int		ret_doublon(char *j, int count);
 
 /**
  * @brief
@@ -429,11 +446,13 @@ void	draw_board(t_img *img);
 int		collision(t_game *game);
 int		collision_bck(t_game *game);
 int		collision_right(t_game *game);
+int		collision_left(t_game *game);
 
 /**
  * @brief
  * RAY
  */
+void	fix_fisheye(t_game *game, t_rays *ray);
 void	verti_loop( t_map *map, t_player *player, t_rays *rays);
 void	hori_loop(t_map *map, t_player *player, t_rays *rays);
 double	time_now(void);

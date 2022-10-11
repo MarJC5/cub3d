@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:37 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/08 09:58:40 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/11 17:33:17 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,11 @@ void	ft_free_multitab_void(void **tab)
 void	free_map(t_game *game)
 {
 	ft_free_multitab_void(game->text.img);
-	ft_free_multitab_void(game->player->weapon.knife);
-	ft_free_multitab_void(game->player->weapon.pistol);
+	if (game->player->weapon.has_weapon)
+	{
+		ft_free_multitab_void(game->player->weapon.knife);
+		ft_free_multitab_void(game->player->weapon.pistol);
+	}
 	ft_free_multitab(game->map->assets);
 	ft_free_multitab(game->map->colors);
 	ft_free_multitab(game->map->identifier);

@@ -1,16 +1,20 @@
+F 189,195,1
+
 NO ./assets/textures/default/xpm/0.xpm
 SO ./assets/textures/default/xpm/1.xpm
+
+
+
+C 255,240,255
+
 WE ./assets/textures/default/xpm/2.xpm
 EA ./assets/textures/default/xpm/3.xpm
-
-F 189,195,199
-C 236,240,241
 
 11111111
 10000001
 10000001
 10001001
-1000W001
-10000001
-10000001
+10000N01    111
+10000001    101
+10000001    111
 11111111

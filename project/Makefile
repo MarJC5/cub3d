@@ -31,6 +31,7 @@ SRCS_FILES	+= 	key_actions.c \
 				render.c \
 				check_map.c \
 				init.c \
+				init_utils.c \
 				collision.c \
 				utils.c \
 				pixel_art.c \
@@ -40,7 +41,7 @@ SRCS_FILES	+= 	key_actions.c \
 				animation.c \
 				weapon.c \
 				audio.c \
-				action.c \
+				action.c
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 
@@ -104,7 +105,7 @@ ${O_DIR}:
 	@${MKDIR} ${O_DIR}
 
 #Compile normals objects
-${O_DIR}%.o: ${SRCS_DIR}%.c
+${O_DIR}%.o: ${SRCS_DIR}%.c inc/cub3d.h
 	@${CC} ${CFLAGS} ${HEADS} -o $@ -c $<
 
 #Compile libft
@@ -127,14 +128,14 @@ debug: ${D_DIR} ${DEBUGS}
 	@${MAKELIB} all
 	@${MAKELIBX} all
 	@${CC} ${CFLAGS} -fsanitize=address -o ${NAME} ${DEBUGS} ${LIBS}
-	@./$(NAME) ./maps/lab.cub
+	@./$(NAME) ./maps/demo.cub
 
 #Create debug directory
 ${D_DIR}:
 	${MKDIR} ${D_DIR}
 
-#Compile debug objects
-${D_DIR}%.o: ${SRCS_DIR}%.c
+#Compile debug objects 
+${D_DIR}%.o: ${SRCS_DIR}%.c inc/cub3d.h
 	@${CC} ${CFLAGS} -g ${HEADS} -o $@ -c $<
 
 clean:
@@ -142,6 +143,7 @@ clean:
 	@${RM} -r ${O_DIR}
 	@${RM} -r ${D_DIR}
 	@${MAKELIB} clean
+	@${MAKELIBX} clean
 	@echo "[$(ORANGE)libft$(RESET)] clean *.o files : $(GREEN)OK$(RESET)"
 	@echo "[$(ORANGE)$(NAME)$(RESET)] clean *.o files : $(GREEN)OK$(RESET)"
 
@@ -149,13 +151,14 @@ fclean:	clean
 	@${RM} ${NAME}
 	@${RM} -r ${NAME}.dSYM
 	@${MAKELIB} fclean
+	@${MAKELIBX} clean
 	@${RM} -r ${NAME}.dSYM
 	@echo "[$(ORANGE)libft$(RESET)] fclean : $(GREEN)OK$(RESET)"
 	@echo "[$(ORANGE)$(NAME)$(RESET)] fclean: $(GREEN)OK$(RESET)"
 	@echo "[\033[1;32msuccess$(RESET)]: $(NAME) has been clean up"
 
 leaks:
-	leaks -atExit -- ./$(NAME) ./maps/lab.cub
+	leaks -atExit -- ./$(NAME) ./maps/demo.cub
 
 maze: all
 	@${RM} -r ./maps/maze.cub

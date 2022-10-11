@@ -36,7 +36,7 @@ void	move_right(t_game *game)
 
 void	move_fleft(t_game *game)
 {
-	if (collision(game) == 0)
+	if (collision_left(game) == 0)
 	{
 		game->player->dir = game->player->angle + degtorad(90);
 		game->player->delta_x = cos(game->player->dir) * SPEED;
