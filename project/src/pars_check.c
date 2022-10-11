@@ -90,13 +90,14 @@ int	check_map_char(char *map)
 
 int	check_map_textures(char **identifier)
 {
-	if (ft_strcmp(identifier[0], "NO") == 0
+	(void)identifier;
+	/*if (ft_strcmp(identifier[0], "NO") == 0
 		&& ft_strcmp(identifier[1], "SO") == 0
 		&& ft_strcmp(identifier[2], "WE") == 0
 		&& ft_strcmp(identifier[3], "EA") == 0
 		&& ft_strcmp(identifier[4], "F") == 0
 		&& ft_strcmp(identifier[5], "C") == 0)
 		return (SUCCESS);
-	return (ERR_PRESET);
+	return (ERR_PRESET);*/
 	return (SUCCESS);
 }
