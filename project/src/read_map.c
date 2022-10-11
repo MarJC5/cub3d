@@ -51,21 +51,11 @@ static void	save_textures_check_color(t_game *game, int g, int len, char *line)
 	free(game->map->temp);
 }
 
-static int	save_textures_check_img(t_game *game, char *line, int j)
+static void	save_textures_check_img(t_game *game, char *line, int j)
 {
-	char	**split;
-	int		i;
-
-	i = 0;
-	split = ft_split(line, ' ');
-	while (split[i])
-		i++;
-	if (i > 2)
-		return (1);
 	game->map->assets[j] = ft_strdup(ft_strchr(line, ' ') + 1);
 	game->map->assets[j]
 	[ft_strlen(game->map->assets[j]) - 1] = '\0';
-	return (0);
 }
 
 int	save_map_textures(t_game *game, int i, int j, char *line)
@@ -81,13 +71,13 @@ int	save_map_textures(t_game *game, int i, int j, char *line)
 		whilebn(game, &line);
 		if (ft_strcmp(line, "\n") != 0)
 		{
-			if (ft_strchr(line, ' ') == NULL || game->map->s == 1)
+			if (ft_strchr(line, ' ') == NULL)
 				return (printinvalid(ERR_TEXT));
 			len = ft_strlen(line) - ft_strlen(ft_strchr(line, ' '));
 			if (len >= 2)
 			{
 				game->map->identifier[k++] = ft_substr(line, 0, len);
-				game->map->s = save_textures_check_img(game, line, ++j);
+				save_textures_check_img(game, line, ++j);
 			}
 			else
 				save_textures_check_color(game, ++g, len, line);

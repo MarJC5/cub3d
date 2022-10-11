@@ -34,7 +34,5 @@ int	printinvalid(int errno)
 		printerr(MAP_UNCLOSED);
 	if (errno == ERR_TEXT)
 		printerr(MAP_CHAR);
-	if (errno == ERR_PLAYER)
-		printerr(WRONG_PLAY);
 	return (errno);
 }
