@@ -70,7 +70,7 @@
 # define TILE_SIZE 32
 # define MINI_TILE 8
 # define MAPOS 8
-# define FOV 90
+# define FOV 60
 # define COLLISION 3
 
 # define DR 0.0174533
@@ -219,6 +219,7 @@ typedef struct s_weapon
 	void	**pistol;
 	void	*inuse;
 	int		current;
+	int		has_weapon;
 	int		frame;
 	int		h;
 	int		w;
@@ -329,7 +330,7 @@ int		init_map(t_game *game, char *file);
  * @brief
  * Parsing
  */
-
+int		printerr(char *err);
 int		setup_scene_arr(t_game *game);
 int		check_map_textures(char **identifier, int i);
 int		check_map_char(char *map);
@@ -439,6 +440,7 @@ int		collision_left(t_game *game);
  * @brief
  * RAY
  */
+void	fix_fisheye(t_game *game, t_rays *ray);
 void	verti_loop( t_map *map, t_player *player, t_rays *rays);
 void	hori_loop(t_map *map, t_player *player, t_rays *rays);
 double	time_now(void);

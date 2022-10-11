@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmartin <jmartin@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 14:34:25 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/05 14:52:18 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/11 14:12:32 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	init_texture(t_game *game)
 	game->text.img[4] = mlx_xpm_file_to_image(game->screen.mlx,
 			"./assets/textures/default/xpm/4.xpm",
 			&game->text.h, &game->text.w);
+	game->player->weapon.has_weapon += 1;
 }
 
 void	init_weapon_knife(t_game *game)
@@ -66,6 +67,7 @@ void	init_weapon_knife(t_game *game)
 	game->player->weapon.knife[3] = mlx_xpm_file_to_image(
 			game->screen.mlx, "./assets/weapons/xpm/knife_1.xpm",
 			&game->player->weapon.h, &game->player->weapon.w);
+	game->player->weapon.has_weapon += 1;
 }
 
 void	init_weapon_pistole(t_game *game)

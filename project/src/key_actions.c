@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:18:29 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/07 18:50:17 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/11 14:24:01 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 int	esc_win(t_game *game)
 {
+	(void)game;
 	sound_kill();
-	ft_free_multitab_void(game->text.img);
-	ft_free_multitab_void(game->player->weapon.knife);
-	ft_free_multitab_void(game->player->weapon.pistol);
 	printf("\n\033[1mYou've quit the game!\033[0m\n\n");
 	exit(EXIT_SUCCESS);
 	return (EXIT_SUCCESS);

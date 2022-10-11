@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:09:06 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/11 12:05:50 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/11 14:35:16 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,28 @@ int	chartohex(char *tab, int opacity)
 {
 	char	**split;
 	int		hexret;
+	int		i;
 
+	i = 0;
 	split = ft_split(tab, ',');
+	while (split[i])
+		i++;
+	if (i > 4)
+	{
+		ft_free_multitab(split);
+		return (printerr("Invalid color format"));
+	}
+	i = -1;
+	while (split[++i])
+	{
+		if (ft_atoi(split[i]) > 256)
+			return (printerr("Invalid color value"));
+	}
 	hexret = encode_rgb(opacity,
 			ft_atoi(split[0]),
 			ft_atoi(split[1]),
 			ft_atoi(split[2]));
-	free(split[2]);
-	free(split[1]);
-	free(split[0]);
-	free(split);
+	ft_free_multitab(split);
 	return (hexret);
 }
 

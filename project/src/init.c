@@ -6,7 +6,7 @@
 /*   By: jmartin <jmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 16:08:49 by jmartin           #+#    #+#             */
-/*   Updated: 2022/10/11 12:16:00 by jmartin          ###   ########.fr       */
+/*   Updated: 2022/10/11 14:50:55 by jmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	init_default(t_game *game)
 	game->player->is_ready = 0;
 	game->player->weapon.current = 1;
 	game->player->weapon.frame = 0;
+	game->player->weapon.has_weapon = 0;
 }
 
 void	init_view(t_game *game)
