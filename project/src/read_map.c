@@ -16,7 +16,7 @@ int	save_map(t_game *game, char *save, char *line, int y)
 {
 	save = ft_strdup("");
 	game->map->x = (int)ft_strlen(line);
-	whilebn(game, &line);
+	whilebn(game, &line); // supprime la première ligne entre asset et la couleur
 	while (line != NULL)
 	{
 		if (game->map->map != NULL)
@@ -37,7 +37,7 @@ int	save_map(t_game *game, char *save, char *line, int y)
 
 static void	save_textures_check_color(t_game *game, int g, int len, char *line)
 {
-	game->map->temp = ft_substr(line, 0, len);
+	game->map->temp = ft_substr(line, 0, len); // après voir ce qu'on a dans notre substr et regarder la validité
 	if (game->map->temp[0] == 'F' && g <= 5)
 	{
 		game->map->identifier[g] = ft_strdup(game->map->temp);
@@ -55,7 +55,7 @@ static void	save_textures_check_color(t_game *game, int g, int len, char *line)
 
 static int	save_textures_check_img(t_game *game, char *line, int j)
 {
-	char	**split;
+	char	**split; // cecker si se termine bien par XPM
 	int		i;
 
 	i = 0;
@@ -65,13 +65,13 @@ static int	save_textures_check_img(t_game *game, char *line, int j)
 	if (i > 2)
 	{
 		ft_free_multitab(split);
-		return (1);
+		return (FAILURE);
 	}
 	game->map->assets[j] = ft_strdup(ft_strchr(line, ' ') + 1);
 	game->map->assets[j]
 	[ft_strlen(game->map->assets[j]) - 1] = '\0';
 	ft_free_multitab(split);
-	return (0);
+	return (SUCCESS);
 }
 
 int	save_map_textures(t_game *game, int i, int j, char *line)
@@ -94,7 +94,7 @@ int	save_map_textures(t_game *game, int i, int j, char *line)
 				game->s = save_textures_check_img(game, line, ++j);
 			}
 			else
-				save_textures_check_color(game, ++g, len, line);
+				save_textures_check_color(game, ++g, len, line); // rentre ici et segfault là
 		}
 		free_new_read(game, &line, i);
 	}

@@ -28,7 +28,7 @@ void	init_texture(t_game *game)
 {
 	int	i;
 
-	i = 0;
+	i = 0; //checkez si retourne -1 ou NULL alors erreur !!!
 	game->text.img = ft_calloc(6, sizeof(void *));
 	game->text.img[0] = mlx_xpm_file_to_image(game->screen.mlx,
 			game->map->assets[0], &game->text.h, &game->text.w);

@@ -44,7 +44,7 @@ int	init_map(t_game *game, char *file)
 			}
 		}
 	}
-	return (SUCCESS);
+	return (SUCCESS); // PK Sucess
 }
 
 void	init_default(t_game *game)
