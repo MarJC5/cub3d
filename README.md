@@ -1,6 +1,6 @@
 <h1 align="center" style="text-align: center">
     <img alt="42Lausanne" title="42Lausanne" src="https://github.com/MarJC5/42/blob/main/42_logo.svg" width="140"> </br>
-    Project n°9 - cub3d
+    Project n°10 - cub3d
     <h4 align="center" style="width: 50%; margin: 2rem auto; font-weight: normal; text-align: center"> 
      This project is inspired by the world-famous eponymous 90's game, which was the first FPS ever. It will enable you to explore ray-casting. Your goal will be to make a dynamic view inside a maze, in which you'll have to find your way.
     </h4>
